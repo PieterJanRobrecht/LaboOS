@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			File file = new File("C:\\Users\\Pieter-Jan\\Documents\\workspace\\OS2_Opdracht1\\processen10000.xml");
+			File file = new File("processen10000.xml");
 //			File file = new File("C:\\Users\\Pieter-Jan\\Documents\\workspace\\OS2_Opdracht1\\test.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Processlist.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
