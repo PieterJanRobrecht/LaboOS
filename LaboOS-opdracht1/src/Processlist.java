@@ -55,34 +55,43 @@ public class Processlist {
 	public void voerHRRNUit() {
 		List<Process> wachtLijst = new ArrayList<Process>();
 		double tijd = 0;
-		//boolean bezet = false;
+		// boolean bezet = false;
 		for (int i = 0; i < processenLijst.size(); i++) {
 			Process hulp = processenLijst.get(i);
-			if (tijd < hulp.getArrivaltime() && wachtLijst.size() == 0) {
+			if (tijd <= hulp.getArrivaltime() && wachtLijst.size() == 0) {
 				tijd = hulp.getArrivaltime();
+				hulp.setWaittime(tijd - hulp.getArrivaltime());
+				hulp.setEndtime(tijd + hulp.getServicetime());
+				tijd += hulp.getServicetime();
 			}
-			if (tijd > hulp.getArrivaltime()) {
-				wachtLijst.add(hulp);
-			}
-			if(wachtLijst.size()!=0 && hulp.getArrivaltime()>tijd){
+			else  {
+				int j = i;
+				while(j<processenLijst.size() &&tijd > processenLijst.get(j).getArrivaltime()){
+					wachtLijst.add(processenLijst.get(j));
+					j++;
+				}
+				i = j-1;
+				
 				//Alle wachttijden berekenen voor de wachtende processen
 				for(Process p : wachtLijst){
 					p.setWaittime(tijd-p.getArrivaltime());
 				}
 				//Sorteer volgens norRuntime
-				Collections.sort(wachtLijst,(Process p1, Process p2) -> Double.compare(p1.getNorRuntime(),p2.getNorRuntime()));
+				Collections.sort(wachtLijst,(Process p1, Process p2) -> Double.compare(p2.getNorRuntime(),p1.getNorRuntime()));
 				//Neem de eerste uit de wachtlijst en haal die er ook uit
+				while(wachtLijst.size()!=0){
 				Process uitvoeren = wachtLijst.get(0);
 				wachtLijst.remove(0);
 				uitvoeren.setEndtime(tijd + uitvoeren.getServicetime());
 				tijd += uitvoeren.getServicetime();
-			}else{
-				hulp.setWaittime(tijd - hulp.getArrivaltime());
-				hulp.setEndtime(tijd + hulp.getServicetime());
-				tijd += hulp.getServicetime();
+				for(Process p : wachtLijst){
+					p.setWaittime(tijd-p.getArrivaltime());
+				}
+				//Sorteer volgens norRuntime
+				Collections.sort(wachtLijst,(Process p1, Process p2) -> Double.compare(p2.getNorRuntime(),p1.getNorRuntime()));
+				}
 			}
 		}
-
 	}
 
 }
