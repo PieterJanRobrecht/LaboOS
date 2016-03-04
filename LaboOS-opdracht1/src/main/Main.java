@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.jfree.ui.RefineryUtilities;
+
+import data.GlobalVarList;
+import data.Processlist;
+import gui.LineChart_AWT;
 
 public class Main {
 

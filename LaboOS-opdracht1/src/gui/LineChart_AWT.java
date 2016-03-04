@@ -1,3 +1,4 @@
+package gui;
 import org.jfree.chart.ChartPanel;
 
 import java.awt.BasicStroke;
@@ -9,6 +10,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.ui.ApplicationFrame;
+
+import data.GlobalVar;
+import data.GlobalVarList;
+
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -36,7 +41,9 @@ public class LineChart_AWT extends ApplicationFrame {
 //	    renderer.setSeriesStroke( 1 , new BasicStroke( 3.0f ) );
 //	    renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
 	    final NumberAxis domainAxis = new LogarithmicAxis("Log(x)");
+//	    final NumberAxis domainAxis = new NumberAxis("x");
         final NumberAxis rangeAxis = new LogarithmicAxis("Log(y)");
+//      final NumberAxis rangeAxis = new NumberAxis("y");
         plot.setDomainAxis(domainAxis);
         plot.setRangeAxis(rangeAxis);
         plot.setRenderer( renderer );
