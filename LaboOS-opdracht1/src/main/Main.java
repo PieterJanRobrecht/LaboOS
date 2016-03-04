@@ -7,11 +7,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.jfree.ui.RefineryUtilities;
-
 import data.GlobalVarList;
 import data.Processlist;
-import gui.LineChart_AWT;
+import gui.Gui;
 
 public class Main {
 
@@ -26,18 +24,11 @@ public class Main {
 			procList.sortArrivalTime();
 			//Lijst met alle gegevens van de verschillende algoritmen
 			List<GlobalVarList> gegevensAlleAlgoritmen = verwerkGegevens(procList);
-			maakGrafiek(gegevensAlleAlgoritmen);
+			//maakGrafiek(gegevensAlleAlgoritmen);
+			Gui gui = new Gui(gegevensAlleAlgoritmen);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void maakGrafiek(List<GlobalVarList> gegevensAlleAlgoritmen) {
-		LineChart_AWT chart = new LineChart_AWT("Scheduling Algortimes" ,"Scheduling Algoritmes",gegevensAlleAlgoritmen);
-		chart.pack( );
-		RefineryUtilities.centerFrameOnScreen( chart );
-		chart.setVisible( true );
-		
 	}
 
 	private static List<GlobalVarList> verwerkGegevens(Processlist procList) {

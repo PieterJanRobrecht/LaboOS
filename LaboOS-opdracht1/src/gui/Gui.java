@@ -1,32 +1,76 @@
 package gui;
-import org.jfree.chart.ChartPanel;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.ui.ApplicationFrame;
-
-import data.GlobalVar;
-import data.GlobalVarList;
-
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import data.GlobalVar;
+import data.GlobalVarList;
 
-public class LineChart_AWT extends JPanel {
-	public LineChart_AWT(String applicationTitle, String chartTitle, List<GlobalVarList> gegevensAlleAlgoritmen) {
-		//super(applicationTitle);
-		JFreeChart lineChart = ChartFactory.createXYLineChart(chartTitle, "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgoritmen),
+public class Gui extends JFrame {
+	private JFrame mijnFrame;
+	private JPanel panel;
+	private ChartPanel chart;
+	private JPanel knoppenPanel;
+	private JButton xlm1;
+	private JButton xml2;
+	private JButton xml3;
+	private JSplitPane split;
+
+	public Gui(List<GlobalVarList> gegevensAlleAlgoritmen) {
+		//panel waar alle gui elementen in moeten komen
+		panel = new JPanel();
+		mijnFrame = new JFrame();
+		mijnFrame.setBounds(200, 100, 1000, 1000);
+		
+		//KnoppenPanel maken
+		knoppenPanel = new JPanel();
+		xlm1 = new JButton("Toevoegen xml1");
+		//jury.addActionListener(new ListenerToevoegenJury(jl));
+		xml2 = new JButton("Toevoegen xml2");
+		//afdeling.addActionListener(new ListenerToevoegenAfdeling(al));
+		xml3 = new JButton("Toevoegen xml3");
+		//score.addActionListener(new ListenerToevoegenScore(al,jl));
+		knoppenPanel.add(xlm1);
+		knoppenPanel.add(xml2);
+		knoppenPanel.add(xml3);
+		//knoppenPanel.add(juryScroll);
+		
+		//Maken van grafiek
+		chart = maakChartPanel(gegevensAlleAlgoritmen);
+		JPanel chartPanel = new JPanel();
+		chartPanel.add(chart);
+		
+		//Maken splitpanel
+		split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,knoppenPanel,chartPanel);
+		split.setDividerLocation(250);	
+		split.setPreferredSize(new Dimension(700, 700)); 
+		panel.add(split);
+		
+		mijnFrame.getContentPane().add(panel);
+		mijnFrame.setVisible(true);
+		mijnFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	}
+
+	private ChartPanel maakChartPanel(List<GlobalVarList> gegevensAlleAlgoritmen) {
+		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgoritmen),
 				PlotOrientation.VERTICAL, true, true, false);
 
 		ChartPanel chartPanel = new ChartPanel(lineChart);
@@ -39,9 +83,6 @@ public class LineChart_AWT extends JPanel {
 		renderer.setSeriesPaint( 0 , Color.RED );
 	    renderer.setSeriesPaint( 1 , Color.GREEN );
 	    renderer.setSeriesPaint( 2 , Color.YELLOW );
-//	    renderer.setSeriesStroke( 0 , new BasicStroke( 4.0f ) );
-//	    renderer.setSeriesStroke( 1 , new BasicStroke( 3.0f ) );
-//	    renderer.setSeriesStroke( 2 , new BasicStroke( 2.0f ) );
 	    final NumberAxis domainAxis = new LogarithmicAxis("Log(x)");
 //	    final NumberAxis domainAxis = new NumberAxis("x");
         final NumberAxis rangeAxis = new LogarithmicAxis("Log(y)");
@@ -49,10 +90,8 @@ public class LineChart_AWT extends JPanel {
         plot.setDomainAxis(domainAxis);
         plot.setRangeAxis(rangeAxis);
         plot.setRenderer( renderer );
-		
-//		setContentPane(chartPanel);
+		return chartPanel;
 	}
-
 	private XYDataset createDataset(List<GlobalVarList> gegevensAlleAlgoritmen) {
 		//Lijst met alle gegevens van alle algoritmen worden aangeboden
 		//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
@@ -72,3 +111,5 @@ public class LineChart_AWT extends JPanel {
 		return dataset;
 	}
 }
+
+
