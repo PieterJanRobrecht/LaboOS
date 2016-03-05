@@ -35,7 +35,7 @@ public class Main {
 		//Lijst waarin alle algoritmes kunnen komen
 		GlobalVarList hulp;
 		List<GlobalVarList> gegevensAlleAlgo = new ArrayList<GlobalVarList>();
-		for(int i=0;i<2;i++){
+		for(int i=0;i<3;i++){
 			hulp = new GlobalVarList();
 			//hulp.clear();
 			procList.sortArrivalTime();
@@ -49,6 +49,11 @@ public class Main {
 				procList.voerHRRNUit();
 				System.out.println("HRRN is uitgevoerd");
 				hulp.setAlgoritmeNaam("HRRN");
+				break;
+			case 2 :
+				procList.voerRRuit();
+				System.out.println("RR is uitgevoerd");
+				hulp.setAlgoritmeNaam("RR");
 				break;
 			}
 			procList.sortServiceTime();
