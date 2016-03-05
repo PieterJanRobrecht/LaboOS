@@ -7,7 +7,9 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -26,8 +28,10 @@ import data.GlobalVarList;
 public class Gui extends JFrame {
 	private JFrame mijnFrame;
 	private JPanel panel;
+	private JTextArea systemArea;
 	private ChartPanel chart;
 	private JPanel knoppenPanel;
+	private JScrollPane systemScroll;
 	private JButton xlm1;
 	private JButton xml2;
 	private JButton xml3;
@@ -38,6 +42,15 @@ public class Gui extends JFrame {
 		panel = new JPanel();
 		mijnFrame = new JFrame();
 		mijnFrame.setBounds(200, 100, 1000, 1000);
+		systemArea = new JTextArea(30,20);
+		systemArea.setEditable(false);
+		
+		//Maken van de systemScroll
+		systemScroll = new JScrollPane(systemArea);
+		
+		 MessageConsole console = new MessageConsole(systemArea);
+		 console.redirectOut();
+	     console.redirectErr(Color.RED, null);
 		
 		//KnoppenPanel maken
 		knoppenPanel = new JPanel();
@@ -50,7 +63,7 @@ public class Gui extends JFrame {
 		knoppenPanel.add(xlm1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(xml3);
-		//knoppenPanel.add(juryScroll);
+		knoppenPanel.add(systemScroll);
 		
 		//Maken van grafiek
 		chart = maakChartPanel(gegevensAlleAlgoritmen);
@@ -103,7 +116,7 @@ public class Gui extends JFrame {
 			XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
 			for(int j = 0;j<data.getSize();j++){
 				GlobalVar percentiel = data.getPercentiel(j);
-				System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
+				//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
 				hulp.add(percentiel.getAverageServiceTime(),percentiel.getAverageNorRuntime());
 			}
 			dataset.addSeries(hulp);

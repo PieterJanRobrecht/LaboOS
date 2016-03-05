@@ -20,7 +20,7 @@ public class Main {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Processlist.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Processlist procList = (Processlist) jaxbUnmarshaller.unmarshal(file);
-			System.out.println(procList);
+			//System.out.println(procList);
 			procList.sortArrivalTime();
 			//Lijst met alle gegevens van de verschillende algoritmen
 			List<GlobalVarList> gegevensAlleAlgoritmen = verwerkGegevens(procList);
@@ -56,8 +56,8 @@ public class Main {
 			System.out.println("Gegevens zijn verwerkt");
 			gegevensAlleAlgo.add(hulp);
 			System.out.println("Gegevens zijn toegevoegd aan de lijst");
-			if(i == 1)
-			System.out.println(gegevensAlleAlgo.get(1).getElement().getAverageServiceTime());
+//			if(i == 1)
+//			System.out.println(gegevensAlleAlgo.get(1).getElement().getAverageServiceTime());
 		}
 		return gegevensAlleAlgo;
 	}
