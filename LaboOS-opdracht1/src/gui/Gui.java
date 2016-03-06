@@ -26,6 +26,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import data.GlobalVar;
 import data.GlobalVarList;
+import data.Verwerker;
 import listeners.XML1Listener;
 import listeners.XML2Listener;
 import listeners.XML3Listener;
@@ -42,8 +43,12 @@ public class Gui extends JFrame {
 	private JButton xml1;
 	private JButton xml2;
 	private JButton xml3;
+	private Verwerker verwerker;
 
-	public Gui(List<GlobalVarList> gegevensAlleAlgoritmen) {
+	public Gui() {
+		//Verwerker maken
+		verwerker = new Verwerker();
+		
 		//panel waar alle gui elementen in moeten komen
 		mijnFrame = new JFrame();
 		mijnFrame.setTitle("Gui");
@@ -65,29 +70,29 @@ public class Gui extends JFrame {
 		knoppenPanel = new JPanel();
 		knoppenPanel.setLayout(new BoxLayout(knoppenPanel,1));
 		xml1 = new JButton("Uitvoeren 10 000 processen");
-		xml1.addActionListener(new XML1Listener());
+		xml1.addActionListener(new XML1Listener(verwerker));
 		xml2 = new JButton("Uitvoeren 20 000 processen");
-		xml2.addActionListener(new XML2Listener());
+		xml2.addActionListener(new XML2Listener(verwerker));
 		xml3 = new JButton("Uitvoeren 50 000 processen");
-		xml3.addActionListener(new XML3Listener());
+		xml3.addActionListener(new XML3Listener(verwerker));
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(xml3);
 		knoppenPanel.add(systemScroll);
 		panel.add(knoppenPanel, BorderLayout.WEST);
 		
-		//Maken van grafiek met Nor Runtime
-		chart = maakChartPanel(gegevensAlleAlgoritmen);
-		chartPanel = new JPanel();
-		chartPanel.setLayout(new BoxLayout(chartPanel,1) );
-		chartPanel.add(chart);
-		
-		//Maken van grafiek met wait time
-		chartWait = maakChartPanelWait(gegevensAlleAlgoritmen);
-		chartPanel.add(chartWait);
-		
-		//Toevoegen van grafieken aan panel
-		panel.add(chartPanel,BorderLayout.EAST);
+//		//Maken van grafiek met Nor Runtime
+//		chart = maakChartPanel(verwerker.getGegevensAlleAlgo());
+//		chartPanel = new JPanel();
+//		chartPanel.setLayout(new BoxLayout(chartPanel,1) );
+//		chartPanel.add(chart);
+//		
+//		//Maken van grafiek met wait time
+//		chartWait = maakChartPanelWait(verwerker.getGegevensAlleAlgo());
+//		chartPanel.add(chartWait);
+//		
+//		//Toevoegen van grafieken aan panel
+//		panel.add(chartPanel,BorderLayout.EAST);
 		
 		//Alles samen steken in 1 frame
 		mijnFrame.setLayout(new BorderLayout());
