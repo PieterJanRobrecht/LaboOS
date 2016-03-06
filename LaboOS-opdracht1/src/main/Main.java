@@ -16,11 +16,9 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			File file = new File("processen10000.xml");
-//			File file = new File("C:\\Users\\Pieter-Jan\\Documents\\workspace\\OS2_Opdracht1\\test.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Processlist.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Processlist procList = (Processlist) jaxbUnmarshaller.unmarshal(file);
-			//System.out.println(procList);
 			procList.sortArrivalTime();
 			//Lijst met alle gegevens van de verschillende algoritmen
 			List<GlobalVarList> gegevensAlleAlgoritmen = verwerkGegevens(procList);
@@ -61,8 +59,6 @@ public class Main {
 			System.out.println("Gegevens zijn verwerkt");
 			gegevensAlleAlgo.add(hulp);
 			System.out.println("Gegevens zijn toegevoegd aan de lijst");
-//			if(i == 1)
-//			System.out.println(gegevensAlleAlgo.get(1).getElement().getAverageServiceTime());
 		}
 		return gegevensAlleAlgo;
 	}

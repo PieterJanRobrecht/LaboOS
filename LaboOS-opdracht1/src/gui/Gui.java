@@ -26,6 +26,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import data.GlobalVar;
 import data.GlobalVarList;
+import listeners.XML1Listener;
+import listeners.XML2Listener;
+import listeners.XML3Listener;
 
 public class Gui extends JFrame {
 	private JFrame mijnFrame;
@@ -36,10 +39,9 @@ public class Gui extends JFrame {
 	private ChartPanel chartWait;
 	private JPanel knoppenPanel;
 	private JScrollPane systemScroll;
-	private JButton xlm1;
+	private JButton xml1;
 	private JButton xml2;
 	private JButton xml3;
-	private JSplitPane split;
 
 	public Gui(List<GlobalVarList> gegevensAlleAlgoritmen) {
 		//panel waar alle gui elementen in moeten komen
@@ -62,13 +64,13 @@ public class Gui extends JFrame {
 		//KnoppenPanel maken
 		knoppenPanel = new JPanel();
 		knoppenPanel.setLayout(new BoxLayout(knoppenPanel,1));
-		xlm1 = new JButton("Toevoegen xml1");
-		//jury.addActionListener(new ListenerToevoegenJury(jl));
-		xml2 = new JButton("Toevoegen xml2");
-		//afdeling.addActionListener(new ListenerToevoegenAfdeling(al));
-		xml3 = new JButton("Toevoegen xml3");
-		//score.addActionListener(new ListenerToevoegenScore(al,jl));
-		knoppenPanel.add(xlm1);
+		xml1 = new JButton("Uitvoeren 10 000 processen");
+		xml1.addActionListener(new XML1Listener());
+		xml2 = new JButton("Uitvoeren 20 000 processen");
+		xml2.addActionListener(new XML2Listener());
+		xml3 = new JButton("Uitvoeren 50 000 processen");
+		xml3.addActionListener(new XML3Listener());
+		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(xml3);
 		knoppenPanel.add(systemScroll);
