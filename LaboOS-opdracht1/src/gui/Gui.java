@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -34,6 +36,7 @@ import listeners.XML3Listener;
 public class Gui extends JFrame {
 	private JFrame mijnFrame;
 	private JPanel panel;
+	private JPanel cardPanel;
 	private JPanel chartPanel;
 	private JTextArea systemArea;
 	private ChartPanel chart;
@@ -66,33 +69,35 @@ public class Gui extends JFrame {
 		 console.redirectOut();
 	     console.redirectErr(Color.RED, null);
 		
+		//Init van chartPanel waar alle grafieken in gaan komen
+		chartPanel = new JPanel();
+		//chartPanel.setLayout(new BoxLayout(chartPanel,1) );
+				
+		//Init van cardPanel waar alles zich gedraagd als een kaartenstapel
+		CardLayout cl = new CardLayout();
+		cardPanel = new JPanel();
+		cardPanel.setLayout(cl);
+		
 		//KnoppenPanel maken
 		knoppenPanel = new JPanel();
 		knoppenPanel.setLayout(new BoxLayout(knoppenPanel,1));
 		xml1 = new JButton("Uitvoeren 10 000 processen");
-		xml1.addActionListener(new XML1Listener(verwerker));
+		xml1.addActionListener(new XML1Listener(verwerker,cl,cardPanel));
 		xml2 = new JButton("Uitvoeren 20 000 processen");
-		xml2.addActionListener(new XML2Listener(verwerker));
+		xml2.addActionListener(new XML2Listener(verwerker,cl,cardPanel));
 		xml3 = new JButton("Uitvoeren 50 000 processen");
-		xml3.addActionListener(new XML3Listener(verwerker));
+		xml3.addActionListener(new XML3Listener(verwerker,cl,cardPanel));
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(xml3);
 		knoppenPanel.add(systemScroll);
 		panel.add(knoppenPanel, BorderLayout.WEST);
 		
-//		//Maken van grafiek met Nor Runtime
-//		chart = maakChartPanel(verwerker.getGegevensAlleAlgo());
-//		chartPanel = new JPanel();
-//		chartPanel.setLayout(new BoxLayout(chartPanel,1) );
-//		chartPanel.add(chart);
-//		
-//		//Maken van grafiek met wait time
-//		chartWait = maakChartPanelWait(verwerker.getGegevensAlleAlgo());
-//		chartPanel.add(chartWait);
-//		
-//		//Toevoegen van grafieken aan panel
-//		panel.add(chartPanel,BorderLayout.EAST);
+		//Toevoegen cardPanel aan chartPanel
+		chartPanel.add(cardPanel);
+		
+		//Toevoegen van grafieken aan panel
+		panel.add(chartPanel,BorderLayout.CENTER);
 		
 		//Alles samen steken in 1 frame
 		mijnFrame.setLayout(new BorderLayout());
@@ -100,92 +105,6 @@ public class Gui extends JFrame {
 		mijnFrame.pack();
 		mijnFrame.setVisible(true);
 		mijnFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	private ChartPanel maakChartPanelWait(List<GlobalVarList> gegevensAlleAlgoritmen) {
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgoritmen),
-				PlotOrientation.VERTICAL, true, true, false);
-
-		ChartPanel chartPanel = new ChartPanel(lineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-	    //Kleuren aanpassen voor alle grafieken 
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-	    renderer.setSeriesPaint( 1 , Color.GREEN );
-	    renderer.setSeriesPaint( 2 , Color.YELLOW );
-	    final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
-//	    final NumberAxis domainAxis = new NumberAxis("x");
-        final NumberAxis rangeAxis = new LogarithmicAxis("Gemiddelde WaitTime");
-//      final NumberAxis rangeAxis = new NumberAxis("y");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        plot.setRenderer( renderer );
-		return chartPanel;
-	}
-
-	private ChartPanel maakChartPanel(List<GlobalVarList> gegevensAlleAlgoritmen) {
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgoritmen),
-				PlotOrientation.VERTICAL, true, true, false);
-
-		ChartPanel chartPanel = new ChartPanel(lineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-	    //Kleuren aanpassen voor alle grafieken 
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-	    renderer.setSeriesPaint( 1 , Color.GREEN );
-	    renderer.setSeriesPaint( 2 , Color.YELLOW );
-	    final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
-//	    final NumberAxis domainAxis = new NumberAxis("x");
-        final NumberAxis rangeAxis = new LogarithmicAxis("Normalised TAT");
-//      final NumberAxis rangeAxis = new NumberAxis("y");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        plot.setRenderer( renderer );
-		return chartPanel;
-	}
-	
-	private XYDataset createDataset(List<GlobalVarList> gegevensAlleAlgoritmen) {
-		//Lijst met alle gegevens van alle algoritmen worden aangeboden
-		//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
-		//Miss best doen in een dubbele for één voor de lijst te doorlopen en de tweede voor data te adden
-		XYSeriesCollection  dataset = new XYSeriesCollection ();
-		for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-			//één dataset van alle algoritmes is geselecteerd
-			GlobalVarList data = gegevensAlleAlgoritmen.get(i);
-			XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
-			for(int j = 0;j<data.getSize();j++){
-				GlobalVar percentiel = data.getPercentiel(j);
-				//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
-				hulp.add(percentiel.getAverageServiceTime(),percentiel.getAverageNorRuntime());
-			}
-			dataset.addSeries(hulp);
-		}
-		return dataset;
-	}
-	
-	private XYDataset createDatasetGrafiekWait(List<GlobalVarList> gegevensAlleAlgoritmen){
-		//Lijst met alle gegevens van alle algoritmen worden aangeboden
-				//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
-				//Miss best doen in een dubbele for één voor de lijst te doorlopen en de tweede voor data te adden
-				XYSeriesCollection  dataset = new XYSeriesCollection ();
-				for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-					//één dataset van alle algoritmes is geselecteerd
-					GlobalVarList data = gegevensAlleAlgoritmen.get(i);
-					XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
-					for(int j = 0;j<data.getSize();j++){
-						GlobalVar percentiel = data.getPercentiel(j);
-						//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
-						hulp.add(percentiel.getAverageServiceTime(),percentiel.getAverageWaittime());
-					}
-					dataset.addSeries(hulp);
-				}
-				return dataset;
 	}
 }
 
