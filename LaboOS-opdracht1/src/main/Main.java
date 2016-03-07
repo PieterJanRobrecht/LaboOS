@@ -51,7 +51,7 @@ public class Main {
 				hulp.setAlgoritmeNaam("HRRN");
 				break;
 			case 2 :
-				procList.voerRRuit();
+				procList.voerRRuit(20);
 				System.out.println("RR is uitgevoerd");
 				hulp.setAlgoritmeNaam("RR");
 				break;
