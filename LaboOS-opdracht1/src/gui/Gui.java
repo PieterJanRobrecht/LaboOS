@@ -95,11 +95,6 @@ public class Gui extends JFrame {
 		knoppenPanel.add(systemScroll);
 		panel.add(knoppenPanel, BorderLayout.WEST);
 		
-		//Toevoegen cardPanel aan chartPanel
-		chartPanel.add(cardPanelXml1);
-		chartPanel.add(cardPanelXml2);
-		chartPanel.add(cardPanelXml3);
-		
 		//Toevoegen van grafieken aan panel
 		panel.add(chartPanel,BorderLayout.CENTER);
 		

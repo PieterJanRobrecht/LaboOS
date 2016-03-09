@@ -34,12 +34,8 @@ public class XML2Listener implements ActionListener {
 		ChartPanel chartWait = verwerker.maakGrafiekWait();
 		grafiekenCombo.add(chartWait);
 		
-//		grafiekenCombo.add(chart);
-//		grafiekenCombo.add(chartWait);
-		grafiekenCombo.setVisible(true);
-		
 		cardPanelXml2.add(grafiekenCombo);
-		chartPanel.add(cardPanelXml2, "xml2");
+		chartPanel.add("xml2",cardPanelXml2);
 	}
 
 	@Override

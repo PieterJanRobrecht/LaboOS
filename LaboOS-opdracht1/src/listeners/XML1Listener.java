@@ -34,12 +34,8 @@ public class XML1Listener implements ActionListener{
 		ChartPanel chartWait = verwerker.maakGrafiekWait();
 		grafiekenCombo.add(chartWait);
 		
-//		grafiekenCombo.add(chart);
-//		grafiekenCombo.add(chartWait);
-		grafiekenCombo.setVisible(true);
-		
 		cardPanelXml1.add(grafiekenCombo);
-		chartPanel.add(cardPanelXml1, "xml1");
+		chartPanel.add("xml1",cardPanelXml1);
 	}
 
 	@Override
