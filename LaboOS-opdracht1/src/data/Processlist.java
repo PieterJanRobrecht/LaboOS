@@ -95,7 +95,37 @@ public class Processlist {
 		}
 	}
 	
-	public void voerRRuit(){
+	public void voerRRuit(int q){
+		List<Process>queue =new LinkedList<Process>();
+		//sortArrivalTime();
+		double tijd=processenLijst.get(0).getArrivaltime();
+		int processNummer=0;
+		while(processNummer!=processenLijst.size()-1||!queue.isEmpty()){
+			if(tijd==processenLijst.get(processNummer).getArrivaltime()){
+				Process p=processenLijst.get(processNummer);
+				System.out.println(p.getPid()+ " toegevoegd");
+				queue.add(p);
+				p.setRuntime(0);
+				processNummer++;
+			}
+			if(!queue.isEmpty()){
+				Process p=queue.remove(0);				
+				p.addRunningtime();
+				for(Process k:queue){
+					k.setWaittime(k.getWaittime()+1);
+				}
+				if(p.getRunningtime()==p.getServicetime()){
+					p.setEndtime(tijd+1);
+					p.setDone();
+					System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
+				}
+				else{
+					queue.add(p);
+				}
+			}
+			tijd++;
+		}
+		
 		
 	}
 

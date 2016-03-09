@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Process {
 	private double pid,arrivaltime,servicetime;
 	private double endtime,runtime,norRuntime,waittime;
+	boolean done=false;
+	
+	public void setDone(){
+		done=true;
+	}
 	
 	public double getEndtime() {
 		return endtime;
@@ -72,6 +77,19 @@ public class Process {
 	@XmlElement(name = "servicetime")
 	public void setServicetime(double servicetime) {
 		this.servicetime = servicetime;
+	}
+
+	public void setRuntime(int i) {
+		runtime=0;
+		
+	}
+
+	public double getRunningtime() {
+		return runtime;
+	}
+	
+	public void addRunningtime(){
+		runtime=runtime+1;
 	}
 	
 }

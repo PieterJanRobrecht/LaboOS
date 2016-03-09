@@ -15,29 +15,30 @@ import data.Verwerker;
 public class XML3Listener implements ActionListener {
 	private Verwerker verwerker;
 	private CardLayout cl;
-	private JPanel cardPanel;
+	private JPanel chartPanel;
 	
-	public XML3Listener(Verwerker v, CardLayout cl, JPanel cardPanel){
+	public XML3Listener(Verwerker v, CardLayout cl, JPanel chartPanel, JPanel cardPanelXml3){
 		verwerker = v;
 		verwerker.setFile(new File("processen50000.xml"));
 		this.cl = cl;
-		this.cardPanel = cardPanel;
-		
-		//Maken van grafiek met Nor Runtime
-		ChartPanel chart = verwerker.maakGrafiek();
-		cardPanel.add(chart);
-				
-		//Maken van grafiek met wait time
-		ChartPanel chartWait = verwerker.maakGrafiekWait();
-		cardPanel.add(chartWait);
+		this.chartPanel = chartPanel;
 		
 		JPanel grafiekenCombo = new JPanel();
 		grafiekenCombo.setLayout(new BoxLayout(grafiekenCombo,1));
 		
+		//Maken van grafiek met Nor Runtime
+		ChartPanel chart = verwerker.maakGrafiek();
 		grafiekenCombo.add(chart);
+				
+		//Maken van grafiek met wait time
+		ChartPanel chartWait = verwerker.maakGrafiekWait();
 		grafiekenCombo.add(chartWait);
 		
-		cardPanel.add(grafiekenCombo, "xml3");
+//		grafiekenCombo.add(chart);
+//		grafiekenCombo.add(chartWait);
+		
+		cardPanelXml3.add(grafiekenCombo);
+		chartPanel.add(cardPanelXml3, "xml1");
 	}
 
 	@Override
@@ -45,6 +46,6 @@ public class XML3Listener implements ActionListener {
 		System.out.println("---------------------------------------------------------------------------");
 		System.out.println("\t 50 000 processen");
 		System.out.println("---------------------------------------------------------------------------");
-		cl.show(cardPanel, "xml3");
+		cl.show(chartPanel, "xml3");
 	}
 }

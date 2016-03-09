@@ -36,11 +36,11 @@ import listeners.XML3Listener;
 public class Gui extends JFrame {
 	private JFrame mijnFrame;
 	private JPanel panel;
-	private JPanel cardPanel;
+	//private JPanel cardPanel;
 	private JPanel chartPanel;
 	private JTextArea systemArea;
-	private ChartPanel chart;
-	private ChartPanel chartWait;
+//	private ChartPanel chart;
+//	private ChartPanel chartWait;
 	private JPanel knoppenPanel;
 	private JScrollPane systemScroll;
 	private JButton xml1;
@@ -75,18 +75,20 @@ public class Gui extends JFrame {
 				
 		//Init van cardPanel waar alles zich gedraagd als een kaartenstapel
 		CardLayout cl = new CardLayout();
-		cardPanel = new JPanel();
-		cardPanel.setLayout(cl);
+		JPanel cardPanelXml1 = new JPanel();
+		JPanel cardPanelXml2 = new JPanel();
+		JPanel cardPanelXml3 = new JPanel();
+		chartPanel.setLayout(cl);
 		
 		//KnoppenPanel maken
 		knoppenPanel = new JPanel();
 		knoppenPanel.setLayout(new BoxLayout(knoppenPanel,1));
 		xml1 = new JButton("Uitvoeren 10 000 processen");
-		xml1.addActionListener(new XML1Listener(verwerker,cl,cardPanel));
+		xml1.addActionListener(new XML1Listener(verwerker,cl,chartPanel,cardPanelXml1));
 		xml2 = new JButton("Uitvoeren 20 000 processen");
-		xml2.addActionListener(new XML2Listener(verwerker,cl,cardPanel));
+		xml2.addActionListener(new XML2Listener(verwerker,cl,chartPanel,cardPanelXml2));
 		xml3 = new JButton("Uitvoeren 50 000 processen");
-		xml3.addActionListener(new XML3Listener(verwerker,cl,cardPanel));
+		xml3.addActionListener(new XML3Listener(verwerker,cl,chartPanel,cardPanelXml3));
 		knoppenPanel.add(xml1);
 		knoppenPanel.add(xml2);
 		knoppenPanel.add(xml3);
@@ -94,7 +96,9 @@ public class Gui extends JFrame {
 		panel.add(knoppenPanel, BorderLayout.WEST);
 		
 		//Toevoegen cardPanel aan chartPanel
-		chartPanel.add(cardPanel);
+		chartPanel.add(cardPanelXml1);
+		chartPanel.add(cardPanelXml2);
+		chartPanel.add(cardPanelXml3);
 		
 		//Toevoegen van grafieken aan panel
 		panel.add(chartPanel,BorderLayout.CENTER);

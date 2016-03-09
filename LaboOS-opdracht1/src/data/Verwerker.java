@@ -78,7 +78,7 @@ public class Verwerker {
 				hulp.setAlgoritmeNaam("HRRN");
 				break;
 			case 2 :
-				procList.voerRRuit();
+				//procList.voerRRuit();
 				System.out.println("RR is uitgevoerd");
 				hulp.setAlgoritmeNaam("RR");
 				break;
