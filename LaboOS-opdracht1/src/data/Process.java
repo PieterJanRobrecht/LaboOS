@@ -79,8 +79,8 @@ public class Process {
 		this.servicetime = servicetime;
 	}
 
-	public void setRuntime(int i) {
-		runtime=0;
+	public void setRunningtime(int i) {
+		runtime=i;
 		
 	}
 
@@ -88,8 +88,13 @@ public class Process {
 		return runtime;
 	}
 	
-	public void addRunningtime(){
-		runtime=runtime+1;
+	public void addRunningtime(double q){
+		runtime=runtime+q;
+	}
+
+	public boolean getDone() {
+		// TODO Auto-generated method stub
+		return done;
 	}
 	
 }

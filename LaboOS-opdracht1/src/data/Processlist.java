@@ -97,36 +97,103 @@ public class Processlist {
 	
 	public void voerRRuit(int q){
 		List<Process>queue =new LinkedList<Process>();
-		//sortArrivalTime();
-		double tijd=processenLijst.get(0).getArrivaltime();
+		sortArrivalTime();
+		double tijd=0;
 		int processNummer=0;
-		while(processNummer!=processenLijst.size()-1||!queue.isEmpty()){
-			if(tijd==processenLijst.get(processNummer).getArrivaltime()){
-				Process p=processenLijst.get(processNummer);
-				System.out.println(p.getPid()+ " toegevoegd");
-				queue.add(p);
-				p.setRuntime(0);
-				processNummer++;
+		Process vorige=null;
+		while(processNummer!=processenLijst.size()||!queue.isEmpty()){
+				boolean gaan=true;
+				while(gaan){
+					if(processNummer!=processenLijst.size()){	
+						if(tijd==processenLijst.get(processNummer).getArrivaltime()){
+							Process bij=processenLijst.get(processNummer);
+							//System.out.println(bij.getPid()+ " toegevoegd op " + tijd);
+							queue.add(bij);
+							bij.setRunningtime(0);
+							processNummer++;
+						}
+						else gaan=false;
+					}	
+					else gaan=false;
+				}	
+			
+			if(vorige!=null && !vorige.getDone())queue.add(vorige);
+			if(queue.isEmpty()){
+				tijd++;
 			}
-			if(!queue.isEmpty()){
-				Process p=queue.remove(0);				
-				p.addRunningtime();
-				for(Process k:queue){
-					k.setWaittime(k.getWaittime()+1);
-				}
-				if(p.getRunningtime()==p.getServicetime()){
-					p.setEndtime(tijd+1);
-					p.setDone();
-					System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
+			else{
+				Process p=queue.remove(0);
+				if(p.getServicetime()-p.getRunningtime()>q){
+					//System.out.println(p.getPid()+" Krijgt CPU maar te groot op " + tijd);
+					p.addRunningtime(q);
+					for(Process k:queue){
+						k.setWaittime(k.getWaittime()+q);
+					}
+					for(int i=1;i<q;i++){		
+							gaan=true;
+							while(gaan){
+								if(processNummer!=processenLijst.size()){	
+									if((tijd+i)==processenLijst.get(processNummer).getArrivaltime()){
+										Process bij=processenLijst.get(processNummer);
+										//System.out.println(bij.getPid()+ " toegevoegd");
+										queue.add(bij);
+										bij.setRunningtime(0);
+										processNummer++;
+									}
+									else gaan=false;
+								}
+								else gaan=false;
+						}	
+					}	
+					if(p.getRunningtime()+(q-1)==p.getServicetime()){
+						p.setEndtime(tijd+q);
+						p.setDone();
+						//System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
+						vorige=p;
+					}
+					else{
+						vorige=p;
+					}
+					tijd=tijd+q;
 				}
 				else{
-					queue.add(p);
+					double z=p.getServicetime()-p.getRunningtime();
+					p.addRunningtime(z);
+					//System.out.println(p.getPid()+" Krijgt CPU voor de laatste keer " + tijd);
+					for(Process k:queue){
+						k.setWaittime(k.getWaittime()+z);
+					}
+					for(int i=1;i<z;i++){		
+							gaan=true;
+							while(gaan){
+								if(processNummer!=processenLijst.size()){
+									if((tijd+i)==processenLijst.get(processNummer).getArrivaltime()){
+										Process bij=processenLijst.get(processNummer);
+										//System.out.println(bij.getPid()+ " toegevoegd");
+										queue.add(bij);
+										bij.setRunningtime(0);
+										processNummer++;
+									}
+									else gaan=false;
+								}
+								else gaan=false;
+						}	
+					}	
+					p.setEndtime(tijd+z);
+					p.setDone();
+					//System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
+					vorige=p;
+					tijd=tijd+z;
 				}
 			}
-			tijd++;
+			if(vorige!=null){	
+				if(!vorige.getDone()&&queue.isEmpty()&&processNummer==processenLijst.size()){
+					queue.add(vorige);
+					vorige=null;
+				}
+			}	
+			//System.out.println(tijd);
 		}
 		
-		
 	}
-
-}
+}	
