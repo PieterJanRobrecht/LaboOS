@@ -22,27 +22,25 @@ public class XML3Listener implements ActionListener {
 		verwerker.setFile(new File("processen50000.xml"));
 		this.cl = cl;
 		this.chartPanel = chartPanel;
-		
-		JPanel grafiekenCombo = new JPanel();
-		grafiekenCombo.setLayout(new BoxLayout(grafiekenCombo,1));
-		
-		//Maken van grafiek met Nor Runtime
+
+		cardPanelXml3.setLayout(new BoxLayout(cardPanelXml3,1));
+
+		//Grafieken maken
 		ChartPanel chart = verwerker.maakGrafiekPanel();
-		grafiekenCombo.add(chart);
-				
-		//Maken van grafiek met wait time
 		ChartPanel chartWait = verwerker.maakGrafiekWaitPanel();
-		grafiekenCombo.add(chartWait);
-		
-		cardPanelXml3.add(grafiekenCombo);
+
+		//Toevoegen aan de panel
+		cardPanelXml3.add(chart);
+		cardPanelXml3.add(chartWait);
+
 		chartPanel.add("xml3",cardPanelXml3);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------");
 		System.out.println("\t 50 000 processen");
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------");
 		cl.show(chartPanel, "xml3");
 	}
 }

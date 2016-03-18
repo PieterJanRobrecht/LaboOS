@@ -22,27 +22,25 @@ public class XML2Listener implements ActionListener {
 		verwerker.setFile(new File("processen20000.xml"));
 		this.cl = cl;
 		this.chartPanel = chartPanel;
-		
-		JPanel grafiekenCombo = new JPanel();
-		grafiekenCombo.setLayout(new BoxLayout(grafiekenCombo,1));
-		
-		//Maken van grafiek met Nor Runtime
+
+		cardPanelXml2.setLayout(new BoxLayout(cardPanelXml2,1));
+
+		//Grafieken maken
 		ChartPanel chart = verwerker.maakGrafiekPanel();
-		grafiekenCombo.add(chart);
-				
-		//Maken van grafiek met wait time
 		ChartPanel chartWait = verwerker.maakGrafiekWaitPanel();
-		grafiekenCombo.add(chartWait);
-		
-		cardPanelXml2.add(grafiekenCombo);
+
+		//Toevoegen aan de panel
+		cardPanelXml2.add(chart);
+		cardPanelXml2.add(chartWait);
+
 		chartPanel.add("xml2",cardPanelXml2);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------");
 		System.out.println("\t 20 000 processen");
-		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------");
 		cl.show(chartPanel, "xml2");
 	}
 }

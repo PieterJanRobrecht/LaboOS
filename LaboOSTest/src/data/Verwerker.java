@@ -147,7 +147,7 @@ public class Verwerker {
 	}
 
 	public JFreeChart maakGrafiek(){
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgo),
+		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algoritmes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgo),
 				PlotOrientation.VERTICAL, true, true, false);
 
 		final XYPlot plot = lineChart.getXYPlot( );
@@ -168,7 +168,7 @@ public class Verwerker {
 	}
 
 	public JFreeChart maakGrafiekWait(){
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgo),
+		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algoritmes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgo),
 				PlotOrientation.VERTICAL, true, true, false);
 		final XYPlot plot = lineChart.getXYPlot( );
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
