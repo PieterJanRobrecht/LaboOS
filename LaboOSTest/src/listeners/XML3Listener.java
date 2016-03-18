@@ -27,11 +27,11 @@ public class XML3Listener implements ActionListener {
 		grafiekenCombo.setLayout(new BoxLayout(grafiekenCombo,1));
 		
 		//Maken van grafiek met Nor Runtime
-		ChartPanel chart = verwerker.maakGrafiek();
+		ChartPanel chart = verwerker.maakGrafiekPanel();
 		grafiekenCombo.add(chart);
 				
 		//Maken van grafiek met wait time
-		ChartPanel chartWait = verwerker.maakGrafiekWait();
+		ChartPanel chartWait = verwerker.maakGrafiekWaitPanel();
 		grafiekenCombo.add(chartWait);
 		
 		cardPanelXml3.add(grafiekenCombo);

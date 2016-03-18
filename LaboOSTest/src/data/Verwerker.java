@@ -92,37 +92,29 @@ public class Verwerker {
 		return gegevensAlleAlgo;
 	}
 
-	public ChartPanel maakGrafiek() {
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgo),
-				PlotOrientation.VERTICAL, true, true, false);
+	public ChartPanel maakGrafiekPanel() {
+		JFreeChart lineChart = maakGrafiek();
 
 		ChartPanel chartPanel = new ChartPanel(lineChart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-	    //Kleuren aanpassen voor alle grafieken 
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-	    renderer.setSeriesPaint( 1 , Color.GREEN );
-	    renderer.setSeriesPaint( 2 , Color.PINK );
-	    final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
-//	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
-        final NumberAxis rangeAxis = new LogarithmicAxis("Genormaliseerde TAT");
-//      final NumberAxis rangeAxis = new NumberAxis("Genormaliseerde TAT");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        plot.setRenderer( renderer );
 		return chartPanel;
 	}
-	
+
+	public ChartPanel maakGrafiekWaitPanel() {
+		JFreeChart lineChart = maakGrafiekWait();
+
+		ChartPanel chartPanel = new ChartPanel(lineChart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+		return chartPanel;
+	}
+
 	private XYDataset createDataset(List<GlobalVarList> gegevensAlleAlgoritmen) {
 		//Lijst met alle gegevens van alle algoritmen worden aangeboden
 		//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
-		//Miss best doen in een dubbele for één voor de lijst te doorlopen en de tweede voor data te adden
+		//Miss best doen in een dubbele for ï¿½ï¿½n voor de lijst te doorlopen en de tweede voor data te adden
 		XYSeriesCollection  dataset = new XYSeriesCollection ();
 		for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-			//één dataset van alle algoritmes is geselecteerd
+			//ï¿½ï¿½n dataset van alle algoritmes is geselecteerd
 			GlobalVarList data = gegevensAlleAlgoritmen.get(i);
 			XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
 			for(int j = 0;j<data.getSize();j++){
@@ -134,38 +126,14 @@ public class Verwerker {
 		}
 		return dataset;
 	}
-
-	public ChartPanel maakGrafiekWait() {
-		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgo),
-				PlotOrientation.VERTICAL, true, true, false);
-
-		ChartPanel chartPanel = new ChartPanel(lineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-	    //Kleuren aanpassen voor alle grafieken 
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-	    renderer.setSeriesPaint( 1 , Color.GREEN );
-	    renderer.setSeriesPaint( 2 , Color.PINK );
-	    final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
-//	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
-        final NumberAxis rangeAxis = new LogarithmicAxis("Gemiddelde WaitTime");
-//      final NumberAxis rangeAxis = new NumberAxis("Gemiddelde WaitTime");
-        plot.setDomainAxis(domainAxis);
-        plot.setRangeAxis(rangeAxis);
-        plot.setRenderer( renderer );
-		return chartPanel;
-	}
 	
 	private XYDataset createDatasetGrafiekWait(List<GlobalVarList> gegevensAlleAlgoritmen){
 		//Lijst met alle gegevens van alle algoritmen worden aangeboden
 				//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
-				//Miss best doen in een dubbele for één voor de lijst te doorlopen en de tweede voor data te adden
+				//Miss best doen in een dubbele for ï¿½ï¿½n voor de lijst te doorlopen en de tweede voor data te adden
 				XYSeriesCollection  dataset = new XYSeriesCollection ();
 				for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-					//één dataset van alle algoritmes is geselecteerd
+					//ï¿½ï¿½n dataset van alle algoritmes is geselecteerd
 					GlobalVarList data = gegevensAlleAlgoritmen.get(i);
 					XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
 					for(int j = 0;j<data.getSize();j++){
@@ -176,5 +144,46 @@ public class Verwerker {
 					dataset.addSeries(hulp);
 				}
 				return dataset;
+	}
+
+	public JFreeChart maakGrafiek(){
+		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgo),
+				PlotOrientation.VERTICAL, true, true, false);
+
+		final XYPlot plot = lineChart.getXYPlot( );
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+		//Kleuren aanpassen voor alle grafieken
+		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
+		renderer.setSeriesPaint( 0 , Color.RED );
+		renderer.setSeriesPaint( 1 , Color.GREEN );
+		renderer.setSeriesPaint( 2 , Color.PINK );
+		final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
+//	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
+		final NumberAxis rangeAxis = new LogarithmicAxis("Genormaliseerde TAT");
+//      final NumberAxis rangeAxis = new NumberAxis("Genormaliseerde TAT");
+		plot.setDomainAxis(domainAxis);
+		plot.setRangeAxis(rangeAxis);
+		plot.setRenderer( renderer );
+		return lineChart;
+	}
+
+	public JFreeChart maakGrafiekWait(){
+		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algortimes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgo),
+				PlotOrientation.VERTICAL, true, true, false);
+		final XYPlot plot = lineChart.getXYPlot( );
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+		//Kleuren aanpassen voor alle grafieken
+		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
+		renderer.setSeriesPaint( 0 , Color.RED );
+		renderer.setSeriesPaint( 1 , Color.GREEN );
+		renderer.setSeriesPaint( 2 , Color.PINK );
+		final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
+//	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
+		final NumberAxis rangeAxis = new LogarithmicAxis("Gemiddelde WaitTime");
+//      final NumberAxis rangeAxis = new NumberAxis("Gemiddelde WaitTime");
+		plot.setDomainAxis(domainAxis);
+		plot.setRangeAxis(rangeAxis);
+		plot.setRenderer( renderer );
+		return lineChart;
 	}
 }

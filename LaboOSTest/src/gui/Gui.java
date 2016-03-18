@@ -1,33 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.io.File;
-import java.util.List;
+import java.awt.event.KeyEvent;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.LogarithmicAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import data.GlobalVar;
-import data.GlobalVarList;
+import listeners.ListenerExport;
 import data.Verwerker;
 import listeners.XML1Listener;
 import listeners.XML2Listener;
@@ -47,6 +26,9 @@ public class Gui extends JFrame {
 	private JButton xml2;
 	private JButton xml3;
 	private Verwerker verwerker;
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JMenuItem menuItem;
 
 	public Gui() {
 		//Verwerker maken
@@ -61,14 +43,27 @@ public class Gui extends JFrame {
 		//Text gebied voor de syso
 		systemArea = new JTextArea(30,20);
 		systemArea.setEditable(false);
-		
+
 		//Maken van de systemScroll
 		systemScroll = new JScrollPane(systemArea);
+
+		MessageConsole console = new MessageConsole(systemArea);
+		console.redirectOut();
+		console.redirectErr(Color.RED, null);
 		
-		 MessageConsole console = new MessageConsole(systemArea);
-		 console.redirectOut();
-	     console.redirectErr(Color.RED, null);
-		
+		//MenuBar maken
+		menuBar = new JMenuBar();
+		menu = new JMenu("Bestand");
+		menu.setMnemonic(KeyEvent.VK_A);
+		menuBar.add(menu);
+		menuItem = new JMenuItem("Export to image", KeyEvent.VK_T);
+		menuItem.addActionListener(new ListenerExport(verwerker));
+		menu.add(menuItem);
+		menuItem = new JMenuItem("Afsluiten", KeyEvent.VK_T);
+		menuItem.addActionListener(e -> System.exit(0));
+		menu.add(menuItem);
+		mijnFrame.setJMenuBar(menuBar);
+
 		//Init van chartPanel waar alle grafieken in gaan komen
 		chartPanel = new JPanel();
 		//chartPanel.setLayout(new BoxLayout(chartPanel,1) );
