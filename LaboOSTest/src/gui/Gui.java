@@ -15,7 +15,7 @@ import listeners.XML3Listener;
 public class Gui extends JFrame {
 	private JFrame mijnFrame;
 	private JPanel panel;
-	//private JPanel cardPanel;
+//	private JPanel cardPanel;
 	private JPanel chartPanel;
 	private JTextArea systemArea;
 //	private ChartPanel chart;
@@ -36,7 +36,7 @@ public class Gui extends JFrame {
 		
 		//panel waar alle gui elementen in moeten komen
 		mijnFrame = new JFrame();
-		mijnFrame.setTitle("Gui");
+		mijnFrame.setTitle("Labo besturingssystemen");
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		
@@ -68,7 +68,7 @@ public class Gui extends JFrame {
 		chartPanel = new JPanel();
 		//chartPanel.setLayout(new BoxLayout(chartPanel,1) );
 				
-		//Init van cardPanel waar alles zich gedraagd als een kaartenstapel
+		//Init van cardPanel waar alles zich gedraagt als een kaartenstapel
 		MyCardLayout cl = new MyCardLayout();
 		JPanel cardPanelXml1 = new JPanel();
 		JPanel cardPanelXml2 = new JPanel();

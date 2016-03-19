@@ -149,41 +149,55 @@ public class Verwerker {
 	public JFreeChart maakGrafiek(){
 		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algoritmes", "Gemiddelde ServiceTime", "Normalised TAT", createDataset(gegevensAlleAlgo),
 				PlotOrientation.VERTICAL, true, true, false);
+		maakPlot(lineChart);
+		XYPlot plot = lineChart.getXYPlot( );
 
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-		//Kleuren aanpassen voor alle grafieken
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-		renderer.setSeriesPaint( 1 , Color.GREEN );
-		renderer.setSeriesPaint( 2 , Color.PINK );
+		//Het maken van de logaritmische schaalverdeling
 		final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
 //	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
-		final NumberAxis rangeAxis = new LogarithmicAxis("Genormaliseerde TAT");
-//      final NumberAxis rangeAxis = new NumberAxis("Genormaliseerde TAT");
+		final NumberAxis rangeAxis = new LogarithmicAxis("Gemiddelde Genormaliseerde TAT");
+//      final NumberAxis rangeAxis = new NumberAxis("Gemiddelde WaitTime");
 		plot.setDomainAxis(domainAxis);
 		plot.setRangeAxis(rangeAxis);
-		plot.setRenderer( renderer );
+
 		return lineChart;
 	}
 
 	public JFreeChart maakGrafiekWait(){
 		JFreeChart lineChart = ChartFactory.createXYLineChart("Scheduling Algoritmes", "Gemiddelde ServiceTime", "Gemiddelde WaitTime", createDatasetGrafiekWait(gegevensAlleAlgo),
 				PlotOrientation.VERTICAL, true, true, false);
-		final XYPlot plot = lineChart.getXYPlot( );
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-		//Kleuren aanpassen voor alle grafieken
-		//Momenteel is er maar 1 aanwezig dus de rest maakt niet echt uit
-		renderer.setSeriesPaint( 0 , Color.RED );
-		renderer.setSeriesPaint( 1 , Color.GREEN );
-		renderer.setSeriesPaint( 2 , Color.PINK );
+		maakPlot(lineChart);
+		XYPlot plot = lineChart.getXYPlot( );
+
+		//Het maken van de logaritmische schaalverdeling
 		final NumberAxis domainAxis = new LogarithmicAxis("Gemiddelde ServiceTime");
 //	    final NumberAxis domainAxis = new NumberAxis("Gemiddelde ServiceTime");
 		final NumberAxis rangeAxis = new LogarithmicAxis("Gemiddelde WaitTime");
 //      final NumberAxis rangeAxis = new NumberAxis("Gemiddelde WaitTime");
 		plot.setDomainAxis(domainAxis);
 		plot.setRangeAxis(rangeAxis);
-		plot.setRenderer( renderer );
+
 		return lineChart;
+	}
+
+
+	//Alle aanpassingen aan het uiterlijk van de grafieken gebeuren hier
+	private void maakPlot(JFreeChart lineChart){
+		final XYPlot plot = lineChart.getXYPlot( );
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+		//Kleuren aanpassen voor alle grafieken
+		renderer.setSeriesPaint( 0 , Color.RED );
+		renderer.setSeriesPaint( 1 , Color.GREEN );
+		renderer.setSeriesPaint( 2 , Color.PINK );
+		for(int i=0;i<3;i++){
+			renderer.setSeriesShapesVisible(i,false);
+		}
+
+		//Maken van een witte achtergrond en dat het grid in het grijs is
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setDomainGridlinePaint(Color.GRAY);
+		plot.setRangeGridlinePaint(Color.GRAY);
+
+		plot.setRenderer( renderer );
 	}
 }
