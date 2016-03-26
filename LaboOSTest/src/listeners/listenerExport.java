@@ -12,10 +12,10 @@ import java.io.IOException;
 /**
  * Created by Pieter-Jan on 18/03/2016.
  */
-public class ListenerExport implements ActionListener {
+public class listenerExport implements ActionListener {
 	private Verwerker verwerker;
 
-	public ListenerExport(Verwerker verwerker) {
+	public listenerExport(Verwerker verwerker) {
 		this.verwerker = verwerker;
 	}
 

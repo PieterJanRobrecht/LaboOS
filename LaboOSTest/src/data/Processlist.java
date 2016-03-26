@@ -196,4 +196,150 @@ public class Processlist {
 		}
 		
 	}
+	
+	public void voerMLFBuit(boolean macht){
+		List<List<Process>>queues=new ArrayList<List<Process>>();
+		for(int i=0;i<4;i++){
+			List<Process>queue=new LinkedList<Process>();
+			queues.add(queue);
+		}
+		sortArrivalTime();
+		double tijd=0;
+		int duur=2;
+		int processNummer=0;
+		Process vorige=null;
+		int vorigeQueue=0;
+		while(processNummer!=processenLijst.size()||!allQueuesEmpty(queues)){
+			Process p=null;
+			boolean gaan=true;
+			while(gaan){
+				if(processNummer!=processenLijst.size()){	
+					if(tijd==processenLijst.get(processNummer).getArrivaltime()){
+						Process bij=processenLijst.get(processNummer);
+						//System.out.println(bij.getPid()+ " toegevoegd op " + tijd);
+						queues.get(0).add(bij);
+						bij.setRunningtime(0);
+						processNummer++;
+					}
+					else gaan=false;
+				}	
+				else gaan=false;
+			}
+			if(vorige!=null && !vorige.getDone()){
+				if(vorigeQueue+1==queues.size()){
+					queues.get(vorigeQueue).add(vorige);
+				}
+				else{
+					queues.get(vorigeQueue+1).add(vorige);
+				}
+			}
+			if(allQueuesEmpty(queues)){
+				tijd++;
+			}
+			else{
+				boolean nietGevonden=false;
+				int i=0;
+				while(!nietGevonden&&i<queues.size()){
+					if(!queues.get(i).isEmpty()){
+						List<Process> q=queues.get(i);
+						p=q.remove(0);
+						//System.out.println(p.getPid() +" Van de lijst gehaald");
+						vorigeQueue=i;
+						vorige=p;
+						if(macht){
+							duur=(int) Math.pow(2,(i));
+						}
+						else{
+							duur=(int) (i+1);
+						}
+						nietGevonden=true;					
+						}
+					i++;
+				}
+			
+				if(p.getServicetime()-p.getRunningtime()>duur){
+					//System.out.println(p.getPid()+" Krijgt CPU maar te groot op " + tijd);
+					p.addRunningtime(duur);
+					for(List<Process> eenqueue:queues){
+						for(Process k:eenqueue){
+							k.setWaittime(k.getWaittime()+duur);
+						}
+					}
+					for(int j=1;j<duur;j++){		
+							gaan=true;
+							while(gaan){
+								if(processNummer!=processenLijst.size()){	
+									if((tijd+j)==processenLijst.get(processNummer).getArrivaltime()){
+										Process bij=processenLijst.get(processNummer);
+										//System.out.println(bij.getPid()+ " toegevoegd");
+										queues.get(0).add(bij);
+										bij.setRunningtime(0);
+										processNummer++;
+									}
+									else gaan=false;
+								}
+								else gaan=false;
+						}	
+					}	
+				
+					vorige=p;
+					tijd=tijd+duur;
+				}
+				else{
+					double z=p.getServicetime()-p.getRunningtime();
+					p.addRunningtime(z);
+					//System.out.println(p.getPid()+" Krijgt CPU voor de laatste keer " + tijd);
+					for(List<Process> eenqueue:queues){
+						for(Process k:eenqueue){
+							k.setWaittime(k.getWaittime()+duur);
+						}
+					}
+					for(int j=1;j<z;j++){		
+							gaan=true;
+							while(gaan){
+								if(processNummer!=processenLijst.size()){
+									if((tijd+j)==processenLijst.get(processNummer).getArrivaltime()){
+										Process bij=processenLijst.get(processNummer);
+										//System.out.println(bij.getPid()+ " toegevoegd");
+										queues.get(0).add(bij);
+										bij.setRunningtime(0);
+										processNummer++;
+									}
+									else gaan=false;
+								}
+								else gaan=false;
+						}	
+					}	
+					p.setEndtime(tijd+z);
+					p.setDone();
+					//System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
+					vorige=p;
+					tijd=tijd+z;
+				}
+			}
+			if(vorige!=null){	
+				if(!vorige.getDone()&&allQueuesEmpty(queues)&&processNummer==processenLijst.size()){
+					if(vorigeQueue+1==queues.size()){
+						queues.get(vorigeQueue).add(vorige);
+					}
+					else{
+						queues.get(vorigeQueue+1).add(vorige);
+					}
+					vorige=null;
+				}
+			}	
+		}	
+			
+	}
+
+	
+	private boolean allQueuesEmpty(List<List<Process>> queues) {
+		boolean nietLeeg=false;
+		int teller=0;
+		while(!nietLeeg&&teller<queues.size()){
+			if(!queues.get(teller).isEmpty())nietLeeg=true;
+			else teller++;
+		}
+		return !nietLeeg;
+	}
 }	

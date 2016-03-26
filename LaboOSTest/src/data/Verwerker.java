@@ -62,7 +62,7 @@ public class Verwerker {
 		//Lijst waarin alle algoritmes kunnen komen
 		GlobalVarList hulp;
 		List<GlobalVarList> gegevensAlleAlgo = new ArrayList<GlobalVarList>();
-		for(int i=0;i<3;i++){
+		for(int i=0;i<4;i++){
 			hulp = new GlobalVarList();
 			//hulp.clear();
 			procList.sortArrivalTime();
@@ -81,6 +81,11 @@ public class Verwerker {
 				procList.voerRRuit(2);
 				System.out.println("RR is uitgevoerd");
 				hulp.setAlgoritmeNaam("RR");
+				break;
+			case 3:
+				procList.voerMLFBuit(true);
+				System.out.println("MLFB is uitgevoerd");
+				hulp.setAlgoritmeNaam("MLFB");
 				break;
 			}
 			procList.sortServiceTime();
