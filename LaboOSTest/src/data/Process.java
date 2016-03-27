@@ -96,5 +96,10 @@ public class Process {
 		// TODO Auto-generated method stub
 		return done;
 	}
+
+	public void resetDone() {
+		done=false;
+		
+	}
 	
 }
