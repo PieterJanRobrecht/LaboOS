@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
-import listeners.listenerExport;
+import listeners.ListenerExport;
 import data.Verwerker;
 import listeners.XML1Listener;
 import listeners.XML2Listener;
@@ -57,7 +57,7 @@ public class Gui extends JFrame {
 		menu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menu);
 		menuItem = new JMenuItem("Export to image", KeyEvent.VK_T);
-		menuItem.addActionListener(new listenerExport(verwerker));
+		menuItem.addActionListener(new ListenerExport(verwerker));
 		menu.add(menuItem);
 		menuItem = new JMenuItem("Afsluiten", KeyEvent.VK_T);
 		menuItem.addActionListener(e -> System.exit(0));
