@@ -134,14 +134,14 @@ public class Verwerker {
 		//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
 		//Miss best doen in een dubbele for ��n voor de lijst te doorlopen en de tweede voor data te adden
 		XYSeriesCollection  dataset = new XYSeriesCollection ();
-		for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-			//��n dataset van alle algoritmes is geselecteerd
+		for (int i = 0; i < gegevensAlleAlgoritmen.size(); i++) {
 			GlobalVarList data = gegevensAlleAlgoritmen.get(i);
-			XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
-			for(int j = 0;j<data.getSize();j++){
+			//��n dataset van alle algoritmes is geselecteerd
+			XYSeries hulp = new XYSeries(data.getAlgoritmeNaam());
+			for (int j = 0; j < data.getSize(); j++) {
 				GlobalVar percentiel = data.getPercentiel(j);
 				//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
-				hulp.add(percentiel.getAverageServiceTime(),percentiel.getAverageNorRuntime());
+				hulp.add(percentiel.getAverageServiceTime(), percentiel.getAverageNorRuntime());
 			}
 			dataset.addSeries(hulp);
 		}
@@ -150,21 +150,21 @@ public class Verwerker {
 	
 	private XYDataset createDatasetGrafiekWait(List<GlobalVarList> gegevensAlleAlgoritmen){
 		//Lijst met alle gegevens van alle algoritmen worden aangeboden
-				//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
-				//Miss best doen in een dubbele for ��n voor de lijst te doorlopen en de tweede voor data te adden
-				XYSeriesCollection  dataset = new XYSeriesCollection ();
-				for(int i=0;i<gegevensAlleAlgoritmen.size();i++){
-					//��n dataset van alle algoritmes is geselecteerd
-					GlobalVarList data = gegevensAlleAlgoritmen.get(i);
-					XYSeries hulp = new XYSeries( data.getAlgoritmeNaam() );
-					for(int j = 0;j<data.getSize();j++){
-						GlobalVar percentiel = data.getPercentiel(j);
-						//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
-						hulp.add(percentiel.getAverageServiceTime(),percentiel.getAverageWaittime());
-					}
-					dataset.addSeries(hulp);
-				}
-				return dataset;
+		//Moeten dus verschillende lijnen maken voor alle objecten in de lijst apart
+		//Miss best doen in een dubbele for ��n voor de lijst te doorlopen en de tweede voor data te adden
+		XYSeriesCollection  dataset = new XYSeriesCollection ();
+		for(int i=0;i<gegevensAlleAlgoritmen.size();i++) {
+			//��n dataset van alle algoritmes is geselecteerd
+			GlobalVarList data = gegevensAlleAlgoritmen.get(i);
+			XYSeries hulp = new XYSeries(data.getAlgoritmeNaam());
+			for (int j = 0; j < data.getSize(); j++) {
+				GlobalVar percentiel = data.getPercentiel(j);
+				//System.out.println(percentiel.getAverageServiceTime()+" "+percentiel.getAverageNorRuntime());
+				hulp.add(percentiel.getAverageServiceTime(), percentiel.getAverageWaittime());
+			}
+			dataset.addSeries(hulp);
+		}
+		return dataset;
 	}
 
 	public JFreeChart maakGrafiek(){
@@ -207,9 +207,9 @@ public class Verwerker {
 		final XYPlot plot = lineChart.getXYPlot( );
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
 		//Kleuren aanpassen voor alle grafieken
-		renderer.setSeriesPaint( 0 , Color.RED );
-		renderer.setSeriesPaint( 1 , Color.GREEN );
-		renderer.setSeriesPaint( 2 , Color.PINK );
+//		renderer.setSeriesPaint( 0 , Color.RED );
+//		renderer.setSeriesPaint( 1 , Color.GREEN );
+//		renderer.setSeriesPaint( 2 , Color.PINK );
 		for(int i=0;i<gegevensAlleAlgo.size();i++){
 			renderer.setSeriesShapesVisible(i,false);
 		}
