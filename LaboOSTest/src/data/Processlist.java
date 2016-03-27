@@ -102,6 +102,7 @@ public class Processlist {
 		double tijd=0;
 		int processNummer=0;
 		Process vorige=null;
+		//Deze While lus kijkt welke processen er toe komen op het huidige tijdstip
 		while(processNummer!=processenLijst.size()||!queue.isEmpty()){
 				boolean gaan=true;
 				while(gaan){
@@ -110,29 +111,32 @@ public class Processlist {
 							Process bij=processenLijst.get(processNummer);
 							//System.out.println(bij.getPid()+ " toegevoegd op " + tijd);
 							queue.add(bij);
-							bij.setRunningtime(0);
-							bij.setWaittime(0);
 							processNummer++;
 						}
 						else gaan=false;
 					}	
 					else gaan=false;
 				}	
-			
+			//Hier wordt het vorige process terug aan de queue toegevoegd
 			if(vorige!=null && !vorige.getDone())queue.add(vorige);
+			//Als de queue leeg is gaan we gewoon verder
 			if(queue.isEmpty()){
 				tijd++;
 			}
+			//Hier kiezen we ons process en zijn er 2 mogelijkheden
 			else{
 				Process p=queue.remove(0);
+				//Ofwel zal het Process p niet klaar zijn na dit tijdsslot
 				if(p.getServicetime()-p.getRunningtime()>q){
 					//System.out.println(p.getPid()+" Krijgt CPU maar te groot op " + tijd);
 					p.addRunningtime(q);
+					//Wachttijden zetten voor de processen in de queue
 					for(Process k:queue){
 						k.setWaittime(k.getWaittime()+q);
 					}
 					for(int i=1;i<q;i++){		
 							gaan=true;
+							//Zoeken naar toekomende processen
 							while(gaan){
 								if(processNummer!=processenLijst.size()){	
 									if((tijd+i)==processenLijst.get(processNummer).getArrivaltime()){
@@ -148,26 +152,21 @@ public class Processlist {
 								else gaan=false;
 						}	
 					}	
-					//if(p.getRunningtime()+(q-1)==p.getServicetime()){
-						//p.setEndtime(tijd+q);
-						//p.setDone();
-						//System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
-						//vorige=p;
-					//}
-					//else{
-						vorige=p;
-					//}
+					vorige=p;
 					tijd=tijd+q;
 				}
+				//Ofwel is dit het laatste tijdslot van Process p
 				else{
 					double z=p.getServicetime()-p.getRunningtime();
 					p.addRunningtime(z);
 					//System.out.println(p.getPid()+" Krijgt CPU voor de laatste keer " + tijd);
+					//Wachttijden zetten voor de processen in de queue
 					for(Process k:queue){
 						k.setWaittime(k.getWaittime()+z);
 					}
 					for(int i=1;i<z;i++){		
 							gaan=true;
+							//Zoeken naar toekomende processen
 							while(gaan){
 								if(processNummer!=processenLijst.size()){
 									if((tijd+i)==processenLijst.get(processNummer).getArrivaltime()){
@@ -185,11 +184,11 @@ public class Processlist {
 					}	
 					p.setEndtime(tijd+z);
 					p.setDone();
-					//System.out.println(p.getPid()+" done op tijdstip "+p.getEndtime());
 					vorige=p;
 					tijd=tijd+z;
 				}
 			}
+			//Dit is om te voorkomen dat het algoritme te vroeg zou stoppen
 			if(vorige!=null){	
 				if(!vorige.getDone()&&queue.isEmpty()&&processNummer==processenLijst.size()){
 					queue.add(vorige);
@@ -214,6 +213,7 @@ public class Processlist {
 		int processNummer=0;
 		Process vorige=null;
 		int vorigeQueue=0;
+		//Deze While lus kijkt welke processen er toe komen op het huidige tijdstip
 		while(processNummer!=processenLijst.size()||!allQueuesEmpty(queues)){
 			Process p=null;
 			boolean gaan=true;
@@ -230,6 +230,7 @@ public class Processlist {
 				}	
 				else gaan=false;
 			}
+			//Toevoegen van vorig Process aan de juist queue
 			if(vorige!=null && !vorige.getDone()){
 				if(vorigeQueue+1==queues.size()){
 					queues.get(vorigeQueue).add(vorige);
@@ -238,12 +239,14 @@ public class Processlist {
 					queues.get(vorigeQueue+1).add(vorige);
 				}
 			}
+			//Als de queues leeg zijn gaan we gewoon verder
 			if(allQueuesEmpty(queues)){
 				tijd++;
 			}
 			else{
 				boolean nietGevonden=false;
 				int i=0;
+				//Dit zoekt eerst een Process in queue 0, dan in 1 etc
 				while(!nietGevonden&&i<queues.size()){
 					if(!queues.get(i).isEmpty()){
 						List<Process> q=queues.get(i);
@@ -261,10 +264,11 @@ public class Processlist {
 						}
 					i++;
 				}
-			
+				//Weer de 2 gevallen scheiden
 				if(p.getServicetime()-p.getRunningtime()>duur){
 					//System.out.println(p.getPid()+" Krijgt CPU maar te groot op " + tijd);
 					p.addRunningtime(duur);
+					//Wachttijden zetten voor de processen in de queue
 					for(List<Process> eenqueue:queues){
 						for(Process k:eenqueue){
 							k.setWaittime(k.getWaittime()+duur);
@@ -272,6 +276,7 @@ public class Processlist {
 					}
 					for(int j=1;j<duur;j++){		
 							gaan=true;
+							//Zoeken naar toekomende processen
 							while(gaan){
 								if(processNummer!=processenLijst.size()){	
 									if((tijd+j)==processenLijst.get(processNummer).getArrivaltime()){
@@ -295,13 +300,15 @@ public class Processlist {
 					double z=p.getServicetime()-p.getRunningtime();
 					p.addRunningtime(z);
 					//System.out.println(p.getPid()+" Krijgt CPU voor de laatste keer " + tijd);
+					//Wachttijden zetten voor de processen in de queue
 					for(List<Process> eenqueue:queues){
 						for(Process k:eenqueue){
-							k.setWaittime(k.getWaittime()+duur);
+							k.setWaittime(k.getWaittime()+z);
 						}
 					}
 					for(int j=1;j<z;j++){		
 							gaan=true;
+							//Zoeken naar toekomende processen
 							while(gaan){
 								if(processNummer!=processenLijst.size()){
 									if((tijd+j)==processenLijst.get(processNummer).getArrivaltime()){
@@ -309,7 +316,7 @@ public class Processlist {
 										//System.out.println(bij.getPid()+ " toegevoegd");
 										queues.get(0).add(bij);
 										bij.setRunningtime(0);
-										bij.setWaittime(bij.getWaittime()+(duur-j));
+										bij.setWaittime(bij.getWaittime()+(z-j));
 										processNummer++;
 									}
 									else gaan=false;
