@@ -62,31 +62,46 @@ public class Verwerker {
 		//Lijst waarin alle algoritmes kunnen komen
 		GlobalVarList hulp;
 		List<GlobalVarList> gegevensAlleAlgo = new ArrayList<GlobalVarList>();
-		for(int i=0;i<4;i++){
+		for(int i=0;i<7;i++){
 			hulp = new GlobalVarList();
 			//hulp.clear();
 			procList.sortArrivalTime();
 			switch(i){
-			case 0: 
-				procList.voerFCFSUit();
-				System.out.println("FCFS is uitgevoerd");
-				hulp.setAlgoritmeNaam("FCFS");
-				break;
-			case 1 : 
-				procList.voerHRRNUit();
-				System.out.println("HRRN is uitgevoerd");
-				hulp.setAlgoritmeNaam("HRRN");
-				break;
-			case 2 :
-				procList.voerRRuit(2);
-				System.out.println("RR is uitgevoerd");
-				hulp.setAlgoritmeNaam("RR");
-				break;
-			case 3:
-				procList.voerMLFBuit(true);
-				System.out.println("MLFB is uitgevoerd");
-				hulp.setAlgoritmeNaam("MLFB");
-				break;
+				case 0:
+					procList.voerFCFSUit();
+					System.out.println("FCFS is uitgevoerd");
+					hulp.setAlgoritmeNaam("FCFS");
+					break;
+				case 1 :
+					procList.voerHRRNUit();
+					System.out.println("HRRN is uitgevoerd");
+					hulp.setAlgoritmeNaam("HRRN");
+					break;
+				case 2 :
+					procList.voerRRuit(2);
+					System.out.println("RR q = 2 is uitgevoerd");
+					hulp.setAlgoritmeNaam("RR q = 2");
+					break;
+				case 3 :
+					procList.voerRRuit(4);
+					System.out.println("RR q = 4 is uitgevoerd");
+					hulp.setAlgoritmeNaam("RR q = 4");
+					break;
+				case 4 :
+					procList.voerRRuit(8);
+					System.out.println("RR q = 8 is uitgevoerd");
+					hulp.setAlgoritmeNaam("RR q = 8");
+					break;
+				case 5:
+					procList.voerMLFBuit(true);
+					System.out.println("MLFB q = 2^i is uitgevoerd");
+					hulp.setAlgoritmeNaam("MLFB q = 2^i");
+					break;
+				case 6 :
+					procList.voerMLFBuit(false);
+					System.out.println("MLFB q = i is uitgevoerd");
+					hulp.setAlgoritmeNaam("MLFB q = i");
+					break;
 			}
 			procList.sortServiceTime();
 			hulp.verwerkGegevens(procList);
@@ -94,6 +109,7 @@ public class Verwerker {
 			gegevensAlleAlgo.add(hulp);
 			System.out.println("Gegevens zijn toegevoegd aan de lijst");
 		}
+//		System.out.println(gegevensAlleAlgo.size());
 		return gegevensAlleAlgo;
 	}
 
@@ -194,7 +210,7 @@ public class Verwerker {
 		renderer.setSeriesPaint( 0 , Color.RED );
 		renderer.setSeriesPaint( 1 , Color.GREEN );
 		renderer.setSeriesPaint( 2 , Color.PINK );
-		for(int i=0;i<3;i++){
+		for(int i=0;i<gegevensAlleAlgo.size();i++){
 			renderer.setSeriesShapesVisible(i,false);
 		}
 
