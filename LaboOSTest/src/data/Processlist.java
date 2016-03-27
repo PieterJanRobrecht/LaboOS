@@ -361,7 +361,7 @@ public class Processlist {
 		for(Process p:processenLijst){
 			p.setEndtime(0);
 			p.setRunningtime(0);
-			p.setRunningtime(0);
+			p.setWaittime(0);
 			p.resetDone();
 		}
 		
