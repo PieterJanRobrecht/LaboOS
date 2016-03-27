@@ -207,11 +207,9 @@ public class Verwerker {
 		final XYPlot plot = lineChart.getXYPlot( );
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
 		//Kleuren aanpassen voor alle grafieken
-		renderer.setSeriesPaint( 0 , Color.RED );
-		renderer.setSeriesPaint( 1 , Color.GREEN );
-		renderer.setSeriesPaint( 2 , Color.PINK );
-		for (int i=3;i<gegevensAlleAlgo.size();i++)
-			renderer.setSeriesPaint(i,Color.BLUE);
+//		renderer.setSeriesPaint( 0 , Color.RED );
+//		renderer.setSeriesPaint( 1 , Color.GREEN );
+//		renderer.setSeriesPaint( 2 , Color.PINK );
 		for(int i=0;i<gegevensAlleAlgo.size();i++){
 			renderer.setSeriesShapesVisible(i,false);
 		}
