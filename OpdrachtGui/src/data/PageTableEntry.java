@@ -3,7 +3,7 @@ package data;
 public class PageTableEntry {
 	private boolean presentBit;
 	private boolean modifyBit;
-	private long lastAccessTime;
+	private int lastAccessTime;
 	private int frameNummer;
 	
 	public boolean isPresentBit() {
@@ -22,11 +22,11 @@ public class PageTableEntry {
 		this.modifyBit = modifyBit;
 	}
 
-	public long getLastAccessTime() {
+	public int getLastAccessTime() {
 		return lastAccessTime;
 	}
 
-	public void setLastAccessTime(long lastAccessTime) {
+	public void setLastAccessTime(int lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
 	}
 

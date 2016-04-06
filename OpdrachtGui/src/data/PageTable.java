@@ -3,6 +3,7 @@ package data;
 import java.util.List;
 
 public class PageTable {
+	private int pid;
 	private List<PageTableEntry> pageTable;
 
 	public PageTable() {

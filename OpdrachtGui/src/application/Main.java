@@ -13,8 +13,12 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
@@ -53,19 +57,44 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+		VBox vbox = new VBox();
+		Scene scene = new Scene(vbox,400,350);
+        
+		//Menu toevoegen
+		MenuBar menuBar = new MenuBar();
+		Menu menu = new Menu("File");
+		MenuItem file1 = new MenuItem("Instructions 30 3");
+		MenuItem file2 = new MenuItem("Instructions 20000 4");
+		MenuItem file3 = new MenuItem("Instructions 20000 20");
+		
+		menu.getItems().addAll(file1,file2,file3);
+		menuBar.getMenus().addAll(menu);
+		
+		vbox.getChildren().add(menuBar);
+		
+		//Knop toevoegen
+		Button stap = new Button();
+		Button alles = new Button();
+		stap.setText("Eén stap");
+		alles.setText("Volledig bestand");
+		stap.setOnAction(new EventHandler<ActionEvent>() {
  
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println("Eén stap vooruit");
             }
         });
+		alles.setOnAction(new EventHandler<ActionEvent>() {
+			 
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Volledig bestand doorlopen");
+            }
+        });
+               
+        vbox.getChildren().addAll(stap,alles);
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setScene(scene);
         primaryStage.show();
 	}
 }
