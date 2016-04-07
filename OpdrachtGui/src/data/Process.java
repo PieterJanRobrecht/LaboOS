@@ -7,6 +7,10 @@ public class Process {
 	public Process(){
 		
 	}
+	
+	public Process(int pid){
+		this.pid=pid;
+	}
 
 	public int getPid() {
 		return pid;

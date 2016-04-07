@@ -38,4 +38,8 @@ public class InstructionList {
 	public int getSize(){
 		return instructies.size();
 	}
+	
+	public Instruction get(int klok){
+		return instructies.get(klok);
+	}
 }
