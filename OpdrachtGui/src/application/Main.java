@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -8,23 +9,15 @@ import javax.xml.bind.Unmarshaller;
 
 import data.InstructionList;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
+	
 	public static void main(String[] args) {
-		
-		
 		//OPGELET OS houdt 1 PT bij per proces
 		//Deze waarden zijn de machten. Bij de frame grootte = 2^12 dus we houden 12 bij.
 		int grootteFrame = 12;
@@ -56,44 +49,17 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Hello World!");
-		VBox vbox = new VBox();
-		Scene scene = new Scene(vbox,400,350);
+		primaryStage.setTitle("Practicum Opdracht 2");
+		
+		Parent page=null;
+		try {
+			page = FXMLLoader.load(getClass().getClassLoader().getResource("Sample.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        Scene scene = new Scene(page);
         
-		//Menu toevoegen
-		MenuBar menuBar = new MenuBar();
-		Menu menu = new Menu("File");
-		MenuItem file1 = new MenuItem("Instructions 30 3");
-		MenuItem file2 = new MenuItem("Instructions 20000 4");
-		MenuItem file3 = new MenuItem("Instructions 20000 20");
-		
-		menu.getItems().addAll(file1,file2,file3);
-		menuBar.getMenus().addAll(menu);
-		
-		vbox.getChildren().add(menuBar);
-		
-		//Knop toevoegen
-		Button stap = new Button();
-		Button alles = new Button();
-		stap.setText("Eén stap");
-		alles.setText("Volledig bestand");
-		stap.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Eén stap vooruit");
-            }
-        });
-		alles.setOnAction(new EventHandler<ActionEvent>() {
-			 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Volledig bestand doorlopen");
-            }
-        });
-               
-        vbox.getChildren().addAll(stap,alles);
-        
+        primaryStage.setScene(scene);
         primaryStage.setScene(scene);
         primaryStage.show();
 	}
