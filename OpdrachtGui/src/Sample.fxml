@@ -46,7 +46,7 @@
    <left>
       <VBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Een stap" />
+            <Button fx:id="eenStap" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eenStapClicked" text="Een stap" />
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Volledig" />
             <Label text="Timer" />
             <TextField editable="false" prefHeight="31.0" prefWidth="87.0" promptText="Timer" />
