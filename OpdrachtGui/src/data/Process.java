@@ -5,11 +5,11 @@ public class Process {
 	PageTable pagetable;
 	
 	public Process(){
-		
 	}
 	
-	public Process(int pid){
+	public Process(int pid,int grootteVirtueel){
 		this.pid=pid;
+		pagetable=new PageTable(grootteVirtueel);
 	}
 
 	public int getPid() {

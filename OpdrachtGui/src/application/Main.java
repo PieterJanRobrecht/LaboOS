@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import data.InstructionList;
+import data.Verwerker;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -23,10 +24,11 @@ public class Main extends Application {
 		int grootteFrame = 12;
 		//in aantal frames
 		int grootteRAM = 12;
+		int maxInRAM=4;
 		//Een proces bestaat uit max 16 pages en er zijn dus ook 16 entries per PT
 		int grootteVirtueel = 16;
 		int klok = 0;
-		
+		Verwerker verwerker=new Verwerker(grootteRAM,grootteFrame,grootteVirtueel,maxInRAM);
 		File file = new File("Instructions_30_3.xml");
 
 		JAXBContext jaxbContext;
@@ -43,6 +45,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
+		verwerker.setInstructionList(lijst);
 		
 		launch(args);
 	}
