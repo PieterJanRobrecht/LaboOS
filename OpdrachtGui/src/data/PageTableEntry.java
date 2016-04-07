@@ -4,7 +4,7 @@ public class PageTableEntry {
 	private boolean presentBit;
 	private boolean modifyBit;
 	private int lastAccessTime;
-	private int frameNummer;
+	private int frameNumber;
 	
 	public boolean isPresentBit() {
 		return presentBit;
@@ -31,11 +31,11 @@ public class PageTableEntry {
 	}
 
 	public int getFrameNummer() {
-		return frameNummer;
+		return frameNumber;
 	}
 
 	public void setFrameNummer(int frameNummer) {
-		this.frameNummer = frameNummer;
+		this.frameNumber = frameNummer;
 	}
 
 	public PageTableEntry() {

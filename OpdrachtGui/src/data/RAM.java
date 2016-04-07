@@ -17,18 +17,22 @@ public class RAM {
 	
 	public void addProcess(Process process){
 		if(processInRAM.getSize()==maxInRAM){
-			
+			swapProcess(process);
 		}
 		else{
 			
 		}
 	}
 	
+	public void addFrame(Page page){
+		
+	}
+	
 	public void swapFrame(){
 		
 	}
 	
-	public void swapProcess(){
+	public void swapProcess(Process process){
 		
 	}
 	

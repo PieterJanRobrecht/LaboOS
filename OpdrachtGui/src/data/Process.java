@@ -2,14 +2,15 @@ package data;
 
 public class Process {
 	int pid; 
-	PageTable pagetable;
+	PageTable pageTable;
+	int lastAccesTime;
 	
 	public Process(){
 	}
 	
 	public Process(int pid,int grootteVirtueel){
 		this.pid=pid;
-		pagetable=new PageTable(grootteVirtueel);
+		pageTable=new PageTable(grootteVirtueel);
 	}
 
 	public int getPid() {
@@ -21,11 +22,19 @@ public class Process {
 	}
 
 	public PageTable getPagetable() {
-		return pagetable;
+		return pageTable;
 	}
 
 	public void setPagetable(PageTable pagetable) {
-		this.pagetable = pagetable;
+		this.pageTable = pagetable;
+	}
+
+	public int getLastAccesTime() {
+		return lastAccesTime;
+	}
+
+	public void setLastAccesTime(int lastAccesTime) {
+		this.lastAccesTime = lastAccesTime;
 	}
 	
 	
