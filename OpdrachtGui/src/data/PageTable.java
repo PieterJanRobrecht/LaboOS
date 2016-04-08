@@ -19,15 +19,15 @@ public class PageTable {
 		this.pageTable = pageTable;
 	}
 
-	public void findPage(long address) {
+	public PageTableEntry findPage(int pageNumber) {
 		int i=0;
 		boolean found=false;
+		PageTableEntry pageTableEntry=null;
 		while(!found){
-			PageTableEntry pageTableEntry=pageTable.get(i);
-			if(pageTableEntry.getFrameNumber()==adress/)
+			pageTableEntry=pageTable.get(i);
+			if(pageTableEntry.getFrameNumber()==pageNumber)found=true;
+			i++;
 		}
-		
-	}
-	
-	
+		return pageTableEntry;
+	}	
 }

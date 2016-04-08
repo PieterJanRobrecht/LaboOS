@@ -24,7 +24,7 @@ public class RAM {
 		}
 	}
 	
-	public void addFrame(Page page){
+	public void addFrame(){
 		
 	}
 	
