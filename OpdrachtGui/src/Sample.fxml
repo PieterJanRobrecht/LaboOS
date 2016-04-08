@@ -78,9 +78,9 @@
             </HBox>
             <TableView fx:id="ramTable">
               <columns>
-                <TableColumn prefWidth="112.0" text="Frame" />
-                <TableColumn prefWidth="125.0" text="Page" />
-                  <TableColumn prefWidth="137.0" text="Process ID" />
+                <TableColumn fx:id="ramFrame" prefWidth="112.0" text="Frame" />
+                <TableColumn fx:id="ramPage" prefWidth="125.0" text="Page" />
+                  <TableColumn fx:id="ramPid" prefWidth="137.0" text="Process ID" />
               </columns>
             </TableView>
             <HBox spacing="10.0">
@@ -101,9 +101,10 @@
             </HBox>
             <TableView fx:id="pageTable" layoutX="10.0" layoutY="31.0">
                <columns>
-                  <TableColumn prefWidth="112.0" text="Frame" />
-                  <TableColumn prefWidth="125.0" text="Page" />
-                  <TableColumn prefWidth="137.0" text="Process ID" />
+                  <TableColumn fx:id="pagePresent" prefWidth="94.0" text="Present Bit" />
+                  <TableColumn fx:id="pageModify" prefWidth="94.0" text="Modify Bit" />
+                  <TableColumn fx:id="pageLast" prefWidth="153.0" text="Last Access Time" />
+                  <TableColumn fx:id="pageFrame" prefWidth="83.0" text="Frame" />
                </columns>
             </TableView>
          </children>

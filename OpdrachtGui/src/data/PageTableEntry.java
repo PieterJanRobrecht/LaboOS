@@ -6,6 +6,14 @@ public class PageTableEntry {
 	private int lastAccessTime;
 	private int frameNumber;
 	
+	public PageTableEntry(boolean presentBit, boolean modifyBit, int lastAccessTime, int frameNumber) {
+		super();
+		this.presentBit = presentBit;
+		this.modifyBit = modifyBit;
+		this.lastAccessTime = lastAccessTime;
+		this.frameNumber = frameNumber;
+	}
+
 	public boolean isPresentBit() {
 		return presentBit;
 	}

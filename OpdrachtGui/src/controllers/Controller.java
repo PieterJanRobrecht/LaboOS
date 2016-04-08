@@ -9,13 +9,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import data.InstructionList;
+import data.PageTableEntry;
 import data.Verwerker;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 public class Controller implements Observer{
@@ -55,12 +60,33 @@ public class Controller implements Observer{
 
     @FXML
     private TableView<?> ramTable;
+    
+    @FXML
+    private TableColumn<?, String> ramFrame;
+
+    @FXML
+    private TableColumn<?, String> ramPage;
+
+    @FXML
+    private TableColumn<?, String> ramPid;
 
     @FXML
     private Text procesID;
 
     @FXML
-    private TableView<?> pageTable;
+    private TableView<PageTableEntry> pageTable;
+    
+    @FXML
+    private TableColumn<PageTableEntry, Boolean> pagePresent;
+
+    @FXML
+    private TableColumn<PageTableEntry, Boolean> pageModify;
+
+    @FXML
+    private TableColumn<PageTableEntry, Integer> pageLast;
+
+    @FXML
+    private TableColumn<PageTableEntry, Integer> pageFrame;
     
     private Verwerker verwerker;
     
@@ -159,9 +185,17 @@ public class Controller implements Observer{
 		
 	}
 	
+	ObservableList<PageTableEntry> data = FXCollections.observableArrayList(
+		    new PageTableEntry(true, false,1,15),
+		    new PageTableEntry(true, true,5,10)
+		);
+	
 	@FXML
 	public void initialize(){
 		//gebruikt voor de init van de view
+		pageModify.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
+		pageTable.getItems().setAll(this.data);
+//		pageTable.getColumns().addAll(pageModify,pagePresent,pageLast,pageFrame);
 	}
 	
 
