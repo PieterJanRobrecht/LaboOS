@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
@@ -23,9 +22,9 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Instructions 30 3" />
-                        <MenuItem mnemonicParsing="false" text="Instructions 20000 4" />
-                        <MenuItem mnemonicParsing="false" text="Instructions 20000 20" />
+                    <MenuItem fx:id="file1" mnemonicParsing="false" onAction="#file1Clicked" text="Instructions 30 3" />
+                        <MenuItem fx:id="file2" mnemonicParsing="false" onAction="#file2Clicked" text="Instructions 20000 4" />
+                        <MenuItem fx:id="file3" mnemonicParsing="false" onAction="#file3Clicked" text="Instructions 20000 20" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -47,11 +46,19 @@
       <VBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="eenStap" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#eenStapClicked" text="Een stap" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Volledig" />
+            <Button fx:id="volledig" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#volledigClicked" text="Volledig" />
             <Label text="Timer" />
-            <TextField editable="false" prefHeight="31.0" prefWidth="87.0" promptText="Timer" />
+            <TextField fx:id="timerField" editable="false" prefHeight="31.0" prefWidth="87.0" promptText="Timer" />
             <Label layoutX="10.0" layoutY="92.0" text="Instructie" />
-            <TextField editable="false" layoutX="10.0" layoutY="123.0" prefHeight="31.0" prefWidth="87.0" promptText="Instructie" />
+            <TextField fx:id="instructieField" editable="false" layoutX="10.0" layoutY="123.0" prefHeight="31.0" prefWidth="87.0" promptText="Instructie" />
+            <Label layoutX="10.0" layoutY="164.0" text="Virtueel adres" />
+            <TextField fx:id="virtueelAdres" editable="false" layoutX="10.0" layoutY="195.0" prefHeight="31.0" prefWidth="87.0" promptText="Virtueel" />
+            <Label layoutX="10.0" layoutY="236.0" text="Reëel adres" />
+            <TextField fx:id="reeelAdres" editable="false" layoutX="10.0" layoutY="267.0" prefHeight="31.0" prefWidth="87.0" promptText="Reëel" />
+            <Label layoutX="10.0" layoutY="308.0" text="Frame" />
+            <TextField fx:id="frame" editable="false" layoutX="10.0" layoutY="339.0" prefHeight="31.0" prefWidth="87.0" promptText="Frame" />
+            <Label layoutX="10.0" layoutY="380.0" text="Offset" />
+            <TextField fx:id="offset" editable="false" layoutX="10.0" layoutY="411.0" prefHeight="31.0" prefWidth="87.0" promptText="Offset" />
          </children>
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -69,7 +76,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
             </HBox>
-            <TableView>
+            <TableView fx:id="ramTable">
               <columns>
                 <TableColumn prefWidth="112.0" text="Frame" />
                 <TableColumn prefWidth="125.0" text="Page" />
@@ -83,7 +90,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="procesID" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -92,7 +99,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
             </HBox>
-            <TableView layoutX="10.0" layoutY="31.0">
+            <TableView fx:id="pageTable" layoutX="10.0" layoutY="31.0">
                <columns>
                   <TableColumn prefWidth="112.0" text="Frame" />
                   <TableColumn prefWidth="125.0" text="Page" />
