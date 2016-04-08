@@ -62,9 +62,11 @@ public class Verwerker extends Observable{
 	public void setInstructionList(InstructionList instructionList) {
 		this.instructionList = instructionList;
 	}
-
+	
+	//Dummy methode om te kijken of MVC werkt zoals het hoort
+	//Bij aanpassen van een waarde die belangrijk is voor de view moet je de twee laatste methodes oproepen
 	public void test() {
-		grootteRAM = 15;
+		grootteRAM = 12;
 		setChanged();
 		notifyObservers();
 	}

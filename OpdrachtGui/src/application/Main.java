@@ -38,7 +38,9 @@ public class Main extends Application {
 	  		
 	  		Verwerker verwerker=initVerwerker();
 	        
-	        controller.setVerwerker(verwerker);
+	  		//link tussen model en view
+	  		controller.setVerwerker(verwerker);
+	        verwerker.addObserver(controller);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

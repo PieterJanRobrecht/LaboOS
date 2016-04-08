@@ -158,5 +158,11 @@ public class Controller implements Observer{
 		timerField.setText(verwerker.getGrootteRAM()+"");
 		
 	}
+	
+	@FXML
+	public void initialize(){
+		//gebruikt voor de init van de view
+	}
+	
 
 }
