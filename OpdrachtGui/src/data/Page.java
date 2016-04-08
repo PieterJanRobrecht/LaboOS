@@ -3,6 +3,7 @@ package data;
 public class Page {
 	int pid;
 	int pageNumber;
+	int pageSize;
 	
 	public Page(){
 		

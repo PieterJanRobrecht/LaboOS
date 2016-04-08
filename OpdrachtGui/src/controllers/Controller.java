@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 import data.InstructionList;
 import data.PageTableEntry;
-import data.Verwerker;
+import data.Manager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -88,13 +88,13 @@ public class Controller implements Observer{
     @FXML
     private TableColumn<PageTableEntry, Integer> pageFrame;
     
-    private Verwerker verwerker;
+    private Manager verwerker;
     
-    public Verwerker getVerwerker() {
+    public Manager getVerwerker() {
 		return verwerker;
 	}
 
-	public void setVerwerker(Verwerker verwerker) {
+	public void setVerwerker(Manager verwerker) {
 		this.verwerker = verwerker;
 	}
     

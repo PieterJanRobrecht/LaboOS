@@ -18,6 +18,16 @@ public class PageTable {
 	public void setPageTable(List<PageTableEntry> pageTable) {
 		this.pageTable = pageTable;
 	}
+
+	public void findPage(long address) {
+		int i=0;
+		boolean found=false;
+		while(!found){
+			PageTableEntry pageTableEntry=pageTable.get(i);
+			if(pageTableEntry.getFrameNumber()==adress/)
+		}
+		
+	}
 	
 	
 }

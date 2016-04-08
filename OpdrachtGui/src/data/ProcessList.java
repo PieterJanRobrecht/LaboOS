@@ -3,29 +3,29 @@ package data;
 import java.util.*;
 
 public class ProcessList {
- List<Process>processenLijst=new ArrayList<Process>();
+ List<Process>processList=new ArrayList<Process>();
  
  	public ProcessList(){
  		
  	}
  	
  	public void addProcess(Process process){
- 		processenLijst.add(process);
+ 		processList.add(process.getPid(),process);
  	}
  	
  	public Process findProcess(int PID){
- 		boolean gevonden=false;
+ 		boolean found=false;
 		int i=0;
 		Process process=null;
-		while(!gevonden){
-			process=processenLijst.get(i);
-			if(process.pid==PID)gevonden=true;
+		while(!found){
+			process=processList.get(i);
+			if(process.pid==PID)found=true;
 			else i++;
 		}
 		return process;
  	}
  	
  	public int getSize(){
- 		return processenLijst.size();
+ 		return processList.size();
  	}
 }

@@ -2,22 +2,22 @@ package data;
 
 import java.util.Observable;
 
-public class Verwerker extends Observable{
-	private int grootteRAM;
-	private int groottePage;
-	private int grootteVirtueel;
+public class Manager extends Observable{
+	private int sizeRAM;
+	private int sizePage;
+	private int sizeVirtual;
 	private InstructionList instructionList;
 	private ProcessList processList;
 	private RAM ram;
 	
-	public Verwerker(){
+	public Manager(){
 		
 	}
 	
-	public Verwerker(int grootteRAM,int groottePage,int grootteVirtueel, int maxInRAM){
-		this.grootteRAM=grootteRAM;
-		this.groottePage=groottePage;
-		this.grootteVirtueel=grootteVirtueel;
+	public Manager(int grootteRAM,int groottePage,int grootteVirtueel, int maxInRAM){
+		this.sizeRAM=grootteRAM;
+		this.sizePage=groottePage;
+		this.sizeVirtual=grootteVirtueel;
 		ram=new RAM(grootteRAM,maxInRAM);
 	}
 	
@@ -34,14 +34,15 @@ public class Verwerker extends Observable{
 
 	
 	private void doStart(Instruction instructie,int klok) {
-		Process process =new Process(instructie.getPid(),grootteVirtueel);
+		Process process =new Process(instructie.getPid(),sizeVirtual);
 		process.setLastAccesTime(klok);
 		ram.addProcess(process);
 		processList.addProcess(process);
 	}
 
 	private void doRead(Instruction instructie,int klok) {
-		
+		Process process=processList.findProcess(instructie.getPid());
+		//process.pageTable.findPage(instructie.getAddress());
 		
 	}
 
@@ -66,33 +67,33 @@ public class Verwerker extends Observable{
 	//Dummy methode om te kijken of MVC werkt zoals het hoort
 	//Bij aanpassen van een waarde die belangrijk is voor de view moet je de twee laatste methodes oproepen
 	public void test() {
-		grootteRAM = 12;
+		sizeRAM = 12;
 		setChanged();
 		notifyObservers();
 	}
 
 	public int getGrootteRAM() {
-		return grootteRAM;
+		return sizeRAM;
 	}
 
 	public void setGrootteRAM(int grootteRAM) {
-		this.grootteRAM = grootteRAM;
+		this.sizeRAM = grootteRAM;
 	}
 
 	public int getGroottePage() {
-		return groottePage;
+		return sizePage;
 	}
 
 	public void setGroottePage(int groottePage) {
-		this.groottePage = groottePage;
+		this.sizePage = groottePage;
 	}
 
 	public int getGrootteVirtueel() {
-		return grootteVirtueel;
+		return sizeVirtual;
 	}
 
 	public void setGrootteVirtueel(int grootteVirtueel) {
-		this.grootteVirtueel = grootteVirtueel;
+		this.sizeVirtual = grootteVirtueel;
 	}
 
 	public ProcessList getProcessList() {

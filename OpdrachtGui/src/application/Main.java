@@ -9,7 +9,7 @@ import javax.xml.bind.Unmarshaller;
 
 import controllers.Controller;
 import data.InstructionList;
-import data.Verwerker;
+import data.Manager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -36,28 +36,28 @@ public class Main extends Application {
 	        Controller controller = loader.<Controller>getController() ;
 	        assert(controller != null);
 	  		
-	  		Verwerker verwerker=initVerwerker();
+	  		Manager manager=initManager();
 	        
 	  		//link tussen model en view
-	  		controller.setVerwerker(verwerker);
-	        verwerker.addObserver(controller);
+	  		controller.setVerwerker(manager);
+	        manager.addObserver(controller);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public Verwerker initVerwerker(){
+	public Manager initManager(){
 		//OPGELET OS houdt 1 PT bij per proces
   		//Deze waarden zijn de machten. Bij de frame grootte = 2^12 dus we houden 12 bij.
-  		int grootteFrame = 12;
+  		int sizeFrame = 12;
   		//in aantal frames
-  		int grootteRAM = 12;
+  		int sizeRAM = 12;
   		int maxInRAM=4;
   		//Een proces bestaat uit max 16 pages en er zijn dus ook 16 entries per PT
-  		int grootteVirtueel = 16;
+  		int sizeVirtual = 16;
   		int klok = 0;
   		
-  		Verwerker verwerker=new Verwerker(grootteRAM,grootteFrame,grootteVirtueel,maxInRAM);
+  		Manager verwerker=new Manager(sizeRAM,sizeFrame,sizeVirtual,maxInRAM);
   		//Controller c = new Controller(verwerker);
   		return verwerker;
 	}
