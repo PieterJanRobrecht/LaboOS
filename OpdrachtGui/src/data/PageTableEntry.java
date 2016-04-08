@@ -38,11 +38,11 @@ public class PageTableEntry {
 		this.lastAccessTime = lastAccessTime;
 	}
 
-	public int getFrameNummer() {
+	public int getFrameNumber() {
 		return frameNumber;
 	}
 
-	public void setFrameNummer(int frameNummer) {
+	public void setFrameNumber(int frameNummer) {
 		this.frameNumber = frameNummer;
 	}
 

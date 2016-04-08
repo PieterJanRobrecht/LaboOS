@@ -194,8 +194,10 @@ public class Controller implements Observer{
 	public void initialize(){
 		//gebruikt voor de init van de view
 		pageModify.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
+		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
+		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
+		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		pageTable.getItems().setAll(this.data);
-//		pageTable.getColumns().addAll(pageModify,pagePresent,pageLast,pageFrame);
 	}
 	
 
