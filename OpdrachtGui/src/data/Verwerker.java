@@ -1,6 +1,8 @@
 package data;
 
-public class Verwerker {
+import java.util.Observable;
+
+public class Verwerker extends Observable{
 	private int grootteRAM;
 	private int groottePage;
 	private int grootteVirtueel;
@@ -59,6 +61,52 @@ public class Verwerker {
 
 	public void setInstructionList(InstructionList instructionList) {
 		this.instructionList = instructionList;
+	}
+
+	public void test() {
+		grootteRAM = 15;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getGrootteRAM() {
+		return grootteRAM;
+	}
+
+	public void setGrootteRAM(int grootteRAM) {
+		this.grootteRAM = grootteRAM;
+	}
+
+	public int getGroottePage() {
+		return groottePage;
+	}
+
+	public void setGroottePage(int groottePage) {
+		this.groottePage = groottePage;
+	}
+
+	public int getGrootteVirtueel() {
+		return grootteVirtueel;
+	}
+
+	public void setGrootteVirtueel(int grootteVirtueel) {
+		this.grootteVirtueel = grootteVirtueel;
+	}
+
+	public ProcessList getProcessList() {
+		return processList;
+	}
+
+	public void setProcessList(ProcessList processList) {
+		this.processList = processList;
+	}
+
+	public RAM getRam() {
+		return ram;
+	}
+
+	public void setRam(RAM ram) {
+		this.ram = ram;
 	}
 	
 	

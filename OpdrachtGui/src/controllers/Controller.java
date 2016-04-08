@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,7 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class Controller {
+public class Controller implements Observer{
 
     @FXML
     private MenuItem file1;
@@ -62,16 +64,24 @@ public class Controller {
     
     private Verwerker verwerker;
     
-    public Controller(Verwerker verwerker){
-    	this.verwerker = verwerker;
-    }
+    public Verwerker getVerwerker() {
+		return verwerker;
+	}
+
+	public void setVerwerker(Verwerker verwerker) {
+		this.verwerker = verwerker;
+	}
     
     //Ik ga kijken om een goed MVC implementatie te maken zodanig dat het mogelijk is om alles mooi aan te passen als er iets
     //gebeurd zonder veel moeite te steken in al de rest
+    //Verwerker = model -> moet setChanged();notifyObservers(); gebruiken bij wijzigen data
+    //Controller = view -> moet update() implementeren
     
     @FXML
     void eenStapClicked(ActionEvent event) {
     	//TODO misschien wel handig om methode eenStap in verwerker te hebben
+    	//verwerker.stap();
+    	verwerker.test();
     }
     
     @FXML
@@ -94,7 +104,7 @@ public class Controller {
 			lijst = (InstructionList) jaxbUnmarshaller.unmarshal(file);
 
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
@@ -115,7 +125,7 @@ public class Controller {
 			lijst = (InstructionList) jaxbUnmarshaller.unmarshal(file);
 
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
@@ -136,11 +146,17 @@ public class Controller {
 			lijst = (InstructionList) jaxbUnmarshaller.unmarshal(file);
 
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
 		verwerker.setInstructionList(lijst);
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		timerField.setText(verwerker.getGrootteRAM()+"");
+		
+	}
 
 }
