@@ -19,7 +19,7 @@ public class PageTable {
 		this.pageTable = pageTable;
 	}
 
-	public PageTableEntry findPage(int pageNumber) {
+	public PageTableEntry findPage(double pageNumber) {
 		int i=0;
 		boolean found=false;
 		PageTableEntry pageTableEntry=null;

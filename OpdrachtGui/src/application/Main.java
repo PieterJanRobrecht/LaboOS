@@ -39,7 +39,7 @@ public class Main extends Application {
 	  		Manager manager=initManager();
 	        
 	  		//link tussen model en view
-	  		controller.setVerwerker(manager);
+	  		controller.setManager(manager);
 	        manager.addObserver(controller);
 		} catch (IOException e) {
 			e.printStackTrace();

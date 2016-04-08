@@ -42,7 +42,7 @@ public class Manager extends Observable{
 
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
-		//process.pageTable.findPage(instructie.getAddress());
+		process.pageTable.findPage(instructie.getAddress()/Math.pow(2,sizePage));
 		
 	}
 
@@ -72,45 +72,47 @@ public class Manager extends Observable{
 		notifyObservers();
 	}
 
-	public int getGrootteRAM() {
+	public int getSizeRAM() {
 		return sizeRAM;
 	}
 
-	public void setGrootteRAM(int grootteRAM) {
-		this.sizeRAM = grootteRAM;
-	}
-
-	public int getGroottePage() {
+	public int getSizePage() {
 		return sizePage;
 	}
 
-	public void setGroottePage(int groottePage) {
-		this.sizePage = groottePage;
-	}
-
-	public int getGrootteVirtueel() {
+	public int getSizeVirtual() {
 		return sizeVirtual;
-	}
-
-	public void setGrootteVirtueel(int grootteVirtueel) {
-		this.sizeVirtual = grootteVirtueel;
 	}
 
 	public ProcessList getProcessList() {
 		return processList;
 	}
 
-	public void setProcessList(ProcessList processList) {
-		this.processList = processList;
-	}
-
 	public RAM getRam() {
 		return ram;
+	}
+
+	public void setSizeRAM(int sizeRAM) {
+		this.sizeRAM = sizeRAM;
+	}
+
+	public void setSizePage(int sizePage) {
+		this.sizePage = sizePage;
+	}
+
+	public void setSizeVirtual(int sizeVirtual) {
+		this.sizeVirtual = sizeVirtual;
+	}
+
+	public void setProcessList(ProcessList processList) {
+		this.processList = processList;
 	}
 
 	public void setRam(RAM ram) {
 		this.ram = ram;
 	}
+
+	
 	
 	
 }

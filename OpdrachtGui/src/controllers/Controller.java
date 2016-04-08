@@ -88,14 +88,14 @@ public class Controller implements Observer{
     @FXML
     private TableColumn<PageTableEntry, Integer> pageFrame;
     
-    private Manager verwerker;
+    private Manager manager;
     
-    public Manager getVerwerker() {
-		return verwerker;
+    public Manager getManager() {
+		return manager;
 	}
 
-	public void setVerwerker(Manager verwerker) {
-		this.verwerker = verwerker;
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
     
     //Ik ga kijken om een goed MVC implementatie te maken zodanig dat het mogelijk is om alles mooi aan te passen als er iets
@@ -107,7 +107,7 @@ public class Controller implements Observer{
     void eenStapClicked(ActionEvent event) {
     	//TODO misschien wel handig om methode eenStap in verwerker te hebben
     	//verwerker.stap();
-    	verwerker.test();
+    	manager.test();
     }
     
     @FXML
@@ -134,7 +134,7 @@ public class Controller implements Observer{
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
-		verwerker.setInstructionList(lijst);
+		manager.setInstructionList(lijst);
     }
 
     @FXML
@@ -155,7 +155,7 @@ public class Controller implements Observer{
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
-		verwerker.setInstructionList(lijst);
+		manager.setInstructionList(lijst);
     }
 
     @FXML
@@ -176,12 +176,12 @@ public class Controller implements Observer{
 			e.printStackTrace();
 		}
 		System.out.println(lijst);
-		verwerker.setInstructionList(lijst);
+		manager.setInstructionList(lijst);
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		timerField.setText(verwerker.getGrootteRAM()+"");
+		timerField.setText(manager.getSizeRAM()+"");
 		
 	}
 	
