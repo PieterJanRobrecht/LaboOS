@@ -42,7 +42,7 @@ public class Manager extends Observable{
 
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
-		process.pageTable.findPage(instructie.getAddress()/Math.pow(2,sizePage));
+		process.pageTable.findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		
 	}
 
