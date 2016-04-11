@@ -107,9 +107,7 @@ public class Controller implements Observer{
     
     @FXML
     void eenStapClicked(ActionEvent event) {
-    	//TODO misschien wel handig om methode eenStap in verwerker te hebben
-    	//verwerker.stap();
-    	manager.test();
+    	manager.doNextInstruction();
     }
     
     @FXML
@@ -183,8 +181,7 @@ public class Controller implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//int klok = manager.getKlok();
-		int klok = 0;
+		int klok = manager.getKlok();
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
 		long virtAdress = instruction.getAddress();

@@ -23,7 +23,7 @@ public class Manager extends Observable{
 		ram=new RAM(grootteRAM,maxInRAM);
 	}
 	
-	public void doNextInstruction(ProcessList processlist){
+	public void doNextInstruction(){
 		Instruction instructie =instructionList.get(klok);
 		switch(instructie.getOperation()){
 			case "Start":doStart(instructie,klok);break;
@@ -123,6 +123,14 @@ public class Manager extends Observable{
 			}
 		}
 		return process;
+	}
+
+	public int getKlok() {
+		return klok;
+	}
+
+	public void setKlok(int klok) {
+		this.klok = klok;
 	}
 	
 	
