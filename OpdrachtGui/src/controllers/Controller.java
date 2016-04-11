@@ -113,8 +113,6 @@ public class Controller implements Observer{
     
     @FXML
     void volledigClicked(ActionEvent event) {
-    	//TODO misschien handig om dan methode alles doorlopen te hebben
-    	//verwerker.volledig();
     	manager.doAllInstructions();
     }
 
