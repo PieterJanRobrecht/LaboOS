@@ -6,6 +6,7 @@ public class Manager extends Observable{
 	private int sizeRAM;
 	private int sizePage;
 	private int sizeVirtual;
+	private int klok;
 	private InstructionList instructionList;
 	private ProcessList processList;
 	private RAM ram;
@@ -15,13 +16,14 @@ public class Manager extends Observable{
 	}
 	
 	public Manager(int grootteRAM,int groottePage,int grootteVirtueel, int maxInRAM){
+		this.klok=0;
 		this.sizeRAM=grootteRAM;
 		this.sizePage=groottePage;
 		this.sizeVirtual=grootteVirtueel;
 		ram=new RAM(grootteRAM,maxInRAM);
 	}
 	
-	public void doNextInstruction(int klok, ProcessList processlist){
+	public void doNextInstruction(ProcessList processlist){
 		Instruction instructie =instructionList.get(klok);
 		switch(instructie.getOperation()){
 			case "Start":doStart(instructie,klok);break;

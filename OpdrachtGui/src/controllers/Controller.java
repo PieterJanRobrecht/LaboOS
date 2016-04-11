@@ -197,8 +197,21 @@ public class Controller implements Observer{
 		reeelAdres.setText(frame*Math.pow(2, manager.getSizePage())+"");
 		this.frame.setText(frame+"");
 		offset.setText(virtAdress%Math.pow(2, pageSize)+"");
+		
+		updateRAMTable();
+		updatePageTable();
 	}
 	
+	private void updatePageTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateRAMTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private int convertVirtToReeel(Manager manager,int klok) {
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
