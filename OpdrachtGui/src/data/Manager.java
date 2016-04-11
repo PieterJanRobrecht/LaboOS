@@ -23,7 +23,7 @@ public class Manager extends Observable{
 		ram=new RAM(grootteRAM,maxInRAM);
 	}
 	
-	public void doNextInstruction(){
+	public void doNextInstruction(boolean single){
 		Instruction instructie =instructionList.get(klok);
 		switch(instructie.getOperation()){
 			case "Start":doStart(instructie,klok);break;
@@ -31,6 +31,12 @@ public class Manager extends Observable{
 			case "Wirte":doWrite(instructie,klok);break;
 			case "Terminate":doTerminate(instructie,klok);break;
 			default:System.out.println("Geen geldige instructie");break;
+		}
+		
+		boolean singleInstruction = single;
+		if(singleInstruction ){
+		setChanged();
+		notifyObservers();
 		}
 	}
 
@@ -131,6 +137,11 @@ public class Manager extends Observable{
 
 	public void setKlok(int klok) {
 		this.klok = klok;
+	}
+
+	public void doAllInstructions() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
