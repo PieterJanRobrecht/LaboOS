@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,6 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import data.Instruction;
 import data.InstructionList;
 import data.PageTableEntry;
 import data.Manager;
@@ -181,10 +183,36 @@ public class Controller implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		timerField.setText(manager.getSizeRAM()+"");
+		//int klok = manager.getKlok();
+		int klok = 0;
+		InstructionList lijst = manager.getInstructionList();
+		Instruction instruction = lijst.get(klok);
+		long virtAdress = instruction.getAddress();
+		long pageSize = manager.getSizePage();
+		int frame = convertVirtToReeel(manager,klok);
 		
+		timerField.setText(klok+"");
+		instructieField.setText(instruction.getOperation());
+		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
+		reeelAdres.setText(frame*Math.pow(2, manager.getSizePage())+"");
+		this.frame.setText(frame+"");
+		offset.setText(virtAdress%Math.pow(2, pageSize)+"");
 	}
 	
+	private int convertVirtToReeel(Manager manager,int klok) {
+		InstructionList lijst = manager.getInstructionList();
+		Instruction instruction = lijst.get(klok);
+		
+		long virtAdress = instruction.getAddress();
+		long pageSize = manager.getSizePage();
+		double pageEntry = virtAdress/Math.pow(2, pageSize);
+		int pid = instruction.getPid();
+		data.Process process = manager.getProcess(pid);
+		PageTableEntry pageTableEntry = process.getPagetable().get(pageEntry);
+		int frame = pageTableEntry.getFrameNumber();
+		return frame;
+	}
+
 	ObservableList<PageTableEntry> data = FXCollections.observableArrayList(
 		    new PageTableEntry(true, false,1,15),
 		    new PageTableEntry(true, true,5,10)

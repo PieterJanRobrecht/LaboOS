@@ -28,4 +28,8 @@ public class ProcessList {
  	public int getSize(){
  		return processList.size();
  	}
+
+	public Process get(int i) {
+		return processList.get(i);
+	}
 }

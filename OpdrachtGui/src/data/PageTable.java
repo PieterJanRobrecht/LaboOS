@@ -29,5 +29,10 @@ public class PageTable {
 			i++;
 		}
 		return pageTableEntry;
-	}	
+	}
+	
+	public PageTableEntry get(double d){
+		int i = (int) d;
+		return pageTable.get(i);
+	}
 }

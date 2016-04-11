@@ -112,7 +112,16 @@ public class Manager extends Observable{
 		this.ram = ram;
 	}
 
-	
+	public Process getProcess(int pid){
+		Process process = null;
+		for(int i = 0;i<processList.getSize();i++){
+			Process p = processList.get(i);
+			if(p.getPid()==pid){
+				process = p;
+			}
+		}
+		return process;
+	}
 	
 	
 }
