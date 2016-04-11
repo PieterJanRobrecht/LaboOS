@@ -41,11 +41,33 @@ public class Main extends Application {
 	  		//link tussen model en view
 	  		controller.setManager(manager);
 	        manager.addObserver(controller);
+	        setFirstFile(manager);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void setFirstFile(Manager manager) {
+		File file = new File("Instructions_30_3.xml");
+
+		JAXBContext jaxbContext;
+		InstructionList lijst = null;
+		try {
+			jaxbContext = JAXBContext.newInstance(InstructionList.class);
+			
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+			lijst = (InstructionList) jaxbUnmarshaller.unmarshal(file);
+
+		} catch (JAXBException e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println(lijst);
+		manager.setInstructionList(lijst);
+		
+	}
+
 	public Manager initManager(){
 		//OPGELET OS houdt 1 PT bij per proces
   		//Deze waarden zijn de machten. Bij de frame grootte = 2^12 dus we houden 12 bij.
