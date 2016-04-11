@@ -191,9 +191,10 @@ public class Controller implements Observer{
 		timerField.setText(klok+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
-		reeelAdres.setText(frame*Math.pow(2, manager.getSizePage())+"");
+		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()));
+		reeelAdres.setText(reeel+"");
 		this.frame.setText(frame+"");
-		offset.setText(virtAdress%Math.pow(2, pageSize)+"");
+		offset.setText((int) (virtAdress%Math.pow(2, pageSize))+"");
 		procesID.setText(instruction.getPid()+"");
 		
 		updateRAMTable();
