@@ -13,6 +13,7 @@ import data.Instruction;
 import data.InstructionList;
 import data.PageTableEntry;
 import data.Manager;
+import data.PageTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,16 +62,16 @@ public class Controller implements Observer{
     private TextField offset;
 
     @FXML
-    private TableView<?> ramTable;
+    private TableView<Process> ramTable;
     
     @FXML
-    private TableColumn<?, String> ramFrame;
+    private TableColumn<Process, Integer> ramFrame;
 
     @FXML
-    private TableColumn<?, String> ramPage;
+    private TableColumn<Process, Integer> ramPage;
 
     @FXML
-    private TableColumn<?, String> ramPid;
+    private TableColumn<Process, Integer> ramPid;
 
     @FXML
     private Text procesID;
@@ -107,13 +108,12 @@ public class Controller implements Observer{
     
     @FXML
     void eenStapClicked(ActionEvent event) {
-    	manager.doNextInstruction();
+    	manager.doNextInstruction(true);
     }
     
     @FXML
     void volledigClicked(ActionEvent event) {
-    	//TODO misschien handig om dan methode alles doorlopen te hebben
-    	//verwerker.volledig();
+    	manager.doAllInstructions();
     }
 
     @FXML
@@ -194,14 +194,23 @@ public class Controller implements Observer{
 		reeelAdres.setText(frame*Math.pow(2, manager.getSizePage())+"");
 		this.frame.setText(frame+"");
 		offset.setText(virtAdress%Math.pow(2, pageSize)+"");
+		procesID.setText(instruction.getPid()+"");
 		
 		updateRAMTable();
 		updatePageTable();
 	}
 	
 	private void updatePageTable() {
-		// TODO Auto-generated method stub
+		int klok = manager.getKlok();
+		InstructionList lijst = manager.getInstructionList();
+		Instruction instruction = lijst.get(klok);
 		
+		int pid = instruction.getPid();
+		data.Process process = manager.getProcess(pid);
+		PageTable pageTable = process.getPagetable();
+		List<PageTableEntry> pageTableEntries = pageTable.getPageTable();
+		PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
+		this.pageTable.getItems().setAll(array);
 	}
 
 	private void updateRAMTable() {
@@ -235,7 +244,11 @@ public class Controller implements Observer{
 		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
 		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
-		pageTable.getItems().setAll(this.data);
+		
+		//TODO goed mappen
+		ramFrame.setCellValueFactory(new PropertyValueFactory<Process,Integer>("frameNumber"));
+		ramPage.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pageNumber"));
+		ramPid.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pid"));
 	}
 	
 

@@ -9,6 +9,9 @@ public class RAM {
 	private Process[] frameList;
 	private ProcessList processInRAM=new ProcessList();
 	
+	//TODO toevoegen in framelist:
+		//welk pagenummer er momenteel in het frame zit
+	
 	public RAM(int grootteRAM, int maxInRAM){
 		this.grootteRAM=grootteRAM;
 		this.maxInRAM=maxInRAM;
