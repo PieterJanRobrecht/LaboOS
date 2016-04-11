@@ -20,6 +20,7 @@ public class Manager extends Observable{
 		this.sizeRAM=grootteRAM;
 		this.sizePage=groottePage;
 		this.sizeVirtual=grootteVirtueel;
+		processList = new ProcessList();
 		ram=new RAM(grootteRAM,maxInRAM);
 	}
 	

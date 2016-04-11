@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageTable {
@@ -9,6 +10,11 @@ public class PageTable {
 
 	public PageTable(int grootte) {
 		this.grootte=grootte;
+		pageTable = new ArrayList<PageTableEntry>();
+		for(int i = 0;i<grootte;i++){
+			PageTableEntry pte = new PageTableEntry();
+			pageTable.add(pte);
+		}
 	}
 
 	public List<PageTableEntry> getPageTable() {
