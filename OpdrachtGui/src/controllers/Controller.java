@@ -62,16 +62,16 @@ public class Controller implements Observer{
     private TextField offset;
 
     @FXML
-    private TableView<?> ramTable;
+    private TableView<Process> ramTable;
     
     @FXML
-    private TableColumn<?, String> ramFrame;
+    private TableColumn<Process, Integer> ramFrame;
 
     @FXML
-    private TableColumn<?, String> ramPage;
+    private TableColumn<Process, Integer> ramPage;
 
     @FXML
-    private TableColumn<?, String> ramPid;
+    private TableColumn<Process, Integer> ramPid;
 
     @FXML
     private Text procesID;
@@ -247,6 +247,10 @@ public class Controller implements Observer{
 		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		
+		//TODO goed mappen
+		ramFrame.setCellValueFactory(new PropertyValueFactory<Process,Integer>("frameNumber"));
+		ramPage.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pageNumber"));
+		ramPid.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pid"));
 	}
 	
 
