@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <top>
@@ -68,7 +67,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox>
                <children>
                   <Label text="RAM" />
                </children>
@@ -90,7 +89,11 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <Text fx:id="procesID" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Label fx:id="procesID" layoutX="10.0" layoutY="10.0" text="PID">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -101,6 +104,7 @@
             </HBox>
             <TableView fx:id="pageTable" layoutX="10.0" layoutY="31.0">
                <columns>
+                  <TableColumn fx:id="pageNumber" prefWidth="94.0" text="Page" />
                   <TableColumn fx:id="pagePresent" prefWidth="94.0" text="Present Bit" />
                   <TableColumn fx:id="pageModify" prefWidth="94.0" text="Modify Bit" />
                   <TableColumn fx:id="pageLast" prefWidth="153.0" text="Last Access Time" />
@@ -111,10 +115,13 @@
       </VBox>
    </center>
    <bottom>
-      <Label text="© Copyright Piet Vanhaute &amp; Pieter-Jan Robrecht" BorderPane.alignment="TOP_RIGHT">
+      <HBox BorderPane.alignment="TOP_LEFT">
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </BorderPane.margin>
-      </Label>
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="© Copyright Piet Vanhaute &amp; Pieter-Jan Robrecht" />
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>
