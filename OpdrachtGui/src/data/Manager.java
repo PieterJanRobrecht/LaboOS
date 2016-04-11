@@ -32,6 +32,7 @@ public class Manager extends Observable{
 			case "Terminate":doTerminate(instructie,klok);break;
 			default:System.out.println("Geen geldige instructie");break;
 		}
+		klok++;
 	}
 
 	
