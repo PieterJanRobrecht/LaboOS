@@ -5,6 +5,14 @@ public class PageTableEntry {
 	private boolean modifyBit;
 	private int lastAccessTime;
 	private int frameNumber;
+	private int pageNumber;
+	
+	public PageTableEntry(){
+		presentBit = false;
+		modifyBit = false;
+		lastAccessTime = 0;
+		frameNumber = 0;
+	}
 	
 	public PageTableEntry(boolean presentBit, boolean modifyBit, int lastAccessTime, int frameNumber) {
 		super();
@@ -46,8 +54,12 @@ public class PageTableEntry {
 		this.frameNumber = frameNummer;
 	}
 
-	public PageTableEntry() {
-		super();
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	
 	

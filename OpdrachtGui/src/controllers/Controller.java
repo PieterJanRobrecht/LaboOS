@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -74,10 +75,13 @@ public class Controller implements Observer{
     private TableColumn<Process, Integer> ramPid;
 
     @FXML
-    private Text procesID;
+    private Label procesID;
 
     @FXML
     private TableView<PageTableEntry> pageTable;
+    
+    @FXML
+    private TableColumn<PageTableEntry, Integer> pageNumber;
     
     @FXML
     private TableColumn<PageTableEntry, Boolean> pagePresent;
@@ -191,9 +195,10 @@ public class Controller implements Observer{
 		timerField.setText(klok+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
-		reeelAdres.setText(frame*Math.pow(2, manager.getSizePage())+"");
+		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()));
+		reeelAdres.setText(reeel+"");
 		this.frame.setText(frame+"");
-		offset.setText(virtAdress%Math.pow(2, pageSize)+"");
+		offset.setText((int) (virtAdress%Math.pow(2, pageSize))+"");
 		procesID.setText(instruction.getPid()+"");
 		
 		updateRAMTable();
@@ -201,6 +206,7 @@ public class Controller implements Observer{
 	}
 	
 	private void updatePageTable() {
+		//TODO pagenummer toevoegen
 		int klok = manager.getKlok();
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
@@ -240,6 +246,7 @@ public class Controller implements Observer{
 	@FXML
 	public void initialize(){
 		//gebruikt voor de init van de view
+		pageNumber.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
 		pageModify.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
 		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
 		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
