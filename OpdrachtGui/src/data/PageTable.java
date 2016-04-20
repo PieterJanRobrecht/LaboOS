@@ -31,6 +31,11 @@ public class PageTable {
 		return pageTableEntry;
 	}
 	
+	public PageTableEntry findLeastRecentlyUsed(){
+		return null;
+		
+	}
+	
 	public PageTableEntry get(double d){
 		int i = (int) d;
 		return pageTable.get(i);
