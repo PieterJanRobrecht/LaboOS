@@ -74,6 +74,9 @@ public class Controller implements Observer{
 
     @FXML
     private TableColumn<PageTableEntry, Integer> ramPid;
+    
+    @FXML
+    private TableColumn<PageTableEntry, Integer> ramPageLast;
 
     @FXML
     private Label procesID;
@@ -264,6 +267,7 @@ public class Controller implements Observer{
 		
 		ramFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
+		ramPageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		ramPid.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pid"));
 	}
 	
