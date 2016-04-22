@@ -1,9 +1,9 @@
 package data;
 
 public class Process {
-	int pid; 
-	PageTable pageTable;
-	int lastAccesTime;
+	private int pid; 
+	private PageTable pageTable;
+	private int lastAccesTime;
 	
 	public Process(){
 	}

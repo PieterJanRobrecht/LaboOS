@@ -19,7 +19,7 @@ public class ProcessList {
 		Process process=null;
 		while(!found){
 			process=processList.get(i);
-			if(process.pid==PID)found=true;
+			if(process.getPid()==PID)found=true;
 			else i++;
 		}
 		return process;
