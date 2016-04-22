@@ -154,8 +154,11 @@ public class Manager extends Observable{
 	}
 
 	public void doAllInstructions() {
-		// TODO Auto-generated method stub
-		
+		for(int i=0;i<instructionList.getSize()-1;i++){
+			doNextInstruction(false);
+		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	
