@@ -70,6 +70,11 @@ public class PageTableEntry {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
+
+	@Override
+	public String toString() {
+		return "PageTableEntry [pid=" + pid + ", frameNumber=" + frameNumber + ", pageNumber=" + pageNumber + "]";
+	}
 	
 	
 }

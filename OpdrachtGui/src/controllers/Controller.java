@@ -138,7 +138,7 @@ public class Controller implements Observer{
 			
 			e.printStackTrace();
 		}
-		System.out.println(lijst);
+//		System.out.println(lijst);
 		manager.setInstructionList(lijst);
     }
 
@@ -159,7 +159,7 @@ public class Controller implements Observer{
 			
 			e.printStackTrace();
 		}
-		System.out.println(lijst);
+//		System.out.println(lijst);
 		manager.setInstructionList(lijst);
     }
 
@@ -180,7 +180,7 @@ public class Controller implements Observer{
 			
 			e.printStackTrace();
 		}
-		System.out.println(lijst);
+//		System.out.println(lijst);
 		manager.setInstructionList(lijst);
     }
 
@@ -230,12 +230,20 @@ public class Controller implements Observer{
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
 		
+		System.out.println(instruction);
+		
 		long virtAdress = instruction.getAddress();
 		long pageSize = manager.getSizePage();
 		double pageEntry = virtAdress/Math.pow(2, pageSize);
+		
+		System.out.println(pageEntry);
+		
 		int pid = instruction.getPid();
 		data.Process process = manager.getProcess(pid);
-		PageTableEntry pageTableEntry = process.getPagetable().get(pageEntry);
+		PageTableEntry pageTableEntry = process.getPagetable().get(new Double(pageEntry).intValue());
+		
+		System.out.println(pageTableEntry);
+		
 		int frame = pageTableEntry.getFrameNumber();
 		return frame;
 	}

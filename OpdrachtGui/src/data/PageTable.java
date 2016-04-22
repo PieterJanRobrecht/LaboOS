@@ -31,7 +31,7 @@ public class PageTable {
 		int i=0;
 		boolean found=false;
 		PageTableEntry pageTableEntry=null;
-		while(!found){
+		while(!found&&i<pageTable.size()){
 			pageTableEntry=pageTable.get(i);
 			if(pageTableEntry.getFrameNumber()==pageNumber)found=true;
 			i++;
