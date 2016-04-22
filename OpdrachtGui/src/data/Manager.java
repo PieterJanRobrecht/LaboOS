@@ -25,12 +25,11 @@ public class Manager extends Observable{
 	
 	public void doNextInstruction(boolean single){
 		Instruction instructie =instructionList.get(klok);
-		Process process =new Process(instructie.getPid(),sizeVirtual);
 		switch(instructie.getOperation()){
-			case "Start":doStart(instructie,klok,process);break;
-			case "Read":doRead(instructie,klok,process);break;
-			case "Write":doWrite(instructie,klok,process);break;
-			case "Terminate":doTerminate(instructie,klok,process);break;
+			case "Start":doStart(instructie,klok);break;
+			case "Read":doRead(instructie,klok);break;
+			case "Write":doWrite(instructie,klok);break;
+			case "Terminate":doTerminate(instructie,klok);break;
 			default:System.out.println("Geen geldige instructie");break;
 		}
 		
@@ -43,13 +42,15 @@ public class Manager extends Observable{
 	}
 
 	
-	private void doStart(Instruction instructie,int klok, Process process) {
+	private void doStart(Instruction instructie,int klok) {
+		Process process =new Process(instructie.getPid(),sizeVirtual);
 		process.setLastAccesTime(klok);
 		ram.addProcess(process);
 		processList.addProcess(process);
 	}
 
-	private void doRead(Instruction instructie,int klok, Process process) {
+	private void doRead(Instruction instructie,int klok) {
+		Process process=getProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);
@@ -65,7 +66,8 @@ public class Manager extends Observable{
 		process.setLastAccesTime(klok);
 	}
 
-	private void doWrite(Instruction instructie,int klok, Process process) {
+	private void doWrite(Instruction instructie,int klok) {
+		Process process=getProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);
@@ -82,8 +84,10 @@ public class Manager extends Observable{
 		
 	}
 
-	private void doTerminate(Instruction instructie,int klok, Process process) {
-		// TODO Auto-generated method stub
+	private void doTerminate(Instruction instructie,int klok) {
+		Process process=getProcess(instructie.getPid());
+		ram.deleteProcess(process);
+		processList.deleteProcess(process);
 		
 	}
 

@@ -25,6 +25,10 @@ public class ProcessList {
 		return process;
  	}
  	
+ 	public void deleteProcess(Process process){
+ 		processList.remove(process);
+ 	}
+ 	
  	public int getSize(){
  		return processList.size();
  	}

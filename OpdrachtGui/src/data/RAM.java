@@ -40,27 +40,41 @@ public class RAM {
 				case'3':framesToGivePerProcess=1;break;
 				default:System.out.println("ERRRRRR");
 			}
-			for(Process p:processInRAM.processList){
+			if(processInRAM.getSize()==0){
 				for(int i=0;i<framesToGivePerProcess;i++){
-					
+					process.getFramesFreeAllocated().add(i);
 				}
 			}
+			else{
+				for(Process p:processInRAM.processList){
+					for(int i=0;i<framesToGivePerProcess;i++){
+						process.getFramesFreeAllocated().add(p.giveFrameNumberToFill(false));
+					}
+				}
+			}
+			processInRAM.processList.add(process);
 		}
 	}
 	
 	public void addFrame(Process process, PageTableEntry pte){
-		int frameNumber=process.giveFrameNumberToFill();
+		int frameNumber=process.giveFrameNumberToFill(true);
 		pte.setPresentBit(true);
 		frameList[frameNumber]=pte;
 	}
 	
 	public void swapProcess(Process process){
+		int timer=Integer.MAX_VALUE;
+		Process oudst=null;
 		for(Process p:processInRAM.processList){
-			
+			if(p.getLastAccesTime()<timer){
+				timer=p.getLastAccesTime();
+				oudst=p;
+			}
 		}
+		deleteProcess(process);
 	}
 	
-	public void deleteProcess(){
+	public void deleteProcess(Process process){
 		
 	}
 	

@@ -47,14 +47,23 @@ public class Process {
 		this.pageTable = pageTable;
 	}
 	
-	public int giveFrameNumberToFill(){
+	
+	
+	public int giveFrameNumberToFill(boolean eigen){
 		if(framesFreeAllocated.isEmpty()){
-			return deleteFrameFromRam();
+			return deleteFrameFromRam(eigen);
 		}
-		else return framesFreeAllocated.get(0);
+		else{
+			int number=framesFreeAllocated.get(0);
+			framesFreeAllocated.remove(0);
+			if(eigen){
+				framesTakenAllocated.add(number);
+			}	
+			return number;
+		}
 	}
 	
-	public int deleteFrameFromRam(){
+	public int deleteFrameFromRam(boolean eigen){
 		int LRU=Integer.MAX_VALUE;
 		int number=-1;
 		int index=-1;
@@ -71,8 +80,26 @@ public class Process {
 		}
 		pte.setPresentBit(false);
 		pte.setRamToPersistent(pte.getRamToPersistent()+1);
-		framesTakenAllocated.remove(index);
+		if(!eigen){
+			framesTakenAllocated.remove(index);
+		}
 		return number;
+	}
+
+	public List<Integer> getFramesFreeAllocated() {
+		return framesFreeAllocated;
+	}
+
+	public List<Integer> getFramesTakenAllocated() {
+		return framesTakenAllocated;
+	}
+
+	public void setFramesFreeAllocated(List<Integer> framesFreeAllocated) {
+		this.framesFreeAllocated = framesFreeAllocated;
+	}
+
+	public void setFramesTakenAllocated(List<Integer> framesTakenAllocated) {
+		this.framesTakenAllocated = framesTakenAllocated;
 	}
 	
 	
