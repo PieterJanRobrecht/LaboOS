@@ -50,7 +50,7 @@ public class Manager extends Observable{
 	}
 
 	private void doRead(Instruction instructie,int klok) {
-		Process process=getProcess(instructie.getPid());
+		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);
@@ -67,7 +67,7 @@ public class Manager extends Observable{
 	}
 
 	private void doWrite(Instruction instructie,int klok) {
-		Process process=getProcess(instructie.getPid());
+		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);
@@ -85,7 +85,7 @@ public class Manager extends Observable{
 	}
 
 	private void doTerminate(Instruction instructie,int klok) {
-		Process process=getProcess(instructie.getPid());
+		Process process=processList.findProcess(instructie.getPid());
 		ram.deleteProcess(process);
 		processList.deleteProcess(process);
 		
@@ -145,17 +145,6 @@ public class Manager extends Observable{
 
 	public void setRam(RAM ram) {
 		this.ram = ram;
-	}
-
-	public Process getProcess(int pid){
-		Process process = null;
-		for(int i = 0;i<processList.getSize();i++){
-			Process p = processList.get(i);
-			if(p.getPid()==pid){
-				process = p;
-			}
-		}
-		return process;
 	}
 
 	public int getKlok() {
