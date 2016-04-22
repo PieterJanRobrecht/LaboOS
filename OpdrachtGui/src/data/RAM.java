@@ -71,11 +71,18 @@ public class RAM {
 				oudst=p;
 			}
 		}
+		
 		deleteProcess(process);
 	}
 	
 	public void deleteProcess(Process process){
-		
+		process.getFramesFreeAllocated().clear();
+		process.getFramesTakenAllocated().clear();
+		for(PageTableEntry pte: process.getPageTable().getPageTable()){
+			pte.setRamToPersistent(pte.getPersistentToRam()+1);
+			pte.setModifyBit(false);
+			pte.setPresentBit(false);
+		}
 	}
 	
 	public boolean inRAM(Process process){
