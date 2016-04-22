@@ -28,7 +28,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem fx:id="aboutKnop" mnemonicParsing="false" onAction="#displayPdf" text="About" />
+                    <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
               </menus>
