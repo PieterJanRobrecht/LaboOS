@@ -57,13 +57,16 @@ public class Process {
 	public int deleteFrameFromRam(){
 		int LRU=Integer.MAX_VALUE;
 		int number=-1;
+		int index=-1;
 		PageTableEntry pte=null;
-		for(Integer i:framesTakenAllocated){
+		for(int i=0;i<framesTakenAllocated.size();i++){
 			PageTableEntry help=pageTable.findPageTableEntry(i);
 			if(help.getLastAccessTime()<LRU){
 				pte=help;
 				LRU=help.getLastAccessTime();
-				number=i;
+				number=framesTakenAllocated.get(i);
+				index=i;
+				
 			}
 		}
 		pte.setPresentBit(false);
