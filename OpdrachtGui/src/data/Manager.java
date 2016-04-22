@@ -44,9 +44,9 @@ public class Manager extends Observable{
 	
 	private void doStart(Instruction instructie,int klok) {
 		Process process =new Process(instructie.getPid(),sizeVirtual);
-		process.setLastAccesTime(klok);
 		ram.addProcess(process);
 		processList.addProcess(process);
+		process.setLastAccesTime(klok);
 	}
 
 	private void doRead(Instruction instructie,int klok) {
