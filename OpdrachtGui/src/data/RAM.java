@@ -62,6 +62,7 @@ public class RAM {
 		pte.setPresentBit(true);
 		pte.setFrameNumber(frameNumber);
 		frameList[frameNumber]=pte;
+		pte.setPersistentToRam(pte.getPersistentToRam()+1);
 	}
 	
 	public void swapProcess(Process process){
