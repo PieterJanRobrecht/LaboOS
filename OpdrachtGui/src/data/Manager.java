@@ -60,7 +60,7 @@ public class Manager extends Observable{
 			process.setLastAccesTime(klok);
 		}
 		else{
-			ram.addFrame(pte);
+			ram.addFrame(process,pte);
 			pte.setLastAccessTime(klok);
 		}
 		process.setLastAccesTime(klok);

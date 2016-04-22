@@ -38,8 +38,9 @@ public class RAM {
 		}
 	}
 	
-	public void addFrame(PageTableEntry pte){
-		
+	public void addFrame(Process process, PageTableEntry pte){
+		int frameNumber=process.giveFrameNumberToFill();
+		frameList[frameNumber]=pte;
 	}
 	
 	public void deleteFrame(PageTableEntry pte){

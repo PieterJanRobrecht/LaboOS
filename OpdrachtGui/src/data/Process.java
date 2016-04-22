@@ -1,12 +1,14 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Process {
 	private int pid; 
 	private PageTable pageTable;
 	private int lastAccesTime;
-	
-	public Process(){
-	}
+	private List<Integer>framesFreeAllocated=new ArrayList<Integer>();
+	private List<Integer>framesTakenAllocated=new ArrayList<Integer>();
 	
 	public Process(int pid,int grootteVirtueel){
 		this.pid=pid;
@@ -35,6 +37,19 @@ public class Process {
 
 	public void setLastAccesTime(int lastAccesTime) {
 		this.lastAccesTime = lastAccesTime;
+	}
+
+	public PageTable getPageTable() {
+		return pageTable;
+	}
+
+	public void setPageTable(PageTable pageTable) {
+		this.pageTable = pageTable;
+	}
+	
+	public int giveFrameNumberToFill(){
+		if(framesFreeAllocated.isEmpty())return -1;
+		else return framesFreeAllocated.get(0);
 	}
 	
 	
