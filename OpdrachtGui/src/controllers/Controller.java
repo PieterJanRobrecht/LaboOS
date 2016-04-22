@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import data.Instruction;
 import data.InstructionList;
 import data.PageTableEntry;
+import data.ProcessList;
 import data.RAM;
 import data.Manager;
 import data.PageTable;
@@ -59,9 +60,15 @@ public class Controller implements Observer{
 
     @FXML
     private TextField frame;
-
+    
     @FXML
     private TextField offset;
+    
+    @FXML
+    private TextField writeToRam;
+
+    @FXML
+    private TextField writeToDisk;
 
     @FXML
     private TableView<PageTableEntry> ramTable;
@@ -145,7 +152,8 @@ public class Controller implements Observer{
 		}
 //		System.out.println(lijst);
 		manager.setInstructionList(lijst);
-    }
+		resetView();
+	}
 
     @FXML
     void file2Clicked(ActionEvent event) {
@@ -166,6 +174,7 @@ public class Controller implements Observer{
 		}
 //		System.out.println(lijst);
 		manager.setInstructionList(lijst);
+		resetView();
     }
 
     @FXML
@@ -187,7 +196,20 @@ public class Controller implements Observer{
 		}
 //		System.out.println(lijst);
 		manager.setInstructionList(lijst);
+		resetView();
     }
+
+	private void resetView() {
+		manager.setKlok(0);
+		timerField.setText("");
+		instructieField.setText("");
+		virtueelAdres.setText("");
+	    reeelAdres.setText("");
+	    frame.setText("");
+	    offset.setText("");
+	    writeToRam.setText("");
+	    writeToDisk.setText("");
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -210,8 +232,12 @@ public class Controller implements Observer{
 		
 		updateRAMTable();
 		updatePageTable();
+		
+		int[] waardes = manager.berekenWrites();
+		writeToDisk.setText(waardes[0]+"");
+		writeToRam.setText(waardes[1]+"");
 	}
-	
+
 	private void updatePageTable() {
 		//TODO pagenummer toevoegen
 		int klok = manager.getKlok();

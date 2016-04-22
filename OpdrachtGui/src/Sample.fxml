@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -53,6 +53,10 @@
             <TextField fx:id="frame" editable="false" layoutX="10.0" layoutY="339.0" prefHeight="31.0" prefWidth="87.0" promptText="Frame" />
             <Label layoutX="10.0" layoutY="380.0" text="Offset" />
             <TextField fx:id="offset" editable="false" layoutX="10.0" layoutY="411.0" prefHeight="31.0" prefWidth="87.0" promptText="Offset" />
+            <Label text="Write To Ram" />
+            <TextField fx:id="writeToRam" editable="false" prefHeight="31.0" prefWidth="87.0" promptText="To Ram" />
+            <Label text="Write To Disk" />
+            <TextField fx:id="writeToDisk" editable="false" prefHeight="31.0" prefWidth="87.0" promptText="To Disk" />
          </children>
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

@@ -164,6 +164,18 @@ public class Manager extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	public int[] berekenWrites() {
+		int toDisk = 0;
+		int toRam = 0;
+		for(data.Process p : processList.getProcessList()){
+			for(PageTableEntry e : p.getPageTable().getPageTable()){
+				toDisk+=e.getRamToPersistent();
+				toRam+=e.getPersistentToRam();
+			}
+		}
+		int[] resultaat = new int[] {toDisk,toRam};
+		return resultaat;
+	}
 	
 	
 }

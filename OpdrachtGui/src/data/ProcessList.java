@@ -3,9 +3,17 @@ package data;
 import java.util.*;
 
 public class ProcessList {
- List<Process>processList=new ArrayList<Process>();
+	List<Process>processList=new ArrayList<Process>();
  
- 	public ProcessList(){
+ 	public List<Process> getProcessList() {
+		return processList;
+	}
+
+	public void setProcessList(List<Process> processList) {
+		this.processList = processList;
+	}
+
+	public ProcessList(){
  		
  	}
  	
