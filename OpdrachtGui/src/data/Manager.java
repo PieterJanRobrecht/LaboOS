@@ -87,8 +87,6 @@ public class Manager extends Observable{
 	private void doTerminate(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
 		ram.deleteProcess(process);
-		processList.deleteProcess(process);
-		
 	}
 
 	public InstructionList getInstructionList() {

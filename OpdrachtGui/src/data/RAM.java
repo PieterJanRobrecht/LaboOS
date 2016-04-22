@@ -73,8 +73,13 @@ public class RAM {
 				oudst=p;
 			}
 		}
-		
-		deleteProcess(process);
+		for(int i:oudst.getFramesFreeAllocated()){
+			process.getFramesFreeAllocated().add(i);
+		}
+		for(int i:oudst.getFramesTakenAllocated()){
+			process.getFramesFreeAllocated().add(i);
+		}
+		deleteProcess(oudst);
 	}
 	
 	public void deleteProcess(Process process){
