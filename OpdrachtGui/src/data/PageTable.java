@@ -31,10 +31,11 @@ public class PageTable {
 	public PageTableEntry findPageTableEntry(double pageNumber) {
 		int i=0;
 		boolean found=false;
+		int getal = new Double(pageNumber).intValue();
 		PageTableEntry pageTableEntry=null;
 		while(!found&&i<pageTable.size()){
 			pageTableEntry=pageTable.get(i);
-			if(pageTableEntry.getFrameNumber()==new Double(pageNumber).intValue())found=true;
+			if(pageTableEntry.getPageNumber()==getal)found=true;
 			i++;
 		}
 		return pageTableEntry;
