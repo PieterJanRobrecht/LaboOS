@@ -192,14 +192,15 @@ public class Controller implements Observer{
 		long virtAdress = instruction.getAddress();
 		long pageSize = manager.getSizePage();
 		int frame = convertVirtToReeel(manager,klok);
+		int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
 		
 		timerField.setText(klok+1+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
-		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()));
+		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()))+offsetField;
 		reeelAdres.setText(reeel+"");
 		this.frame.setText(frame+"");
-		offset.setText((int) (virtAdress%Math.pow(2, pageSize))+"");
+		offset.setText(offsetField+"");
 		procesID.setText(instruction.getPid()+"");
 		
 		updateRAMTable();
@@ -248,6 +249,7 @@ public class Controller implements Observer{
 		System.out.println(pageTableEntry);
 		
 		int frame = pageTableEntry.getFrameNumber();
+		System.out.println(frame);
 		return frame;
 	}
 	
