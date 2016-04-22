@@ -15,26 +15,35 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="758.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <top>
-      <VBox BorderPane.alignment="CENTER">
+      <HBox BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem fx:id="file1" mnemonicParsing="false" onAction="#file1Clicked" text="Instructions 30 3" />
-                        <MenuItem fx:id="file2" mnemonicParsing="false" onAction="#file2Clicked" text="Instructions 20000 4" />
-                        <MenuItem fx:id="file3" mnemonicParsing="false" onAction="#file3Clicked" text="Instructions 20000 20" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
+            <VBox>
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem fx:id="file1" mnemonicParsing="false" onAction="#file1Clicked" text="Instructions 30 3" />
+                              <MenuItem fx:id="file2" mnemonicParsing="false" onAction="#file2Clicked" text="Instructions 20000 4" />
+                              <MenuItem fx:id="file3" mnemonicParsing="false" onAction="#file3Clicked" text="Instructions 20000 20" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </VBox>
+            <TextField>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
          </children>
-      </VBox>
+      </HBox>
    </top>
    <left>
       <VBox spacing="10.0" BorderPane.alignment="CENTER">

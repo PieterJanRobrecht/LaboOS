@@ -201,6 +201,7 @@ public class Controller implements Observer{
 
 	private void resetView() {
 		manager.setKlok(0);
+		
 		timerField.setText("");
 		instructieField.setText("");
 		virtueelAdres.setText("");
