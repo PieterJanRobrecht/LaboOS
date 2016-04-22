@@ -35,8 +35,8 @@ public class Manager extends Observable{
 		
 		boolean singleInstruction = single;
 		if(singleInstruction ){
-		setChanged();
-		notifyObservers();
+			setChanged();
+			notifyObservers();
 		}
 		klok++;
 	}
