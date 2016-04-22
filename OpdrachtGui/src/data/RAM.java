@@ -28,6 +28,7 @@ public class RAM {
 	}
 
 	public void addProcess(Process process){
+		System.out.println("Process toevoegen aan RAM");
 		if(processInRAM.getSize()==maxInRAM){
 			swapProcess(process);
 		}

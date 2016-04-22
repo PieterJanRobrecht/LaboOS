@@ -52,7 +52,7 @@ public class Manager extends Observable{
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
-		if(ram.inRAM(process)){
+		if(!ram.inRAM(process)){
 			ram.addProcess(process);
 		}
 		if(pte.isPresentBit()){
@@ -69,7 +69,7 @@ public class Manager extends Observable{
 	private void doWrite(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
-		if(ram.inRAM(process)){
+		if(!ram.inRAM(process)){
 			ram.addProcess(process);
 		}
 		if(pte.isPresentBit()){
