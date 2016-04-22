@@ -26,14 +26,9 @@
                         <MenuItem fx:id="file3" mnemonicParsing="false" onAction="#file3Clicked" text="Instructions 20000 20" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="aboutKnop" mnemonicParsing="false" onAction="#displayPdf" text="About" />
                   </items>
                 </Menu>
               </menus>

@@ -44,6 +44,9 @@ public class Controller implements Observer{
 
     @FXML
     private Button volledig;
+    
+    @FXML
+    private MenuItem aboutKnop;
 
     @FXML
     private TextField timerField;
@@ -111,6 +114,11 @@ public class Controller implements Observer{
     //Verwerker = model -> moet setChanged();notifyObservers(); gebruiken bij wijzigen data
     //Controller = view -> moet update() implementeren
     
+	@FXML
+    void displayPdf(ActionEvent event) {
+
+    }
+	
     @FXML
     void eenStapClicked(ActionEvent event) {
     	manager.doNextInstruction(true);
