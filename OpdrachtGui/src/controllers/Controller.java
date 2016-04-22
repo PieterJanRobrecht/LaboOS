@@ -254,7 +254,6 @@ public class Controller implements Observer{
 		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		
-		//TODO goed mappen
 		ramFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
 		ramPid.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pid"));

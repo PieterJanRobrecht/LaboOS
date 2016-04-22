@@ -29,7 +29,7 @@ public class Manager extends Observable{
 		switch(instructie.getOperation()){
 			case "Start":doStart(instructie,klok);break;
 			case "Read":doRead(instructie,klok);break;
-			case "Wirte":doWrite(instructie,klok);break;
+			case "Write":doWrite(instructie,klok);break;
 			case "Terminate":doTerminate(instructie,klok);break;
 			default:System.out.println("Geen geldige instructie");break;
 		}
