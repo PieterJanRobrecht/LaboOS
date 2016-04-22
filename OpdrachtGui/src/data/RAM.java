@@ -34,10 +34,10 @@ public class RAM {
 		else{
 			int framesToGivePerProcess=0;
 			switch(processInRAM.processList.size()){
-				case'0':framesToGivePerProcess=12;break;
-				case'1':framesToGivePerProcess=6;break;
-				case'2':framesToGivePerProcess=2;break;
-				case'3':framesToGivePerProcess=1;break;
+				case 0 :framesToGivePerProcess=12;break;
+				case 1 :framesToGivePerProcess=6;break;
+				case 2 :framesToGivePerProcess=2;break;
+				case 3 :framesToGivePerProcess=1;break;
 				default:System.out.println("ERRRRRR");
 			}
 			if(processInRAM.getSize()==0){

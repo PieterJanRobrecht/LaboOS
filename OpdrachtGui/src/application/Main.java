@@ -63,7 +63,7 @@ public class Main extends Application {
 			
 			e.printStackTrace();
 		}
-		System.out.println(lijst);
+//		System.out.println(lijst);
 		manager.setInstructionList(lijst);
 		
 	}
