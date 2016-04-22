@@ -7,7 +7,8 @@ public class RAM {
 	private int grootteRAM;
 	private int maxInRAM;
 	private PageTableEntry[] frameList;
-	public ProcessList processInRAM=new ProcessList();
+	private ProcessList processInRAM=new ProcessList();
+
 	
 	//TODO toevoegen in framelist:
 	//welk pagenummer er momenteel in het frame zit
@@ -15,9 +16,17 @@ public class RAM {
 	public RAM(int grootteRAM, int maxInRAM){
 		this.grootteRAM=grootteRAM;
 		this.maxInRAM=maxInRAM;
-		frameList=new PageTableEntry[grootteRAM];
+		setFrameList(new PageTableEntry[grootteRAM]);
 	}
 	
+	public PageTableEntry[] getFrameList() {
+		return frameList;
+	}
+
+	public void setFrameList(PageTableEntry[] frameList) {
+		this.frameList = frameList;
+	}
+
 	public void addProcess(Process process){
 		if(processInRAM.getSize()==maxInRAM){
 			swapProcess(process);

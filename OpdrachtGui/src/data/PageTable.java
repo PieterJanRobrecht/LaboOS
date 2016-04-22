@@ -14,6 +14,7 @@ public class PageTable {
 		for(int i = 0;i<grootte;i++){
 			PageTableEntry pte = new PageTableEntry();
 			pte.setPageNumber(i+1);
+			pte.setPid(pid);
 			pageTable.add(pte);
 		}
 	}
