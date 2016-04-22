@@ -71,6 +71,7 @@ public class Process {
 		}
 		pte.setPresentBit(false);
 		pte.setRamToPersistent(pte.getRamToPersistent()+1);
+		framesTakenAllocated.remove(index);
 		return number;
 	}
 	

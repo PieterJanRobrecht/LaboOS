@@ -66,7 +66,19 @@ public class Manager extends Observable{
 	}
 
 	private void doWrite(Instruction instructie,int klok, Process process) {
-		// TODO Auto-generated method stub
+		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
+		if(ram.inRAM(process)){
+			ram.addProcess(process);
+		}
+		if(pte.isPresentBit()){
+			pte.setLastAccessTime(klok);
+		}
+		else{
+			ram.addFrame(process,pte);
+			pte.setLastAccessTime(klok);
+		}
+		process.setLastAccesTime(klok);
+		pte.setModifyBit(true);
 		
 	}
 

@@ -40,6 +40,7 @@ public class RAM {
 	
 	public void addFrame(Process process, PageTableEntry pte){
 		int frameNumber=process.giveFrameNumberToFill();
+		pte.setPresentBit(true);
 		frameList[frameNumber]=pte;
 	}
 	
