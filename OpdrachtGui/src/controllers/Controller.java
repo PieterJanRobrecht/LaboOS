@@ -193,7 +193,7 @@ public class Controller implements Observer{
 		long pageSize = manager.getSizePage();
 		int frame = convertVirtToReeel(manager,klok);
 		
-		timerField.setText(klok+"");
+		timerField.setText(klok+1+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
 		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()));
@@ -240,6 +240,9 @@ public class Controller implements Observer{
 		
 		int pid = instruction.getPid();
 		data.Process process = manager.getProcessList().findProcess(pid);
+		
+		System.out.println(new Double(pageEntry).intValue());
+		
 		PageTableEntry pageTableEntry = process.getPagetable().get(new Double(pageEntry).intValue());
 		
 		System.out.println(pageTableEntry);
@@ -247,11 +250,6 @@ public class Controller implements Observer{
 		int frame = pageTableEntry.getFrameNumber();
 		return frame;
 	}
-
-	ObservableList<PageTableEntry> data = FXCollections.observableArrayList(
-		    new PageTableEntry(true, false,1,15),
-		    new PageTableEntry(true, true,5,10)
-		);
 	
 	@FXML
 	public void initialize(){

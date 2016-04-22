@@ -68,6 +68,8 @@ public class Manager extends Observable{
 
 	private void doWrite(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
+		System.out.println("hier");
+		System.out.println(instructie.getAddress()/Math.pow(2,sizePage));
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);

@@ -54,8 +54,7 @@ public class PageTable {
 		
 	}
 	
-	public PageTableEntry get(double d){
-		int i = (int) d;
-		return pageTable.get(i);
+	public PageTableEntry get(int d){
+		return pageTable.get(d);
 	}
 }
