@@ -39,7 +39,16 @@ public class PageTable {
 	}
 	
 	public PageTableEntry findLeastRecentlyUsed(){
-		return null;
+		PageTableEntry leastRecentlyUsed=new PageTableEntry();
+		leastRecentlyUsed.setLastAccessTime(Integer.MAX_VALUE);
+		for(PageTableEntry pte:pageTable){
+			if(pte.isPresentBit()){
+				if(pte.getLastAccessTime()<leastRecentlyUsed.getLastAccessTime()){
+					leastRecentlyUsed=pte;
+				}
+			}
+		}
+		return leastRecentlyUsed;
 		
 	}
 	
