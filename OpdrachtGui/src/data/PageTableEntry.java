@@ -75,7 +75,7 @@ public class PageTableEntry {
 
 	@Override
 	public String toString() {
-		return "PageTableEntry [pid=" + pid + ", frameNumber=" + frameNumber + ", pageNumber=" + pageNumber + "]";
+		return "PageTableEntry [pid=" + pid + ", frameNumber=" + frameNumber + ", pageNumber=" + pageNumber + "]\n";
 	}
 
 	public int getPersistentToRam() {

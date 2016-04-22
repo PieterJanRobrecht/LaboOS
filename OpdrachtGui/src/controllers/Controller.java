@@ -236,12 +236,12 @@ public class Controller implements Observer{
 		long pageSize = manager.getSizePage();
 		double pageEntry = virtAdress/Math.pow(2, pageSize);
 		
-		System.out.println(pageEntry);
+//		System.out.println(pageEntry);
 		
 		int pid = instruction.getPid();
 		data.Process process = manager.getProcessList().findProcess(pid);
 		
-		System.out.println(new Double(pageEntry).intValue());
+//		System.out.println(new Double(pageEntry).intValue());
 		
 		PageTableEntry pageTableEntry = process.getPagetable().get(new Double(pageEntry).intValue());
 		

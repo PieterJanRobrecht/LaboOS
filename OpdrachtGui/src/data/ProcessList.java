@@ -17,7 +17,7 @@ public class ProcessList {
  		boolean found=false;
 		int i=0;
 		Process process=null;
-		while(!found){
+		while(!found&&i<processList.size()){
 			process=processList.get(i);
 			if(process.getPid()==PID)found=true;
 			else i++;
