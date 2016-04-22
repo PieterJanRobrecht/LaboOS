@@ -83,10 +83,34 @@ public class RAM {
 	}
 	
 	public void deleteProcess(Process process){
+		int framesToGivePerProcess=0;
+		switch(processInRAM.processList.size()){
+			case 1 :framesToGivePerProcess=12;break;
+			case 2 :framesToGivePerProcess=6;break;
+			case 3 :framesToGivePerProcess=2;break;
+			case 4 :framesToGivePerProcess=1;break;
+			default:System.out.println("ERRRRRR");
+		}
+		List<Integer>framesToGive=new ArrayList<Integer>();
+		for(int i:process.getFramesFreeAllocated()){
+			framesToGive.add(i);
+		}
+		
+		for(int i:process.getFramesTakenAllocated()){
+			framesToGive.add(i);
+		}
+		
+		for(Process p:processInRAM.processList){
+			for(int i=0;i<framesToGivePerProcess;i++){
+				p.getFramesFreeAllocated().add(framesToGive.remove(0));
+			}
+		}
 		process.getFramesFreeAllocated().clear();
 		process.getFramesTakenAllocated().clear();
 		for(PageTableEntry pte: process.getPageTable().getPageTable()){
-			pte.setRamToPersistent(pte.getPersistentToRam()+1);
+			if(pte.isModifyBit()&&pte.isPresentBit()){
+				pte.setRamToPersistent(pte.getPersistentToRam()+1);
+			}	
 			pte.setModifyBit(false);
 			pte.setPresentBit(false);
 		}
