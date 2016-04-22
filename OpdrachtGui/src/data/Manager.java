@@ -154,8 +154,9 @@ public class Manager extends Observable{
 	}
 
 	public void doAllInstructions() {
-		for(int i=0;i<instructionList.getSize()-1;i++){
-			doNextInstruction(false);
+		for(int i=0;i<instructionList.getSize();i++){
+			System.out.println(i);
+			doNextInstruction(true);
 		}
 		setChanged();
 		notifyObservers();

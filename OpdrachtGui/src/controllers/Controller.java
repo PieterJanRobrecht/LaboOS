@@ -121,7 +121,9 @@ public class Controller implements Observer{
     
     @FXML
     void volledigClicked(ActionEvent event) {
-    	manager.doAllInstructions();
+    	for(int i=0;i<manager.getInstructionList().getSize();i++){
+			manager.doNextInstruction(true);
+		}
     }
 
     @FXML
