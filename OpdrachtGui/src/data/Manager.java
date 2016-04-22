@@ -14,7 +14,6 @@ public class Manager extends Observable{
 	public Manager(){
 		
 	}
-	
 	public Manager(int grootteRAM,int groottePage,int grootteVirtueel, int maxInRAM){
 		this.klok=0;
 		this.sizeRAM=grootteRAM;
@@ -52,8 +51,17 @@ public class Manager extends Observable{
 
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
-		process.pageTable.findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
-		
+		PageTableEntry pte=process.pageTable.findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
+		if(ram.inRAM(process)){
+			ram.addProcess(process);
+		}
+		if(pte.isPresentBit()){
+				pte.setLastAccessTime(klok);
+		}
+		else{
+			ram.addFrame(pte);
+			pte.setLastAccessTime(klok);
+		}
 	}
 
 	private void doWrite(Instruction instructie,int klok) {
