@@ -7,6 +7,8 @@ public class PageTableEntry {
 	private int lastAccessTime;
 	private int frameNumber;
 	private int pageNumber;
+	private int persistentToRam;
+	private int ramToPersistent;
 	
 	public PageTableEntry(){
 		presentBit = false;
@@ -74,6 +76,22 @@ public class PageTableEntry {
 	@Override
 	public String toString() {
 		return "PageTableEntry [pid=" + pid + ", frameNumber=" + frameNumber + ", pageNumber=" + pageNumber + "]";
+	}
+
+	public int getPersistentToRam() {
+		return persistentToRam;
+	}
+
+	public int getRamToPersistent() {
+		return ramToPersistent;
+	}
+
+	public void setPersistentToRam(int persistentToRam) {
+		this.persistentToRam = persistentToRam;
+	}
+
+	public void setRamToPersistent(int ramToPersistent) {
+		this.ramToPersistent = ramToPersistent;
 	}
 	
 	

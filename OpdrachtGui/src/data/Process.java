@@ -48,8 +48,27 @@ public class Process {
 	}
 	
 	public int giveFrameNumberToFill(){
-		if(framesFreeAllocated.isEmpty())return -1;
+		if(framesFreeAllocated.isEmpty()){
+			return deleteFrameFromRam();
+		}
 		else return framesFreeAllocated.get(0);
+	}
+	
+	public int deleteFrameFromRam(){
+		int LRU=Integer.MAX_VALUE;
+		int number=-1;
+		PageTableEntry pte=null;
+		for(Integer i:framesTakenAllocated){
+			PageTableEntry help=pageTable.findPageTableEntry(i);
+			if(help.getLastAccessTime()<LRU){
+				pte=help;
+				LRU=help.getLastAccessTime();
+				number=i;
+			}
+		}
+		pte.setPresentBit(false);
+		pte.setRamToPersistent(pte.getRamToPersistent()+1);
+		return number;
 	}
 	
 	

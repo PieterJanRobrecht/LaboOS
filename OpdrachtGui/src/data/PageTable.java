@@ -7,6 +7,7 @@ public class PageTable {
 	private int pid;
 	private int grootte;
 	private List<PageTableEntry> pageTable;
+	
 
 	public PageTable(int grootte) {
 		this.grootte=grootte;
