@@ -32,8 +32,18 @@ public class RAM {
 			swapProcess(process);
 		}
 		else{
+			int framesToGivePerProcess=0;
+			switch(processInRAM.processList.size()){
+				case'0':framesToGivePerProcess=12;break;
+				case'1':framesToGivePerProcess=6;break;
+				case'2':framesToGivePerProcess=2;break;
+				case'3':framesToGivePerProcess=1;break;
+				default:System.out.println("ERRRRRR");
+			}
 			for(Process p:processInRAM.processList){
-				
+				for(int i=0;i<framesToGivePerProcess;i++){
+					
+				}
 			}
 		}
 	}
@@ -44,17 +54,10 @@ public class RAM {
 		frameList[frameNumber]=pte;
 	}
 	
-	public void deleteFrame(PageTableEntry pte){
-		
-	}
-	
-	public void swapFrame(){
-		
-	}
-	
-	
 	public void swapProcess(Process process){
-		
+		for(Process p:processInRAM.processList){
+			
+		}
 	}
 	
 	public void deleteProcess(){
