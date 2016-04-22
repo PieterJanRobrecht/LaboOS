@@ -51,17 +51,19 @@ public class Manager extends Observable{
 
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
-		PageTableEntry pte=process.pageTable.findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
+		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
 		if(ram.inRAM(process)){
 			ram.addProcess(process);
 		}
 		if(pte.isPresentBit()){
-				pte.setLastAccessTime(klok);
+			pte.setLastAccessTime(klok);
+			process.setLastAccesTime(klok);
 		}
 		else{
 			ram.addFrame(pte);
 			pte.setLastAccessTime(klok);
 		}
+		process.setLastAccesTime(klok);
 	}
 
 	private void doWrite(Instruction instructie,int klok) {
