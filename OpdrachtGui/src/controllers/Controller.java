@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import data.Instruction;
 import data.InstructionList;
 import data.PageTableEntry;
+import data.RAM;
 import data.Manager;
 import data.PageTable;
 import javafx.collections.FXCollections;
@@ -63,16 +64,16 @@ public class Controller implements Observer{
     private TextField offset;
 
     @FXML
-    private TableView<Process> ramTable;
+    private TableView<PageTableEntry> ramTable;
     
     @FXML
-    private TableColumn<Process, Integer> ramFrame;
+    private TableColumn<PageTableEntry, Integer> ramFrame;
 
     @FXML
-    private TableColumn<Process, Integer> ramPage;
+    private TableColumn<PageTableEntry, Integer> ramPage;
 
     @FXML
-    private TableColumn<Process, Integer> ramPid;
+    private TableColumn<PageTableEntry, Integer> ramPid;
 
     @FXML
     private Label procesID;
@@ -220,8 +221,9 @@ public class Controller implements Observer{
 	}
 
 	private void updateRAMTable() {
-		// TODO Auto-generated method stub
-		
+		RAM ram = manager.getRam();
+		PageTableEntry[] ramArray = ram.getFrameList();
+		this.ramTable.getItems().setAll(ramArray);
 	}
 
 	private int convertVirtToReeel(Manager manager,int klok) {
@@ -253,9 +255,9 @@ public class Controller implements Observer{
 		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		
 		//TODO goed mappen
-		ramFrame.setCellValueFactory(new PropertyValueFactory<Process,Integer>("frameNumber"));
-		ramPage.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pageNumber"));
-		ramPid.setCellValueFactory(new PropertyValueFactory<Process,Integer>("pid"));
+		ramFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
+		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
+		ramPid.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pid"));
 	}
 	
 

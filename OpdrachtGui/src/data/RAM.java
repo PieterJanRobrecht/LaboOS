@@ -15,9 +15,17 @@ public class RAM {
 	public RAM(int grootteRAM, int maxInRAM){
 		this.grootteRAM=grootteRAM;
 		this.maxInRAM=maxInRAM;
-		frameList=new PageTableEntry[grootteRAM];
+		setFrameList(new PageTableEntry[grootteRAM]);
 	}
 	
+	public PageTableEntry[] getFrameList() {
+		return frameList;
+	}
+
+	public void setFrameList(PageTableEntry[] frameList) {
+		this.frameList = frameList;
+	}
+
 	public void addProcess(Process process){
 		if(processInRAM.getSize()==maxInRAM){
 			swapProcess(process);
