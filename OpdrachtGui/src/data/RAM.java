@@ -6,7 +6,7 @@ import java.util.List;
 public class RAM {
 	private int grootteRAM;
 	private int maxInRAM;
-	private Process[] frameList;
+	private PageTableEntry[] frameList;
 	private ProcessList processInRAM=new ProcessList();
 	
 	//TODO toevoegen in framelist:
@@ -15,7 +15,7 @@ public class RAM {
 	public RAM(int grootteRAM, int maxInRAM){
 		this.grootteRAM=grootteRAM;
 		this.maxInRAM=maxInRAM;
-		frameList=new Process[grootteRAM];
+		frameList=new PageTableEntry[grootteRAM];
 	}
 	
 	public void addProcess(Process process){

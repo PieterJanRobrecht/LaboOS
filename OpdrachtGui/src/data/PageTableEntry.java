@@ -1,6 +1,7 @@
 package data;
 
 public class PageTableEntry {
+	private int pid;
 	private boolean presentBit;
 	private boolean modifyBit;
 	private int lastAccessTime;
@@ -60,6 +61,14 @@ public class PageTableEntry {
 
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
+	}
+
+	public int getPid() {
+		return pid;
+	}
+
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 	
 	
