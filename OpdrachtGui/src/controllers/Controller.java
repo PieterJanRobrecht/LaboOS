@@ -213,7 +213,7 @@ public class Controller implements Observer{
 		Instruction instruction = lijst.get(klok);
 		
 		int pid = instruction.getPid();
-		data.Process process = manager.getProcess(pid);
+		data.Process process = manager.getProcessList().findProcess(pid);
 		PageTable pageTable = process.getPagetable();
 		List<PageTableEntry> pageTableEntries = pageTable.getPageTable();
 		PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
@@ -239,7 +239,7 @@ public class Controller implements Observer{
 		System.out.println(pageEntry);
 		
 		int pid = instruction.getPid();
-		data.Process process = manager.getProcess(pid);
+		data.Process process = manager.getProcessList().findProcess(pid);
 		PageTableEntry pageTableEntry = process.getPagetable().get(new Double(pageEntry).intValue());
 		
 		System.out.println(pageTableEntry);
