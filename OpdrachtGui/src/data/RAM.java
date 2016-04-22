@@ -94,12 +94,15 @@ public class RAM {
 		List<Integer>framesToGive=new ArrayList<Integer>();
 		for(int i:process.getFramesFreeAllocated()){
 			framesToGive.add(i);
+			frameList[i]=null;
 		}
-		
+	
 		for(int i:process.getFramesTakenAllocated()){
 			framesToGive.add(i);
+			frameList[i]=null;
 		}
 		
+		processInRAM.processList.remove(process);
 		for(Process p:processInRAM.processList){
 			for(int i=0;i<framesToGivePerProcess;i++){
 				p.getFramesFreeAllocated().add(framesToGive.remove(0));
