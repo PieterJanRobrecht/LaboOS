@@ -52,6 +52,7 @@ public class Manager extends Observable{
 	private void doRead(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
+		pte.setPid(process.getPid());
 		if(!ram.inRAM(process)){
 			ram.addProcess(process);
 		}
@@ -69,6 +70,8 @@ public class Manager extends Observable{
 	private void doWrite(Instruction instructie,int klok) {
 		Process process=processList.findProcess(instructie.getPid());
 		PageTableEntry pte=process.getPagetable().findPageTableEntry(instructie.getAddress()/Math.pow(2,sizePage));
+		pte.setPid(process.getPid());
+//		System.out.println("PRocess id "+pte.getPid());
 		if(!ram.inRAM(process)){
 			ram.addProcess(process);
 		}
