@@ -17,7 +17,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <VBox>
+            <VBox HBox.hgrow="ALWAYS">
                <children>
                   <MenuBar>
                     <menus>
@@ -34,14 +34,26 @@
                         </items>
                       </Menu>
                     </menus>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </MenuBar>
                </children>
             </VBox>
-            <TextField>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </TextField>
+            <HBox alignment="CENTER">
+               <children>
+                  <TextField fx:id="klokSetField" alignment="CENTER_RIGHT" promptText="Klok">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="setKlok" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#setKlok" text="Klok">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </top>

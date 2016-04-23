@@ -45,6 +45,9 @@ public class Controller implements Observer{
 
     @FXML
     private Button volledig;
+    
+    @FXML
+    private Button setKlok;
 
     @FXML
     private TextField timerField;
@@ -69,7 +72,10 @@ public class Controller implements Observer{
 
     @FXML
     private TextField writeToDisk;
-
+    
+    @FXML
+    private TextField klokSetField;
+    
     @FXML
     private TableView<PageTableEntry> ramTable;
     
@@ -131,6 +137,17 @@ public class Controller implements Observer{
     	for(int i=manager.getKlok();i<manager.getInstructionList().getSize();i++){
 			manager.doNextInstruction(true);
 		}
+    }
+    
+    @FXML
+    void setKlok(ActionEvent event) {
+    	String klok = klokSetField.getText();
+    	try{
+    		int inhoud = Integer.parseInt(klok);
+    		manager.setKlok(inhoud);
+    	}catch(NumberFormatException e){
+    		klokSetField.setText("Niet geldig");
+    	}
     }
 
     @FXML
