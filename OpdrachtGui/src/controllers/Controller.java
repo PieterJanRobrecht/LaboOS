@@ -23,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,6 +53,9 @@ public class Controller implements Observer{
 
     @FXML
     private TextField timerField;
+    
+    @FXML
+    private TextField procesField;
 
     @FXML
     private TextField instructieField;
@@ -94,6 +99,9 @@ public class Controller implements Observer{
     @FXML
     private Label procesID;
 
+    @FXML
+    private TabPane tabPane;
+    
     @FXML
     private TableView<PageTableEntry> pageTable;
     
@@ -219,9 +227,10 @@ public class Controller implements Observer{
     }
 
 	private void resetView() {
-		manager.setKlok(0);
+		resetWaardes();
 		
 		timerField.setText("");
+		procesField.setText("");
 		instructieField.setText("");
 		virtueelAdres.setText("");
 	    reeelAdres.setText("");
@@ -229,6 +238,23 @@ public class Controller implements Observer{
 	    offset.setText("");
 	    writeToRam.setText("");
 	    writeToDisk.setText("");
+	}
+
+	private void resetWaardes() {
+		manager.setKlok(0);
+		ProcessList processen = manager.getProcessList();
+		List<data.Process> lijst = processen.getProcessList();
+		for(int i = 0;i<lijst.size();i++){
+			data.Process p = lijst.get(i);
+			for(int j = 0;j<p.getPageTable().getPageTable().size();j++){
+				PageTableEntry pte = p.getPagetable().getPageTable().get(j);
+				pte.setRamToPersistent(0);
+				pte.setPersistentToRam(0);
+			}
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -242,6 +268,7 @@ public class Controller implements Observer{
 		int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
 		
 		timerField.setText(klok+1+"");
+		procesField.setText(instruction.getPid()+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
 		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()))+offsetField;
@@ -259,17 +286,28 @@ public class Controller implements Observer{
 	}
 
 	private void updatePageTable() {
-		//TODO pagenummer toevoegen
 		int klok = manager.getKlok();
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
 		
 		int pid = instruction.getPid();
 		data.Process process = manager.getProcessList().findProcess(pid);
-		PageTable pageTable = process.getPagetable();
-		List<PageTableEntry> pageTableEntries = pageTable.getPageTable();
-		PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
-		this.pageTable.getItems().setAll(array);
+		tabPane.getTabs().clear();
+		for(int i =0;i<manager.getProcessList().getSize();i++){
+			data.Process proces = manager.getProcessList().get(i);
+			
+			TableView<PageTableEntry> table = proces.getTable();
+						
+			List<PageTableEntry> pageTableEntries = proces.getPageTable().getPageTable();
+			PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
+			
+			table.getItems().setAll(array);
+			
+			Tab t = new Tab();
+			t.setText("Proces "+proces.getPid()+"");
+			t.setContent(table);
+			tabPane.getTabs().add(t);
+		}
 	}
 
 	private void updateRAMTable() {
@@ -307,16 +345,17 @@ public class Controller implements Observer{
 	@FXML
 	public void initialize(){
 		//gebruikt voor de init van de view
-		pageNumber.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
-		pageModify.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
-		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
-		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
-		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
-		
+//		pageNumber.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
+//		pageModify.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
+//		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
+//		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
+//		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
+//		
 		ramFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
 		ramPageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		ramPid.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pid"));
+		
 	}
 	
 

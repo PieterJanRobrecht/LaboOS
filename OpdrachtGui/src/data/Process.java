@@ -3,6 +3,10 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 public class Process {
 	private int pid; 
 	private PageTable pageTable;
@@ -10,9 +14,43 @@ public class Process {
 	private List<Integer>framesFreeAllocated=new ArrayList<Integer>();
 	private List<Integer>framesTakenAllocated=new ArrayList<Integer>();
 	
+	private TableView<PageTableEntry> table;
+	
 	public Process(int pid,int grootteVirtueel){
 		this.pid=pid;
 		pageTable=new PageTable(grootteVirtueel);
+		initTable();
+	}
+
+	private void initTable() {
+		table = new TableView<PageTableEntry>();
+		
+		//Maken van de kolommen
+		TableColumn<PageTableEntry, Integer> clmn = new TableColumn<PageTableEntry, Integer>("pageNumber");
+		clmn.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
+		table.getColumns().addAll(clmn);
+		
+		TableColumn<PageTableEntry, Boolean> clmn1 = new TableColumn<PageTableEntry, Boolean>("modifyBit");
+		clmn1.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("modifyBit"));
+		table.getColumns().addAll(clmn1);
+		
+		TableColumn<PageTableEntry, Boolean> clmn2 = new TableColumn<PageTableEntry, Boolean>("presentBit");
+		clmn2.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
+		table.getColumns().addAll(clmn2);
+		
+		TableColumn<PageTableEntry, Integer> clmn3 = new TableColumn<PageTableEntry, Integer>("lastAccessTime");
+		clmn3.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
+		table.getColumns().addAll(clmn3);
+		
+		TableColumn<PageTableEntry, Integer> clmn4 = new TableColumn<PageTableEntry, Integer>("frameNumber");
+		clmn4.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
+		table.getColumns().addAll(clmn4);
+		
+		//Koppelen van de data aan de tabel
+		List<PageTableEntry> pageTableEntries = pageTable.getPageTable();
+		PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
+		
+		table.getItems().setAll(array);
 	}
 
 	public int getPid() {
@@ -103,6 +141,14 @@ public class Process {
 
 	public void setFramesTakenAllocated(List<Integer> framesTakenAllocated) {
 		this.framesTakenAllocated = framesTakenAllocated;
+	}
+
+	public TableView<PageTableEntry> getTable() {
+		return table;
+	}
+
+	public void setTable(TableView<PageTableEntry> table) {
+		this.table = table;
 	}
 	
 	
