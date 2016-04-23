@@ -144,7 +144,9 @@ public class Controller implements Observer{
     	String klok = klokSetField.getText();
     	try{
     		int inhoud = Integer.parseInt(klok);
-    		manager.setKlok(inhoud);
+    		for(int i = manager.getKlok();i<inhoud;i++){
+    			manager.doNextInstruction(true);
+    		}
     	}catch(NumberFormatException e){
     		klokSetField.setText("Niet geldig");
     	}
