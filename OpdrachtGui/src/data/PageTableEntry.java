@@ -7,8 +7,8 @@ public class PageTableEntry {
 	private int lastAccessTime;
 	private int frameNumber;
 	private int pageNumber;
-	private int persistentToRam;
-	private int ramToPersistent;
+	private int persistentToRam=0;
+	private int ramToPersistent=0;
 	
 	public PageTableEntry(){
 		presentBit = false;

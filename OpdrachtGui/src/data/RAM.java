@@ -112,8 +112,10 @@ public class RAM {
 		process.getFramesFreeAllocated().clear();
 		process.getFramesTakenAllocated().clear();
 		for(PageTableEntry pte: process.getPageTable().getPageTable()){
-			if(pte.isModifyBit()&&pte.isPresentBit()){
-				pte.setRamToPersistent(pte.getPersistentToRam()+1);
+			if(pte.isModifyBit()){
+				pte.setRamToPersistent(pte.getRamToPersistent()+1);
+				//System.out.println("PID "+process.getPid());
+				//System.out.println("FRAMENUMMER "+pte.getFrameNumber());
 			}	
 			pte.setModifyBit(false);
 			pte.setPresentBit(false);

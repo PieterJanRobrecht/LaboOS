@@ -80,7 +80,7 @@ public class Process {
 		}
 		pte.setPresentBit(false);
 		pte.setFrameNumber(-1);
-		if(pte.isModifyBit()&&pte.isPresentBit()){
+		if(pte.isModifyBit()){
 			pte.setRamToPersistent(pte.getRamToPersistent()+1);
 		}	
 		if(!eigen){
