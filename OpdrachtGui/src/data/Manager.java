@@ -103,7 +103,6 @@ public class Manager extends Observable{
 	//Dummy methode om te kijken of MVC werkt zoals het hoort
 	//Bij aanpassen van een waarde die belangrijk is voor de view moet je de twee laatste methodes oproepen
 	public void test() {
-		sizeRAM = 12;
 		setChanged();
 		notifyObservers();
 	}
