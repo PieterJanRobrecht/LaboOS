@@ -6,6 +6,11 @@
 		<address>0</address>
 	</instruction>
 	<instruction>
+		<processID>1</processID>
+		<operation>Start</operation>
+		<address>0</address>
+	</instruction>
+	<instruction>
 		<processID>0</processID>
 		<operation>Write</operation>
 		<address>0</address>
