@@ -243,6 +243,8 @@ public class Controller implements Observer{
 
 	private void resetWaardes() {
 		manager.setKlok(0);
+		manager.setProcessList(new ProcessList());
+		
 		ProcessList processen = manager.getProcessList();
 		List<data.Process> lijst = processen.getProcessList();
 		for(int i = 0;i<lijst.size();i++){
@@ -252,10 +254,7 @@ public class Controller implements Observer{
 				pte.setRamToPersistent(0);
 				pte.setPersistentToRam(0);
 			}
-			
 		}
-		
-		
 	}
 
 	@Override
