@@ -82,6 +82,24 @@ public class Controller implements Observer{
     private TextField klokSetField;
     
     @FXML
+    private TextField procesFieldNext;
+
+    @FXML
+    private TextField instructionFieldNext;
+
+    @FXML
+    private TextField virtueelFieldNext;
+
+    @FXML
+    private TextField reeelFieldNext;
+
+    @FXML
+    private TextField frameFieldNext;
+
+    @FXML
+    private TextField offsetFieldNext;
+    
+    @FXML
     private TableView<PageTableEntry> ramTable;
     
     @FXML
@@ -153,9 +171,10 @@ public class Controller implements Observer{
     	String klok = klokSetField.getText();
     	try{
     		int inhoud = Integer.parseInt(klok);
-    		for(int i = manager.getKlok();i<inhoud;i++){
-    			manager.doNextInstruction(true);
+    		for(int i = manager.getKlok();i<inhoud-1;i++){
+    			manager.doNextInstruction(false);
     		}
+    		manager.doNextInstruction(true);
     	}catch(NumberFormatException e){
     		klokSetField.setText("Niet geldig");
     	}
@@ -230,15 +249,29 @@ public class Controller implements Observer{
 	private void resetView() {
 		resetWaardes();
 		
-		timerField.setText("");
-		procesField.setText("");
-		instructieField.setText("");
-		virtueelAdres.setText("");
-	    reeelAdres.setText("");
-	    frame.setText("");
-	    offset.setText("");
-	    writeToRam.setText("");
-	    writeToDisk.setText("");
+		setText("");
+		setTextNext("");
+	}
+	
+	private void setText(String s){
+		timerField.setText(s);
+		procesField.setText(s);
+		instructieField.setText(s);
+		virtueelAdres.setText(s);
+	    reeelAdres.setText(s);
+	    frame.setText(s);
+	    offset.setText(s);
+	    writeToRam.setText(s);
+	    writeToDisk.setText(s);
+	}
+	
+	private void setTextNext(String s){
+		procesFieldNext.setText(s);
+	    instructionFieldNext.setText(s);
+	    virtueelFieldNext.setText(s);
+	    reeelFieldNext.setText(s);
+	    frameFieldNext.setText(s);
+	    offsetFieldNext.setText(s);
 	}
 
 	private void resetWaardes() {
@@ -262,6 +295,44 @@ public class Controller implements Observer{
 		int klok = manager.getKlok();
 		InstructionList lijst = manager.getInstructionList();
 		Instruction instruction = lijst.get(klok);
+		
+		tekstvelden(instruction,klok);
+		
+		Instruction nextInstruction = null;
+		if(klok+1!=lijst.getSize()){
+			nextInstruction = lijst.get(klok+1);
+		}else{
+			setTextNext("Einde");
+		}
+		tekstveldenNext(nextInstruction,klok);
+		
+		updateRAMTable();
+		updatePageTable();
+		
+		int[] waardes = manager.berekenWrites();
+		writeToDisk.setText(waardes[0]+"");
+		writeToRam.setText(waardes[1]+"");
+	}
+	private void tekstveldenNext(Instruction instruction, int klok){
+		long virtAdress = instruction.getAddress();
+		long pageSize = manager.getSizePage();
+		int frame = convertVirtToReeel(manager,klok);
+		int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
+		
+		procesFieldNext.setText(instruction.getPid()+"");
+		instructionFieldNext.setText(instruction.getOperation());
+		virtueelFieldNext.setText(instruction.getAddress()+"");
+		int reeel = offsetField;
+		if(frame!=-1){
+			reeel += (int) (frame*Math.pow(2, manager.getSizePage()));
+		}
+		frameFieldNext.setText(frame+"");
+		reeelFieldNext.setText(reeel+"");
+		offsetFieldNext.setText(offsetField+"");
+		procesFieldNext.setText(instruction.getPid()+"");
+	}
+	
+	private void tekstvelden(Instruction instruction,int klok){
 		long virtAdress = instruction.getAddress();
 		long pageSize = manager.getSizePage();
 		int frame = convertVirtToReeel(manager,klok);
@@ -270,7 +341,7 @@ public class Controller implements Observer{
 		timerField.setText(klok+1+"");
 		procesField.setText(instruction.getPid()+"");
 		instructieField.setText(instruction.getOperation());
-		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
+		virtueelAdres.setText(instruction.getAddress()+"");
 		int reeel = offsetField;
 		if(frame!=-1){
 			reeel += (int) (frame*Math.pow(2, manager.getSizePage()));
@@ -279,13 +350,6 @@ public class Controller implements Observer{
 		reeelAdres.setText(reeel+"");
 		offset.setText(offsetField+"");
 		procesID.setText(instruction.getPid()+"");
-		
-		updateRAMTable();
-		updatePageTable();
-		
-		int[] waardes = manager.berekenWrites();
-		writeToDisk.setText(waardes[0]+"");
-		writeToRam.setText(waardes[1]+"");
 	}
 
 	private void updatePageTable() {
@@ -358,7 +422,6 @@ public class Controller implements Observer{
 		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
 		ramPageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 		ramPid.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pid"));
-		
 	}
 	
 
