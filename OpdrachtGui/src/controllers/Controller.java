@@ -271,9 +271,12 @@ public class Controller implements Observer{
 		procesField.setText(instruction.getPid()+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(lijst.get(klok).getAddress()+"");
-		int reeel =(int) (frame*Math.pow(2, manager.getSizePage()))+offsetField;
-		reeelAdres.setText(reeel+"");
+		int reeel = offsetField;
+		if(frame!=-1){
+			reeel += (int) (frame*Math.pow(2, manager.getSizePage()));
+		}
 		this.frame.setText(frame+"");
+		reeelAdres.setText(reeel+"");
 		offset.setText(offsetField+"");
 		procesID.setText(instruction.getPid()+"");
 		
