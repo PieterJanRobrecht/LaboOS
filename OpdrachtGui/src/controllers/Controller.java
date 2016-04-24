@@ -142,10 +142,10 @@ public class Controller implements Observer{
     
     @FXML
     void volledigClicked(ActionEvent event) {
-    	for(int i=manager.getKlok();i<manager.getInstructionList().getSize();i++){
+    	for(int i=manager.getKlok();i<manager.getInstructionList().getSize()-1;i++){
 			manager.doNextInstruction(false);
 		}
-    	manager.test();
+    	manager.doNextInstruction(true);
     }
     
     @FXML
