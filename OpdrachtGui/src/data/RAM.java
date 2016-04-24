@@ -119,6 +119,7 @@ public class RAM {
 			}	
 			pte.setModifyBit(false);
 			pte.setPresentBit(false);
+			pte.setFrameNumber(-1);
 		}
 	}
 	

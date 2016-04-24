@@ -120,6 +120,7 @@ public class Process {
 		pte.setFrameNumber(-1);
 		if(pte.isModifyBit()){
 			pte.setRamToPersistent(pte.getRamToPersistent()+1);
+			pte.setModifyBit(false);
 		}	
 		if(!eigen){
 			framesTakenAllocated.remove(index);
