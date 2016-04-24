@@ -49,7 +49,7 @@ public class RAM {
 			else{
 				for(Process p:processInRAM.processList){
 					for(int i=0;i<framesToGivePerProcess;i++){
-						process.getFramesFreeAllocated().add(p.giveFrameNumberToFill(false));
+						process.getFramesFreeAllocated().add(p.giveFrameNumberToFill(false, frameList));
 					}
 				}
 			}
@@ -58,7 +58,7 @@ public class RAM {
 	}
 	
 	public void addFrame(Process process, PageTableEntry pte){
-		int frameNumber=process.giveFrameNumberToFill(true);
+		int frameNumber=process.giveFrameNumberToFill(true,frameList);
 		pte.setPresentBit(true);
 		pte.setFrameNumber(frameNumber);
 		frameList[frameNumber]=pte;

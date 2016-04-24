@@ -87,9 +87,9 @@ public class Process {
 	
 	
 	
-	public int giveFrameNumberToFill(boolean eigen){
+	public int giveFrameNumberToFill(boolean eigen, PageTableEntry[] frameList){
 		if(framesFreeAllocated.isEmpty()){
-			return deleteFrameFromRam(eigen);
+			return deleteFrameFromRam(eigen, frameList);
 		}
 		else{
 			int number=framesFreeAllocated.get(0);
@@ -101,13 +101,13 @@ public class Process {
 		}
 	}
 	
-	public int deleteFrameFromRam(boolean eigen){
+	public int deleteFrameFromRam(boolean eigen, PageTableEntry[] frameList){
 		int LRU=Integer.MAX_VALUE;
 		int number=-1;
 		int index=-1;
 		PageTableEntry pte=null;
 		for(int i=0;i<framesTakenAllocated.size();i++){
-			PageTableEntry help=pageTable.findPageTableEntry(i);
+			PageTableEntry help=frameList[framesTakenAllocated.get(i)];
 			if(help.getLastAccessTime()<LRU){
 				pte=help;
 				LRU=help.getLastAccessTime();
