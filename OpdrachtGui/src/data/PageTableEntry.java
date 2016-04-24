@@ -14,7 +14,7 @@ public class PageTableEntry {
 		presentBit = false;
 		modifyBit = false;
 		lastAccessTime = 0;
-		frameNumber = 0;
+		frameNumber = -1;
 	}
 	
 	public PageTableEntry(boolean presentBit, boolean modifyBit, int lastAccessTime, int frameNumber) {
