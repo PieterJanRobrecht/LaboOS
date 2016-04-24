@@ -65,7 +65,7 @@ public class Main extends Application {
 		}
 //		System.out.println(lijst);
 		manager.setInstructionList(lijst);
-		
+//		manager.doNextInstruction(false);
 	}
 
 	public Manager initManager(){

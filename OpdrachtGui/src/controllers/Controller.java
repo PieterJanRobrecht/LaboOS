@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -294,17 +295,21 @@ public class Controller implements Observer{
 	public void update(Observable o, Object arg) {
 		int klok = manager.getKlok();
 		InstructionList lijst = manager.getInstructionList();
-		Instruction instruction = lijst.get(klok);
-		
-		tekstvelden(instruction,klok);
+		Instruction instruction = null;
+		if(klok!=-1){
+			instruction = lijst.get(klok);
+			tekstvelden(instruction,klok);
+		}else{
+			setText("Begin");
+		}
 		
 		Instruction nextInstruction = null;
 		if(klok+1!=lijst.getSize()){
 			nextInstruction = lijst.get(klok+1);
+			tekstveldenNext(nextInstruction,klok+1);
 		}else{
 			setTextNext("Einde");
 		}
-		tekstveldenNext(nextInstruction,klok);
 		
 		updateRAMTable();
 		updatePageTable();
@@ -360,6 +365,7 @@ public class Controller implements Observer{
 		int pid = instruction.getPid();
 		data.Process process = manager.getProcessList().findProcess(pid);
 		tabPane.getTabs().clear();
+		SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 		for(int i =0;i<manager.getProcessList().getSize();i++){
 			data.Process proces = manager.getProcessList().get(i);
 			
@@ -373,6 +379,9 @@ public class Controller implements Observer{
 			Tab t = new Tab();
 			t.setText("Proces "+proces.getPid()+"");
 			t.setContent(table);
+			if(proces.getPid()==pid){
+				selectionModel.select(t);
+			}
 			tabPane.getTabs().add(t);
 		}
 	}
@@ -380,7 +389,7 @@ public class Controller implements Observer{
 	private void updateRAMTable() {
 		RAM ram = manager.getRam();
 		PageTableEntry[] ramArray = ram.getFrameList();
-		this.ramTable.getItems().setAll(ramArray);
+		this.ramTable.getItems().setAll(manager.getVorigeFrameList());
 	}
 
 	private int convertVirtToReeel(Manager manager,int klok) {
@@ -417,7 +426,7 @@ public class Controller implements Observer{
 //		pagePresent.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Boolean>("presentBit"));
 //		pageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));
 //		pageFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
-//		
+		
 		ramFrame.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		ramPage.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("pageNumber"));
 		ramPageLast.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("lastAccessTime"));

@@ -11,6 +11,8 @@ public class Manager extends Observable{
 	private ProcessList processList;
 	private RAM ram;
 	
+	private PageTableEntry[] vorigeFrameList;
+	
 	public Manager(){
 		
 	}
@@ -25,6 +27,7 @@ public class Manager extends Observable{
 	}
 	
 	public void doNextInstruction(boolean single){
+		vorigeFrameList = ram.getFrameList();
 		Instruction instructie =instructionList.get(klok);
 		switch(instructie.getOperation()){
 			case "Start":doStart(instructie,klok);break;
@@ -175,6 +178,14 @@ public class Manager extends Observable{
 		}
 		int[] resultaat = new int[] {toDisk,toRam};
 		return resultaat;
+	}
+
+	public PageTableEntry[] getVorigeFrameList() {
+		return vorigeFrameList;
+	}
+
+	public void setVorigeFrameList(PageTableEntry[] vorigeFrameList) {
+		this.vorigeFrameList = vorigeFrameList;
 	}
 	
 	
