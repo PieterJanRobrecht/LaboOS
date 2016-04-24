@@ -14,6 +14,7 @@ public class Manager extends Observable{
 	public Manager(){
 		
 	}
+
 	public Manager(int grootteRAM,int groottePage,int grootteVirtueel, int maxInRAM){
 		this.klok=0;
 		this.sizeRAM=grootteRAM;

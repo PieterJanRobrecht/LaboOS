@@ -77,6 +77,7 @@ public class RAM {
 		for(int i:oudst.getFramesFreeAllocated()){
 			process.getFramesFreeAllocated().add(i);
 		}
+		
 		for(int i:oudst.getFramesTakenAllocated()){
 			process.getFramesFreeAllocated().add(i);
 		}
