@@ -423,10 +423,10 @@ public class Controller implements Observer{
 		
 		PageTableEntry pageTableEntry = process.getPagetable().get(new Double(pageEntry).intValue());
 		
-		System.out.println(pageTableEntry);
+//		System.out.println(pageTableEntry);
 		
 		int frame = pageTableEntry.getFrameNumber();
-		System.out.println(frame);
+//		System.out.println(frame);
 		return frame;
 	}
 	
