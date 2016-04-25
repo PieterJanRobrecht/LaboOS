@@ -322,18 +322,24 @@ public class Controller implements Observer{
 		long virtAdress = instruction.getAddress();
 		long pageSize = manager.getSizePage();
 		int frame = convertVirtToReeel(manager,klok);
-		int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
 		
 		procesFieldNext.setText(instruction.getPid()+"");
 		instructionFieldNext.setText(instruction.getOperation());
 		virtueelFieldNext.setText(instruction.getAddress()+"");
-		int reeel = offsetField;
-		if(frame!=-1){
+		
+		if(frame==-1){
+			frameFieldNext.setText("Page error");
+			reeelFieldNext.setText("Page error");
+			offsetFieldNext.setText("Page error");
+		}else{
+			int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
+			int reeel = offsetField;
 			reeel += (int) (frame*Math.pow(2, manager.getSizePage()));
+			frameFieldNext.setText(frame+"");
+			reeelFieldNext.setText(reeel+"");
+			offsetFieldNext.setText(offsetField+"");
+			
 		}
-		frameFieldNext.setText(frame+"");
-		reeelFieldNext.setText(reeel+"");
-		offsetFieldNext.setText(offsetField+"");
 		procesFieldNext.setText(instruction.getPid()+"");
 	}
 	
@@ -341,19 +347,25 @@ public class Controller implements Observer{
 		long virtAdress = instruction.getAddress();
 		long pageSize = manager.getSizePage();
 		int frame = convertVirtToReeel(manager,klok);
-		int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
 		
 		timerField.setText(klok+1+"");
 		procesField.setText(instruction.getPid()+"");
 		instructieField.setText(instruction.getOperation());
 		virtueelAdres.setText(instruction.getAddress()+"");
-		int reeel = offsetField;
-		if(frame!=-1){
+		
+		if(frame==-1){
+			reeelAdres.setText("Page error");
+			offset.setText("Page error");
+			this.frame.setText("Page error");
+		}else{
+			int offsetField = (int) (virtAdress%Math.pow(2, pageSize));
+			int reeel = offsetField;
 			reeel += (int) (frame*Math.pow(2, manager.getSizePage()));
+			reeelAdres.setText(reeel+"");
+			offset.setText(offsetField+"");
+			this.frame.setText(frame+"");
 		}
-		this.frame.setText(frame+"");
-		reeelAdres.setText(reeel+"");
-		offset.setText(offsetField+"");
+		
 		procesID.setText(instruction.getPid()+"");
 	}
 
