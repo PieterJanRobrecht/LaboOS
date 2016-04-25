@@ -7,12 +7,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import controllers.Controller;
-import data.InstructionList;
-import data.Manager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.InstructionList;
+import model.Manager;
+import view.View;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -33,7 +33,7 @@ public class Main extends Application {
 	        primaryStage.setScene(new Scene(root));
 	        primaryStage.show();
 
-	        Controller controller = loader.<Controller>getController() ;
+	        View controller = loader.<View>getController() ;
 	        assert(controller != null);
 	  		
 	  		Manager manager=initManager();

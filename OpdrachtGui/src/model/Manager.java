@@ -1,4 +1,4 @@
-package data;
+package model;
 
 import java.util.Observable;
 
@@ -170,7 +170,7 @@ public class Manager extends Observable{
 	public int[] berekenWrites() {
 		int toDisk = 0;
 		int toRam = 0;
-		for(data.Process p : processList.getProcessList()){
+		for(model.Process p : processList.getProcessList()){
 			for(PageTableEntry e : p.getPageTable().getPageTable()){
 				toDisk+=e.getRamToPersistent();
 				toRam+=e.getPersistentToRam();

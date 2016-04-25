@@ -1,4 +1,4 @@
-package controllers;
+package view;
 
 import java.io.File;
 import java.util.List;
@@ -9,13 +9,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import data.Instruction;
-import data.InstructionList;
-import data.PageTableEntry;
-import data.ProcessList;
-import data.RAM;
-import data.Manager;
-import data.PageTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +24,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import model.Instruction;
+import model.InstructionList;
+import model.Manager;
+import model.PageTable;
+import model.PageTableEntry;
+import model.ProcessList;
+import model.RAM;
 
-public class Controller implements Observer{
+public class View implements Observer{
 
     @FXML
     private MenuItem file1;
@@ -280,9 +280,9 @@ public class Controller implements Observer{
 		manager.setProcessList(new ProcessList());
 		
 		ProcessList processen = manager.getProcessList();
-		List<data.Process> lijst = processen.getProcessList();
+		List<model.Process> lijst = processen.getProcessList();
 		for(int i = 0;i<lijst.size();i++){
-			data.Process p = lijst.get(i);
+			model.Process p = lijst.get(i);
 			for(int j = 0;j<p.getPageTable().getPageTable().size();j++){
 				PageTableEntry pte = p.getPagetable().getPageTable().get(j);
 				pte.setRamToPersistent(0);
@@ -375,11 +375,11 @@ public class Controller implements Observer{
 		Instruction instruction = lijst.get(klok);
 		
 		int pid = instruction.getPid();
-		data.Process process = manager.getProcessList().findProcess(pid);
+		model.Process process = manager.getProcessList().findProcess(pid);
 		tabPane.getTabs().clear();
 		SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 		for(int i =0;i<manager.getProcessList().getSize();i++){
-			data.Process proces = manager.getProcessList().get(i);
+			model.Process proces = manager.getProcessList().get(i);
 			
 			TableView<PageTableEntry> table = proces.getTable();
 						
@@ -417,7 +417,7 @@ public class Controller implements Observer{
 //		System.out.println(pageEntry);
 		
 		int pid = instruction.getPid();
-		data.Process process = manager.getProcessList().findProcess(pid);
+		model.Process process = manager.getProcessList().findProcess(pid);
 		
 //		System.out.println(new Double(pageEntry).intValue());
 		
