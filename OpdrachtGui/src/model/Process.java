@@ -46,6 +46,14 @@ public class Process {
 		clmn4.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("frameNumber"));
 		table.getColumns().addAll(clmn4);
 		
+		TableColumn<PageTableEntry, Integer> clmn5 = new TableColumn<PageTableEntry, Integer>("toRam");
+		clmn5.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("persistentToRam"));
+		table.getColumns().addAll(clmn5);
+		
+		TableColumn<PageTableEntry, Integer> clmn6 = new TableColumn<PageTableEntry, Integer>("toDisk");
+		clmn6.setCellValueFactory(new PropertyValueFactory<PageTableEntry,Integer>("ramToPersistent"));
+		table.getColumns().addAll(clmn6);
+		
 		//Koppelen van de data aan de tabel
 		List<PageTableEntry> pageTableEntries = pageTable.getPageTable();
 		PageTableEntry[] array = pageTableEntries.toArray(new PageTableEntry[pageTableEntries.size()]);
